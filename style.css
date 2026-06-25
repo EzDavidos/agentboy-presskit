@@ -1,0 +1,311 @@
+/* ============================================================
+   AGENTBOY — DJ press kit (DEMO)
+   Dark club / techno style. Black base, red-neon accents.
+   ============================================================ */
+
+:root {
+  --bg:        #0a0a0c;
+  --bg-2:      #111114;
+  --surface:   #16161a;
+  --line:      #2a2a31;
+  --text:      #f4f4f6;
+  --muted:     #9a9aa5;
+  --red:       #ff1f3d;
+  --red-soft:  #ff445e;
+  --glow:      0 0 24px rgba(255, 31, 61, .45);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", system-ui, sans-serif;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* ---------- NAV ---------- */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px clamp(16px, 5vw, 56px);
+  background: linear-gradient(180deg, rgba(10,10,12,.92), rgba(10,10,12,0));
+  backdrop-filter: blur(6px);
+}
+.nav__logo {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 22px;
+}
+.nav__logo span { color: var(--red); }
+.nav__links { display: flex; align-items: center; gap: clamp(12px, 2vw, 28px); }
+.nav__links a {
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color .2s;
+}
+.nav__links a:hover { color: var(--text); }
+.nav__cta {
+  color: var(--text) !important;
+  border: 1px solid var(--red);
+  padding: 8px 16px;
+  border-radius: 999px;
+}
+.nav__cta:hover { background: var(--red); box-shadow: var(--glow); }
+
+/* ---------- HERO ---------- */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+.hero__photo { position: absolute; inset: 0; }
+.hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+.hero__overlay {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(255,31,61,.18), transparent 60%),
+    linear-gradient(180deg, rgba(10,10,12,.35) 0%, rgba(10,10,12,.55) 45%, var(--bg) 100%);
+}
+.hero__content {
+  position: relative;
+  z-index: 2;
+  padding: 0 clamp(16px, 5vw, 56px) clamp(40px, 8vh, 90px);
+  width: 100%;
+}
+.hero__kicker {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 13px;
+  color: var(--red-soft);
+  margin-bottom: 10px;
+}
+.hero__name {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: clamp(56px, 16vw, 200px);
+  line-height: .92;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 0 40px rgba(0,0,0,.5);
+}
+.hero__name span { color: var(--red); }
+
+.genres {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 22px 0 26px;
+}
+.genres li {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text);
+  border: 1px solid var(--line);
+  background: rgba(22,22,26,.6);
+  padding: 7px 14px;
+  border-radius: 999px;
+}
+
+.hero__actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+.hero__scroll {
+  position: absolute;
+  z-index: 2;
+  right: clamp(16px, 5vw, 56px);
+  bottom: 28px;
+  color: var(--muted);
+  font-size: 14px;
+  animation: bob 1.8s ease-in-out infinite;
+}
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+/* ---------- BUTTONS ---------- */
+.btn {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 13px 26px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: transform .15s, box-shadow .2s, background .2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn--primary { background: var(--red); color: #fff; box-shadow: var(--glow); }
+.btn--primary:hover { background: var(--red-soft); }
+.btn--ghost { border-color: var(--line); color: var(--text); }
+.btn--ghost:hover { border-color: var(--red); }
+
+/* ---------- SECTIONS ---------- */
+.section {
+  padding: clamp(56px, 10vh, 110px) clamp(16px, 5vw, 56px);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section__head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 12px; }
+.section__num {
+  font-family: "Oswald", sans-serif;
+  color: var(--red);
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+.section__title {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: clamp(32px, 7vw, 64px);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.section__sub { color: var(--muted); margin-bottom: 32px; }
+
+/* ---------- ABOUT ---------- */
+.about__lead {
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 500;
+  max-width: 760px;
+  margin-bottom: 18px;
+}
+.about__text { color: var(--muted); max-width: 720px; }
+.about__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(24px, 6vw, 64px);
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+.stat b {
+  display: block;
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(36px, 6vw, 56px);
+  color: var(--red);
+  line-height: 1;
+}
+.stat span { color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+
+/* ---------- MUSIC ---------- */
+.music { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.embed h3 {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 14px;
+  font-size: 18px;
+}
+.embed__ph {
+  aspect-ratio: 16/10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+  color: var(--muted);
+  text-align: center;
+  transition: border-color .2s, background .2s;
+}
+.embed__ph:hover { border-color: var(--red); background: var(--bg-2); }
+.embed__icon {
+  width: 52px; height: 52px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--red);
+  color: #fff;
+  box-shadow: var(--glow);
+}
+.embed__ph p { color: var(--text); font-weight: 600; }
+.embed__ph small { font-size: 12px; }
+
+/* ---------- GALLERY ---------- */
+.gallery { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.card {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; transition: transform .4s; }
+.card:hover img { transform: scale(1.05); }
+.card figcaption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 24px 14px 12px;
+  font-size: 13px;
+  letter-spacing: .5px;
+  background: linear-gradient(0deg, rgba(10,10,12,.92), transparent);
+}
+
+/* ---------- VENUES ---------- */
+.venues { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+.venue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  aspect-ratio: 4/3;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+}
+.venue img { width: 84px; height: 84px; object-fit: contain; border-radius: 50%; }
+.venue span { font-weight: 600; letter-spacing: .5px; }
+.venue--ph { color: var(--muted); border-style: dashed; }
+.venue--ph small { font-size: 12px; }
+
+/* ---------- BOOKING ---------- */
+.section--booking {
+  text-align: center;
+  border-top: 1px solid var(--line);
+  background:
+    radial-gradient(80% 120% at 50% 0%, rgba(255,31,61,.10), transparent 60%);
+}
+.section--booking .section__head { justify-content: center; }
+.booking__line { color: var(--muted); margin-bottom: 26px; }
+.booking__buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+.booking__contact { color: var(--muted); font-size: 14px; }
+.booking__contact b { color: var(--text); }
+
+/* ---------- FOOTER ---------- */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 28px clamp(16px, 5vw, 56px);
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 680px) {
+  .nav__links a:not(.nav__cta) { display: none; }
+}

@@ -1,0 +1,9 @@
+# WSL / OS junk
+*Zone.Identifier
+.DS_Store
+Thumbs.db
+
+# raw reference images (live in repo root, copies used by the site live in assets/)
+didjey_photo.jpg
+photo_*.jpg
+615927568_*.jpg
