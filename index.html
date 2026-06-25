@@ -27,10 +27,11 @@
 
 <body>
 
-  <!-- ===================== ORANGE FOG (depth, reveals on scroll) ===================== -->
-  <div class="fog" aria-hidden="true">
-    <div class="fog__layer fog__layer--far"></div>
-    <div class="fog__layer fog__layer--near"></div>
+  <!-- ===================== LIQUID LIGHT (slow flowing light on black) ===================== -->
+  <div class="liquid" aria-hidden="true">
+    <span class="liquid__blob liquid__blob--a"></span>
+    <span class="liquid__blob liquid__blob--b"></span>
+    <span class="liquid__blob liquid__blob--c"></span>
   </div>
 
   <!-- ===================== NAV ===================== -->
@@ -45,28 +46,66 @@
     </nav>
   </header>
 
-  <!-- ===================== HERO ===================== -->
+  <!-- ===================== HERO — character card ===================== -->
   <section class="hero" id="hero">
-    <div class="hero__photo">
-      <img src="assets/agentboy-hero.jpg" alt="AGENTBOY playing live" />
-    </div>
-    <div class="hero__overlay"></div>
-    <div class="hero__content">
-      <p class="hero__kicker">DJ · Nha Trang, Vietnam</p>
-      <h1 class="hero__name">AGENT<span>BOY</span></h1>
-      <ul class="genres">
-        <li>progressive house</li>
-        <li>indie dance</li>
-        <li>melodic techno</li>
-        <li>house</li>
-      </ul>
-      <div class="hero__actions">
-        <a href="#booking" class="btn btn--primary">Book now</a>
-        <a href="#music" class="btn btn--ghost">Listen</a>
+    <article class="card" data-tilt>
+      <div class="card__frame">
+
+        <!-- card art / portrait -->
+        <div class="card__art">
+          <img src="assets/agentboy-hero.jpg" alt="AGENTBOY" />
+          <span class="card__rarity">★ RESIDENT</span>
+          <span class="card__loc">NHA TRANG · VN</span>
+        </div>
+
+        <!-- name plate -->
+        <div class="card__plate">
+          <p class="card__role">DJ / SELECTOR</p>
+          <h1 class="card__name" data-text="AGENTBOY">AGENT<span>BOY</span></h1>
+        </div>
+
+        <!-- character stats -->
+        <ul class="stats">
+          <li class="stat"><span class="stat__k">Energy</span><span class="stat__bar" style="--v:94%"></span></li>
+          <li class="stat"><span class="stat__k">Groove</span><span class="stat__bar" style="--v:100%"></span></li>
+          <li class="stat"><span class="stat__k">Crowd control</span><span class="stat__bar" style="--v:86%"></span></li>
+          <li class="stat"><span class="stat__k">Endurance</span><span class="stat__bar" style="--v:90%"></span></li>
+        </ul>
+
+        <!-- spec line -->
+        <div class="card__specs">
+          <div><b>118–126</b><small>BPM</small></div>
+          <div><b>5+ yrs</b><small>on decks</small></div>
+          <div><b>B2B</b><small>ready</small></div>
+        </div>
+
+        <!-- genres -->
+        <ul class="genres">
+          <li>progressive house</li>
+          <li>indie dance</li>
+          <li>melodic techno</li>
+          <li>house</li>
+        </ul>
+
+        <!-- actions -->
+        <div class="card__actions">
+          <a href="#booking" class="btn btn--primary">Book now</a>
+          <a href="#music" class="btn btn--ghost">Listen</a>
+        </div>
+
       </div>
-    </div>
+    </article>
+
     <a href="#about" class="hero__scroll" aria-label="Scroll down">▼</a>
   </section>
+
+  <!-- ===================== MARQUEE (movement) ===================== -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>AGENTBOY ✦ NHA TRANG ✦ BOOK NOW ✦ PROGRESSIVE HOUSE ✦ MELODIC TECHNO ✦ NIGHTS THAT MOVE ✦&nbsp;</span>
+      <span>AGENTBOY ✦ NHA TRANG ✦ BOOK NOW ✦ PROGRESSIVE HOUSE ✦ MELODIC TECHNO ✦ NIGHTS THAT MOVE ✦&nbsp;</span>
+    </div>
+  </div>
 
   <!-- ===================== ABOUT / BIO ===================== -->
   <section class="section" id="about">

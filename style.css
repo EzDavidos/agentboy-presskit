@@ -13,10 +13,6 @@
   --red:       #ff1f3d;
   --red-soft:  #ff445e;
   --glow:      0 0 24px rgba(255, 31, 61, .45);
-  /* warm fog tones (taken from the hero photo) */
-  --amber:     #ff8a1f;
-  --orange:    #ff5e1a;
-  --orange-dp: #c2380a;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,45 +31,58 @@ body {
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 
-/* ---------- ORANGE FOG (depth + reveal on scroll) ---------- */
-.fog {
+/* ---------- LIQUID LIGHT (slow red light flowing on black) ---------- */
+.liquid {
   position: fixed;
   inset: 0;
-  z-index: 0;              /* behind all content, above body background */
+  z-index: 0;             /* behind content, above body background */
   pointer-events: none;
   overflow: hidden;
-  /* driven by JS: 0 at top of page -> ~1 further down */
-  --fog: 0;
 }
-.fog__layer {
+.liquid__blob {
   position: absolute;
-  inset: -20% -20% -20% -20%;
-  filter: blur(70px);
-  will-change: opacity, transform;
+  border-radius: 50%;
+  filter: blur(90px);
+  mix-blend-mode: screen;     /* light adds onto black, reads as glow */
+  will-change: transform;
 }
-/* far, slow layer — broad warm haze */
-.fog__layer--far {
-  opacity: calc(var(--fog) * .55);
-  transform: translateY(calc(var(--fog) * -40px));
-  background:
-    radial-gradient(40% 35% at 20% 80%, rgba(255,138,31,.55), transparent 70%),
-    radial-gradient(45% 40% at 85% 70%, rgba(194,56,10,.50), transparent 70%),
-    radial-gradient(50% 45% at 60% 110%, rgba(255,94,26,.45), transparent 70%);
+.liquid__blob--a {
+  width: 62vmax; height: 62vmax;
+  background: radial-gradient(circle, rgba(255,31,61,.42), transparent 68%);
+  animation: flowA 38s ease-in-out infinite;
 }
-/* near, faster layer — denser orange pools for depth */
-.fog__layer--near {
-  opacity: calc(var(--fog) * .85);
-  transform: translateY(calc(var(--fog) * -90px));
-  background:
-    radial-gradient(30% 28% at 75% 90%, rgba(255,94,26,.60), transparent 65%),
-    radial-gradient(28% 25% at 30% 100%, rgba(255,138,31,.50), transparent 65%);
+.liquid__blob--b {
+  width: 50vmax; height: 50vmax;
+  background: radial-gradient(circle, rgba(180,18,38,.40), transparent 68%);
+  animation: flowB 46s ease-in-out infinite;
+}
+.liquid__blob--c {
+  width: 38vmax; height: 38vmax;
+  background: radial-gradient(circle, rgba(255,70,94,.30), transparent 66%);
+  animation: flowC 30s ease-in-out infinite;
+}
+/* each blob drifts edge-to-edge on its own slow loop -> liquid feel */
+@keyframes flowA {
+  0%   { transform: translate(-30vw, -20vh) scale(1); }
+  50%  { transform: translate(40vw, 30vh) scale(1.25); }
+  100% { transform: translate(-30vw, -20vh) scale(1); }
+}
+@keyframes flowB {
+  0%   { transform: translate(70vw, 60vh) scale(1.1); }
+  50%  { transform: translate(-10vw, -10vh) scale(.85); }
+  100% { transform: translate(70vw, 60vh) scale(1.1); }
+}
+@keyframes flowC {
+  0%   { transform: translate(10vw, 80vh) scale(.9); }
+  50%  { transform: translate(80vw, -5vh) scale(1.2); }
+  100% { transform: translate(10vw, 80vh) scale(.9); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .fog__layer { transform: none !important; }
+  .liquid__blob { animation: none; }
 }
 
-/* keep real content above the fog */
-.nav, .hero, .section, .footer { position: relative; z-index: 1; }
+/* keep real content above the light */
+.nav, .hero, .section, .footer, .marquee { position: relative; z-index: 1; }
 
 /* ---------- NAV ---------- */
 .nav {
@@ -111,66 +120,164 @@ a { color: inherit; text-decoration: none; }
 }
 .nav__cta:hover { background: var(--red); box-shadow: var(--glow); }
 
-/* ---------- HERO ---------- */
+/* ---------- HERO (character card) ---------- */
 .hero {
   position: relative;
   min-height: 100svh;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(96px, 15vh, 150px) 16px clamp(44px, 9vh, 80px);
+}
+
+/* the card: raised metallic rim around an inset face = convex edge */
+.card {
+  width: min(440px, 92vw);
+  padding: 4px;
+  border-radius: 24px;
+  background: linear-gradient(150deg, #4d4d55 0%, #17171b 38%, #0a0a0c 70%, #2c2c34 100%);
+  box-shadow:
+    0 0 0 1px #000,
+    0 40px 80px rgba(0,0,0,.7),
+    0 0 70px rgba(255,31,61,.20);
+  transform: rotate(-2deg);
+  transition: transform .45s cubic-bezier(.2,.7,.2,1);
+}
+.card:hover { transform: rotate(0deg) translateY(-4px); }
+
+.card__frame {
+  position: relative;
+  border-radius: 21px;
+  padding: clamp(16px, 4vw, 22px);
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(255,31,61,.15), transparent 55%),
+    linear-gradient(165deg, #16161b 0%, #0c0c0e 100%);
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,.07),
+    inset -2px -3px 10px rgba(0,0,0,.75);
   overflow: hidden;
 }
-.hero__photo { position: absolute; inset: 0; }
-.hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
-.hero__overlay {
+/* light sweep across the card frame */
+.card__frame::after {
+  content: "";
   position: absolute; inset: 0;
-  background:
-    radial-gradient(120% 75% at 50% 8%, rgba(255,31,61,.16), transparent 55%),
-    radial-gradient(90% 60% at 70% 95%, rgba(255,94,26,.30), transparent 65%),
-    linear-gradient(180deg, rgba(10,10,12,.30) 0%, rgba(10,10,12,.50) 45%, var(--bg) 100%);
+  background: linear-gradient(115deg, transparent 42%, rgba(255,255,255,.08) 50%, transparent 58%);
+  transform: translateX(-120%);
+  animation: sweep 7s ease-in-out 1.5s infinite;
+  pointer-events: none;
 }
-.hero__content {
+@keyframes sweep { 0%,72%,100% { transform: translateX(-120%); } 86% { transform: translateX(120%); } }
+
+/* card art / portrait */
+.card__art {
   position: relative;
-  z-index: 2;
-  padding: 0 clamp(16px, 5vw, 56px) clamp(40px, 8vh, 90px);
-  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  border: 1px solid var(--line);
 }
-.hero__kicker {
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  font-size: 13px;
-  color: var(--red-soft);
-  margin-bottom: 10px;
+.card__art img { width: 100%; height: 100%; object-fit: cover; object-position: center 26%; }
+.card__rarity, .card__loc {
+  position: absolute; top: 10px;
+  font-size: 10.5px; font-weight: 700; letter-spacing: 1.5px;
+  padding: 5px 9px; border-radius: 999px;
+  background: rgba(10,10,12,.72);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,.12);
 }
-.hero__name {
+.card__rarity { left: 10px; color: var(--red-soft); }
+.card__loc { right: 10px; color: var(--text); }
+
+/* name plate */
+.card__plate { margin: 16px 0 4px; }
+.card__role { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); }
+.card__name {
+  position: relative;
   font-family: "Oswald", sans-serif;
   font-weight: 700;
-  font-size: clamp(56px, 16vw, 200px);
-  line-height: .92;
-  letter-spacing: 2px;
+  font-size: clamp(40px, 12vw, 58px);
+  line-height: .95;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  text-shadow: 0 0 40px rgba(0,0,0,.5);
 }
-.hero__name span { color: var(--red); }
+.card__name span { color: var(--red); }
+/* subtle glitch flicker */
+.card__name::before, .card__name::after {
+  content: attr(data-text);
+  position: absolute; left: 0; top: 0; width: 100%;
+  pointer-events: none; opacity: 0;
+}
+.card__name::before { color: #16e0ff; animation: glitch 5s steps(2) infinite; }
+.card__name::after  { color: var(--red); animation: glitch 5s steps(2) infinite reverse; }
+@keyframes glitch {
+  0%, 90%, 100% { transform: translate(0); opacity: 0; }
+  92% { transform: translate(-2px, 1px); opacity: .5; }
+  95% { transform: translate(2px, -1px); opacity: .45; }
+}
+
+/* character stats (scoped to .stats so it won't clash with About .stat) */
+.stats { list-style: none; margin: 14px 0; display: grid; gap: 9px; }
+.stats .stat { display: grid; grid-template-columns: 108px 1fr; align-items: center; gap: 12px; }
+.stats .stat__k { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+.stats .stat__bar {
+  --v: 80%;
+  height: 10px; border-radius: 3px;
+  background: linear-gradient(90deg, var(--red) 0 var(--v), #26262c var(--v) 100%);
+  box-shadow: 0 0 10px rgba(255,31,61,.35);
+  -webkit-mask: repeating-linear-gradient(90deg, #000 0 11px, transparent 11px 14px);
+          mask: repeating-linear-gradient(90deg, #000 0 11px, transparent 11px 14px);
+}
+
+/* spec strip */
+.card__specs {
+  display: flex; justify-content: space-between; gap: 10px;
+  padding: 12px 0; margin: 6px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+.card__specs b { display: block; font-family: "Oswald", sans-serif; font-size: 18px; color: var(--text); }
+.card__specs small { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+
+.card__actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+.card__actions .btn { flex: 1; text-align: center; padding-inline: 14px; }
+
+/* ---------- MARQUEE (movement) ---------- */
+.marquee {
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: rgba(255,31,61,.04);
+  padding: 12px 0;
+}
+.marquee__track { display: flex; width: max-content; animation: marquee 24s linear infinite; }
+.marquee__track span {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600; text-transform: uppercase; letter-spacing: 3px;
+  font-size: clamp(14px, 2.4vw, 20px);
+  color: var(--muted); white-space: nowrap;
+}
+@keyframes marquee { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }
 
 .genres {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin: 22px 0 26px;
+  gap: 8px;
+  margin: 6px 0 2px;
 }
 .genres li {
-  font-size: 13px;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.2px;
   color: var(--text);
   border: 1px solid var(--line);
   background: rgba(22,22,26,.6);
-  padding: 7px 14px;
+  padding: 6px 11px;
   border-radius: 999px;
 }
-
-.hero__actions { display: flex; gap: 14px; flex-wrap: wrap; }
 
 .hero__scroll {
   position: absolute;
