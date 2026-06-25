@@ -13,6 +13,10 @@
   --red:       #ff1f3d;
   --red-soft:  #ff445e;
   --glow:      0 0 24px rgba(255, 31, 61, .45);
+  /* warm fog tones (taken from the hero photo) */
+  --amber:     #ff8a1f;
+  --orange:    #ff5e1a;
+  --orange-dp: #c2380a;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,6 +34,46 @@ body {
 
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
+
+/* ---------- ORANGE FOG (depth + reveal on scroll) ---------- */
+.fog {
+  position: fixed;
+  inset: 0;
+  z-index: 0;              /* behind all content, above body background */
+  pointer-events: none;
+  overflow: hidden;
+  /* driven by JS: 0 at top of page -> ~1 further down */
+  --fog: 0;
+}
+.fog__layer {
+  position: absolute;
+  inset: -20% -20% -20% -20%;
+  filter: blur(70px);
+  will-change: opacity, transform;
+}
+/* far, slow layer — broad warm haze */
+.fog__layer--far {
+  opacity: calc(var(--fog) * .55);
+  transform: translateY(calc(var(--fog) * -40px));
+  background:
+    radial-gradient(40% 35% at 20% 80%, rgba(255,138,31,.55), transparent 70%),
+    radial-gradient(45% 40% at 85% 70%, rgba(194,56,10,.50), transparent 70%),
+    radial-gradient(50% 45% at 60% 110%, rgba(255,94,26,.45), transparent 70%);
+}
+/* near, faster layer — denser orange pools for depth */
+.fog__layer--near {
+  opacity: calc(var(--fog) * .85);
+  transform: translateY(calc(var(--fog) * -90px));
+  background:
+    radial-gradient(30% 28% at 75% 90%, rgba(255,94,26,.60), transparent 65%),
+    radial-gradient(28% 25% at 30% 100%, rgba(255,138,31,.50), transparent 65%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fog__layer { transform: none !important; }
+}
+
+/* keep real content above the fog */
+.nav, .hero, .section, .footer { position: relative; z-index: 1; }
 
 /* ---------- NAV ---------- */
 .nav {
@@ -76,12 +120,13 @@ a { color: inherit; text-decoration: none; }
   overflow: hidden;
 }
 .hero__photo { position: absolute; inset: 0; }
-.hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+.hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
 .hero__overlay {
   position: absolute; inset: 0;
   background:
-    radial-gradient(120% 80% at 50% 0%, rgba(255,31,61,.18), transparent 60%),
-    linear-gradient(180deg, rgba(10,10,12,.35) 0%, rgba(10,10,12,.55) 45%, var(--bg) 100%);
+    radial-gradient(120% 75% at 50% 8%, rgba(255,31,61,.16), transparent 55%),
+    radial-gradient(90% 60% at 70% 95%, rgba(255,94,26,.30), transparent 65%),
+    linear-gradient(180deg, rgba(10,10,12,.30) 0%, rgba(10,10,12,.50) 45%, var(--bg) 100%);
 }
 .hero__content {
   position: relative;
