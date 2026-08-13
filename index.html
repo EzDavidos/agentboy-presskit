@@ -5,18 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- ============================================================
-       AGENTBOY — DJ press kit (DEMO)
-       NOTE: Most text & links below are PLACEHOLDERS.
-       Search for "PLACEHOLDER" to find everything to replace later.
+       AGENTBOY — DJ press kit
+       Text lives in i18n/<lang>.js and is injected by data-i18n keys.
+       Proper nouns (venues, video titles, cities) stay in the HTML —
+       they are the same in every language.
        ============================================================ -->
 
-  <title>AGENTBOY — DJ Press Kit</title>
-  <meta name="description" content="AGENTBOY — DJ based in Nha Trang, Vietnam. Progressive house, indie dance, melodic techno. Booking & press kit." />
+  <title>AGENTBOY — DJ &amp; Producer</title>
+  <meta name="description" data-i18n-attr="content:meta.description"
+        content="AGENTBOY — DJ and producer. Progressive house, indie dance, melodic techno. Booking and press kit." />
 
-  <!-- Open Graph (for sharing in Telegram / IG DM / WhatsApp) -->
-  <meta property="og:title" content="AGENTBOY — DJ Press Kit" />
-  <meta property="og:description" content="Progressive house · indie dance · melodic techno · house. Nha Trang, VN." />
-  <meta property="og:image" content="assets/agentboy-hero.jpg" />
+  <!-- Open Graph (sharing in Telegram / IG DM / WhatsApp) -->
+  <meta property="og:title" content="AGENTBOY — DJ &amp; Producer" />
+  <meta property="og:description" data-i18n-attr="content:meta.description"
+        content="Progressive house · indie dance · melodic techno. Asia-based." />
+  <meta property="og:image" content="assets/img/hero.jpg" />
   <meta property="og:type" content="website" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,7 +30,7 @@
 
 <body>
 
-  <!-- ===================== LIQUID LIGHT (slow flowing light on black) ===================== -->
+  <!-- ===================== LIQUID LIGHT ===================== -->
   <div class="liquid" aria-hidden="true">
     <span class="liquid__blob liquid__blob--a"></span>
     <span class="liquid__blob liquid__blob--b"></span>
@@ -37,12 +40,22 @@
   <!-- ===================== NAV ===================== -->
   <header class="nav">
     <a class="nav__logo" href="#hero">AGENT<span>BOY</span></a>
+
     <nav class="nav__links">
-      <a href="#about">About</a>
-      <a href="#music">Music</a>
-      <a href="#events">Events</a>
-      <a href="#venues">Venues</a>
-      <a href="#booking" class="nav__cta">Book now</a>
+      <a href="#about"   data-i18n="nav.about">About</a>
+      <a href="#music"   data-i18n="nav.music">Music</a>
+      <a href="#shows"   data-i18n="nav.shows">Shows</a>
+      <a href="#gallery" data-i18n="nav.gallery">Gallery</a>
+
+      <!-- language switcher -->
+      <div class="lang">
+        <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false">
+          <span class="lang__cur">EN</span><span class="lang__chev" aria-hidden="true">▾</span>
+        </button>
+        <ul class="lang__menu" hidden></ul>
+      </div>
+
+      <a href="#booking" class="nav__cta" data-i18n="nav.book">Book now</a>
     </nav>
   </header>
 
@@ -51,46 +64,40 @@
     <article class="hcard">
       <div class="card__frame">
 
-        <!-- card art / portrait -->
         <div class="card__art">
-          <img src="assets/agentboy-hero.jpg" alt="AGENTBOY" />
-          <span class="card__rarity">★ RESIDENT</span>
-          <span class="card__loc">NHA TRANG · VN</span>
+          <img src="assets/img/hero.jpg" alt="AGENTBOY behind the decks" width="1400" height="2098" />
+          <span class="card__rarity">★ <span data-i18n="hero.resident">Resident</span></span>
+          <span class="card__loc" data-i18n="hero.based">Asia-based</span>
         </div>
 
-        <!-- name plate -->
         <div class="card__plate">
-          <p class="card__role">DJ / SELECTOR</p>
+          <p class="card__role" data-i18n="hero.role">DJ / Producer</p>
           <h1 class="card__name">AGENT<span>BOY</span></h1>
+          <p class="card__tagline" data-i18n="hero.tagline">dreams come true</p>
         </div>
 
-        <!-- character stats -->
-        <ul class="stats">
-          <li class="stat"><span class="stat__k">Energy</span><span class="stat__bar" style="--v:94%"></span></li>
-          <li class="stat"><span class="stat__k">Groove</span><span class="stat__bar" style="--v:100%"></span></li>
-          <li class="stat"><span class="stat__k">Crowd control</span><span class="stat__bar" style="--v:86%"></span></li>
-          <li class="stat"><span class="stat__k">Endurance</span><span class="stat__bar" style="--v:90%"></span></li>
+        <!-- roles / titles -->
+        <ul class="roles">
+          <li data-i18n="role.mentor">DJ Mentor</li>
+          <li data-i18n="role.producer">Sound Producer</li>
+          <li><span data-i18n="role.founder">Founder</span> — Impera Casa</li>
+          <li><span data-i18n="role.artist">Artist</span> — Alveda Music</li>
         </ul>
 
-        <!-- spec line -->
+        <!-- spec strip -->
         <div class="card__specs">
-          <div><b>118–126</b><small>BPM</small></div>
-          <div><b>5+ yrs</b><small>on decks</small></div>
-          <div><b>B2B</b><small>ready</small></div>
+          <div><b>122–128</b><small data-i18n="hero.bpm">BPM range</small></div>
         </div>
 
-        <!-- genres -->
         <ul class="genres">
-          <li>progressive house</li>
-          <li>indie dance</li>
-          <li>melodic techno</li>
-          <li>house</li>
+          <li data-i18n="genre.prog">progressive house</li>
+          <li data-i18n="genre.indie">indie dance</li>
+          <li data-i18n="genre.melodic">melodic techno</li>
         </ul>
 
-        <!-- actions -->
         <div class="card__actions">
-          <a href="#booking" class="btn btn--primary">Book now</a>
-          <a href="#music" class="btn btn--ghost">Listen</a>
+          <a href="#booking" class="btn btn--primary" data-i18n="hero.book">Book now</a>
+          <a href="#music" class="btn btn--ghost" data-i18n="hero.listen">Listen</a>
         </div>
 
       </div>
@@ -99,157 +106,366 @@
     <a href="#about" class="hero__scroll" aria-label="Scroll down">▼</a>
   </section>
 
-  <!-- ===================== MARQUEE (movement) ===================== -->
+  <!-- ===================== MARQUEE ===================== -->
   <div class="marquee" aria-hidden="true">
     <div class="marquee__track">
-      <span>AGENTBOY ✦ NHA TRANG ✦ BOOK NOW ✦ PROGRESSIVE HOUSE ✦ MELODIC TECHNO ✦ NIGHTS THAT MOVE ✦&nbsp;</span>
-      <span>AGENTBOY ✦ NHA TRANG ✦ BOOK NOW ✦ PROGRESSIVE HOUSE ✦ MELODIC TECHNO ✦ NIGHTS THAT MOVE ✦&nbsp;</span>
+      <span data-i18n="marquee">AGENTBOY ✦ ASIA LOCATION ✦ DREAMS COME TRUE ✦ PROGRESSIVE HOUSE ✦ MELODIC TECHNO ✦ BOOK NOW ✦&nbsp;</span>
+      <span data-i18n="marquee">AGENTBOY ✦ ASIA LOCATION ✦ DREAMS COME TRUE ✦ PROGRESSIVE HOUSE ✦ MELODIC TECHNO ✦ BOOK NOW ✦&nbsp;</span>
     </div>
   </div>
 
-  <!-- ===================== MEDIA LINKS (placeholders) ===================== -->
+  <!-- ===================== MEDIA LINKS ===================== -->
   <section class="section section--links" id="links">
-    <!-- PLACEHOLDER links — replace each href="#" with the real profile URL -->
     <div class="links">
-      <a class="link" href="#"><span class="link__name">Spotify</span><span class="link__tag">soon</span><span class="link__arr">↗</span></a>
-      <a class="link" href="#"><span class="link__name">SoundCloud</span><span class="link__tag">soon</span><span class="link__arr">↗</span></a>
-      <a class="link" href="#"><span class="link__name">Mixcloud</span><span class="link__tag">soon</span><span class="link__arr">↗</span></a>
-      <a class="link" href="#"><span class="link__name">YouTube</span><span class="link__tag">soon</span><span class="link__arr">↗</span></a>
-      <a class="link" href="#"><span class="link__name">Instagram</span><span class="link__tag">soon</span><span class="link__arr">↗</span></a>
+      <a class="link" href="https://open.spotify.com/artist/2LTT8rloXK8dqXhueuWkZp" target="_blank" rel="noopener">
+        <span class="link__name">Spotify</span><span class="link__tag" data-i18n="link.stream">stream</span><span class="link__arr">↗</span>
+      </a>
+      <!-- no storefront in the path on purpose: Apple redirects each visitor to their own -->
+      <a class="link" href="https://music.apple.com/artist/agentboy/1729382206" target="_blank" rel="noopener">
+        <span class="link__name">Apple Music</span><span class="link__tag" data-i18n="link.stream">stream</span><span class="link__arr">↗</span>
+      </a>
+      <a class="link" href="https://www.beatport.com/artist/agentboy/1184864" target="_blank" rel="noopener">
+        <span class="link__name">Beatport</span><span class="link__tag" data-i18n="link.releases">releases</span><span class="link__arr">↗</span>
+      </a>
+      <a class="link" href="https://www.youtube.com/@agentboymusic" target="_blank" rel="noopener">
+        <span class="link__name">YouTube</span><span class="link__tag" data-i18n="link.sets">sets &amp; videos</span><span class="link__arr">↗</span>
+      </a>
+      <a class="link" href="https://www.instagram.com/agentboy_ofc/" target="_blank" rel="noopener">
+        <span class="link__name">Instagram</span><span class="link__tag">@agentboy_ofc</span><span class="link__arr">↗</span>
+      </a>
+      <a class="link" href="https://linktr.ee/agentboymusic" target="_blank" rel="noopener">
+        <span class="link__name">Linktree</span><span class="link__tag" data-i18n="link.all">all links</span><span class="link__arr">↗</span>
+      </a>
     </div>
   </section>
 
-  <!-- ===================== ABOUT / BIO ===================== -->
+  <!-- ===================== 01 · ABOUT ===================== -->
   <section class="section" id="about">
     <div class="section__head">
       <span class="section__num">01</span>
-      <h2 class="section__title">About</h2>
+      <h2 class="section__title" data-i18n="about.title">About</h2>
     </div>
+
     <div class="about">
-      <!-- PLACEHOLDER bio — replace with real text -->
-      <p class="about__lead">
-        AGENTBOY is a Nha Trang–based DJ moving between warm progressive house,
-        hypnotic indie dance and melodic techno.
-      </p>
-      <p class="about__text">
-        [PLACEHOLDER] Short bio goes here — a couple of sentences about the sound,
-        the energy on the floor and where the project has played. Resident at local
-        clubs, regular at coastal parties, building a name across the Vietnam
-        nightlife scene. Replace this paragraph with the real story later.
-      </p>
-      <div class="about__stats">
-        <div class="stat"><b>5+</b><span>years on the decks</span></div>
-        <div class="stat"><b>50+</b><span>shows played</span></div>
-        <div class="stat"><b>3</b><span>resident venues</span></div>
+      <div class="about__media">
+        <img src="assets/img/bio.jpg" alt="AGENTBOY at a rooftop venue" width="657" height="757" loading="lazy" />
+        <figcaption data-i18n="about.caption">Andrii Smoliar · AGENTBOY</figcaption>
+      </div>
+
+      <div class="about__body">
+        <p class="about__lead" data-i18n="about.lead">
+          AGENTBOY is a DJ and producer moving between warm progressive house,
+          indie dance and melodic techno. For now in Nha Trang.
+        </p>
+
+        <p data-i18n="about.p1">Hi, I'm AGENTBOY, my real name is Andrii Smoliar, and I'm originally from Kyiv, Ukraine. I grew up playing sports and never imagined that one day I would find myself in music and DJing.</p>
+        <p data-i18n="about.p2">My journey started when I was 18. I went to a club with my friends and was fascinated by the way the DJ could control the energy of the crowd through music. I stood next to the DJ booth, watching everything he did, and after the party I kept thinking about it. Still, I told myself that becoming a DJ was unrealistic, so I continued simply going to parties and enjoying the music.</p>
+
+        <div class="about__more" hidden>
+          <p data-i18n="about.p3">One day, while hanging out with friends at a bar, one of them told me: “Andrii, you should give it a try. If you don't do it now, you may never get the chance.” He invited me behind the decks, and we played together. Seeing people enjoy the music and feeling that connection with the crowd completely changed everything for me. I received dozens of great reactions and realized that this was something I truly wanted to pursue.</p>
+          <p data-i18n="about.p4">In 2022, I moved to Greece with my wife and bought my first DJ controller — the Pioneer DDJ-400. From that moment, I spent days and nights practicing, experimenting, and searching for my own sound. I also started learning music production in Ableton Live 11.</p>
+          <p data-i18n="about.p5">The journey was not easy. I visited clubs and bars across Greece, watched different parties, studied the scene, and dreamed of getting my chance to play. Eventually, I was invited to perform at Marmelda in Komotini, Greece.</p>
+          <p data-i18n="about.p6">I was in a new country, practically unknown to everyone, and more than 50 people came to the event. I was extremely nervous, but once I started playing, I completely immersed myself in the music. The night was a success, and I received amazing feedback from the crowd.</p>
+          <p data-i18n="about.p7">That moment gave me the confidence to believe in myself. I started playing every week, then twice a week, and eventually began focusing more seriously on music production.</p>
+          <p data-i18n="about.p8">After releasing my first original track, which received radio support in Greece and India, I began receiving invitations to perform at different venues across Greece.</p>
+          <p data-i18n="about.p9">Today, my sound is shaped by progressive house, indie dance and melodic techno — music focused on atmosphere, emotion, energy, and creating a strong connection with the crowd.</p>
+        </div>
+
+        <button class="btn btn--ghost about__toggle" type="button" data-i18n="about.more">Read the full story</button>
       </div>
     </div>
   </section>
 
-  <!-- ===================== MUSIC ===================== -->
-  <section class="section" id="music">
+  <!-- ===================== 02 · APPROACH ===================== -->
+  <section class="section" id="approach">
     <div class="section__head">
       <span class="section__num">02</span>
-      <h2 class="section__title">Music</h2>
+      <h2 class="section__title" data-i18n="approach.title">What sets me apart</h2>
     </div>
-    <p class="section__sub">Mixes &amp; tracks — embeds will be added here.</p>
 
-    <div class="music">
-      <!-- Replace each placeholder with a real embed iframe (SoundCloud / Spotify / Mixcloud) -->
-      <article class="embed">
-        <div class="embed__ph">
-          <span class="embed__icon">▶</span>
-          <p>SoundCloud embed</p>
-          <small>PLACEHOLDER — paste mix link</small>
-        </div>
-        <h3>Latest set</h3>
-      </article>
-
-      <article class="embed">
-        <div class="embed__ph">
-          <span class="embed__icon">▶</span>
-          <p>Spotify embed</p>
-          <small>PLACEHOLDER — paste playlist link</small>
-        </div>
-        <h3>Studio tracks</h3>
-      </article>
-
-      <article class="embed">
-        <div class="embed__ph">
-          <span class="embed__icon">▶</span>
-          <p>Mixcloud embed</p>
-          <small>PLACEHOLDER — paste mix link</small>
-        </div>
-        <h3>Club recording</h3>
-      </article>
+    <div class="prose">
+      <p data-i18n="approach.p1">My biggest strength is my ability to feel the crowd and read the energy of the dance floor. During my performances, I don't just focus on the music — I watch the people, their eyes, their movements, and their reactions. This allows me to understand what the crowd needs and create the right energy at the right moment.</p>
+      <p data-i18n="approach.p2">I love turning even the most relaxed guests into part of the show. Someone might be sitting at a table, but little by little the music makes them move — first their foot, then their head, and before they know it they are dancing with everyone else.</p>
+      <p data-i18n="approach.p3">If someone doesn't know how to move to electronic music, I'm happy to invite them behind the DJ booth and show them the rhythm, explain how the music works, and help them feel the beat from the inside.</p>
+      <p data-i18n="approach.p4">For me, a DJ is not just someone standing behind the decks. A DJ is someone who creates emotions, connects people, and brings them together through music.</p>
+      <p data-i18n="approach.p5">I'm an open and approachable person, and I always try to connect with the crowd during my performances. I talk to guests, react to their energy, and I'm not afraid to become part of the party myself.</p>
+      <p class="prose__pull" data-i18n="approach.p6">It's not enough for me to simply play a good set. I want every person to leave feeling that they were part of something special.</p>
     </div>
   </section>
 
-  <!-- ===================== EVENTS / GALLERY ===================== -->
-  <section class="section" id="events">
+  <!-- ===================== 03 · MUSIC ===================== -->
+  <section class="section" id="music">
     <div class="section__head">
       <span class="section__num">03</span>
-      <h2 class="section__title">Past events</h2>
+      <h2 class="section__title" data-i18n="music.title">Music</h2>
     </div>
-    <p class="section__sub">Demo posters — will be replaced with real flyers &amp; live photos.</p>
+    <p class="section__sub" data-i18n="music.sub">Live sets, official videos and releases.</p>
 
-    <div class="gallery">
-      <figure class="card">
-        <img src="assets/event-next-level.jpg" alt="Next Level event poster" />
-        <figcaption>Next Level · Nha Trang</figcaption>
-      </figure>
-      <figure class="card">
-        <img src="assets/event-time-house.jpg" alt="Time House event poster" />
-        <figcaption>Time House · Nha Trang</figcaption>
-      </figure>
-      <figure class="card">
-        <img src="assets/event-neon-white.jpg" alt="Neon White party poster" />
-        <figcaption>Neon White Party</figcaption>
-      </figure>
-      <figure class="card">
-        <img src="assets/event-full-house.jpg" alt="Friday Full House poster" />
-        <figcaption>Friday Full House</figcaption>
-      </figure>
+    <!-- latest release teaser, hosted locally, loads only on play -->
+    <div class="clip">
+      <video class="clip__video" controls playsinline preload="none"
+             poster="assets/video/darkness-poster.jpg">
+        <source src="assets/video/darkness-teaser.mp4" type="video/mp4" />
+      </video>
+      <div class="clip__meta">
+        <span class="clip__badge" data-i18n="music.newRelease">Latest release</span>
+        <h3>DARKNESS <small>feat. XENA</small></h3>
+        <p class="clip__line">08.08.2026 · Alveda Music</p>
+        <p data-i18n="music.clipText">Official teaser for the latest single, out now on Alveda Music.</p>
+        <a class="btn btn--ghost" href="https://open.spotify.com/artist/2LTT8rloXK8dqXhueuWkZp" target="_blank" rel="noopener" data-i18n="music.getTrack">Get the track</a>
+      </div>
+    </div>
+
+    <h3 class="sub-head" data-i18n="music.setsHead">Live sets</h3>
+    <div class="vgrid">
+      <button class="vid" data-yt="l-ZyWArUfio" type="button">
+        <img src="assets/img/yt/l-ZyWArUfio.jpg" alt="" loading="lazy" width="640" height="360" />
+        <span class="vid__play" aria-hidden="true">▶</span>
+        <span class="vid__t">LUME Rooftop Sunset — Nha Trang, Vietnam</span>
+        <span class="vid__g">House &amp; Melodic Techno · 2026</span>
+      </button>
+      <button class="vid" data-yt="SzTdw9MP5eo" type="button">
+        <img src="assets/img/yt/SzTdw9MP5eo.jpg" alt="" loading="lazy" width="640" height="360" />
+        <span class="vid__play" aria-hidden="true">▶</span>
+        <span class="vid__t">BOTON Sky Lounge — Nha Trang, Vietnam</span>
+        <span class="vid__g">Progressive House / Melodic Techno · 2026</span>
+      </button>
+      <button class="vid" data-yt="i9hrfO7-ooA" type="button">
+        <img src="assets/img/yt/i9hrfO7-ooA.jpg" alt="" loading="lazy" width="640" height="360" />
+        <span class="vid__play" aria-hidden="true">▶</span>
+        <span class="vid__t">Rawai Beach — Phuket, Thailand</span>
+        <span class="vid__g">Afro House / Progressive House · 2026</span>
+      </button>
+      <button class="vid" data-yt="jo_8893-BaE" type="button">
+        <img src="assets/img/yt/jo_8893-BaE.jpg" alt="" loading="lazy" width="640" height="360" />
+        <span class="vid__play" aria-hidden="true">▶</span>
+        <span class="vid__t">Enthusiast — Phuket, Thailand</span>
+        <span class="vid__g">Melodic Techno · 2026</span>
+      </button>
+      <button class="vid" data-yt="_QghKfQarKk" type="button">
+        <img src="assets/img/yt/_QghKfQarKk.jpg" alt="" loading="lazy" width="640" height="360" />
+        <span class="vid__play" aria-hidden="true">▶</span>
+        <span class="vid__t">AKSY &amp; AGENTBOY — Maronia, Greece</span>
+        <span class="vid__g">Afro House / Melodic House</span>
+      </button>
+      <button class="vid" data-yt="f0yEaxW6Dxw" type="button">
+        <img src="assets/img/yt/f0yEaxW6Dxw.jpg" alt="" loading="lazy" width="640" height="360" />
+        <span class="vid__play" aria-hidden="true">▶</span>
+        <span class="vid__t">Santorini, Greece</span>
+        <span class="vid__g">House &amp; Afro House</span>
+      </button>
+      <button class="vid" data-yt="ibKrMurZTKA" type="button">
+        <img src="assets/img/yt/ibKrMurZTKA.jpg" alt="" loading="lazy" width="640" height="360" />
+        <span class="vid__play" aria-hidden="true">▶</span>
+        <span class="vid__t">Crete, Greece</span>
+        <span class="vid__g">House &amp; Deep House · 2024</span>
+      </button>
+      <button class="vid" data-yt="TrLD0J_dIYs" type="button">
+        <img src="assets/img/yt/TrLD0J_dIYs.jpg" alt="" loading="lazy" width="640" height="360" />
+        <span class="vid__play" aria-hidden="true">▶</span>
+        <span class="vid__t">Tucan Beach Bar — Greece</span>
+        <span class="vid__g" data-i18n="music.opening">Beach bar opening</span>
+      </button>
+      <button class="vid" data-yt="fYulGjCCMCU" type="button">
+        <img src="assets/img/yt/fYulGjCCMCU.jpg" alt="" loading="lazy" width="640" height="360" />
+        <span class="vid__play" aria-hidden="true">▶</span>
+        <span class="vid__t" data-i18n="music.carSet">DJ set in the car</span>
+        <span class="vid__g">Progressive House · 4K</span>
+      </button>
+    </div>
+
+    <h3 class="sub-head" data-i18n="music.relHead">Releases &amp; official videos</h3>
+    <div class="vgrid">
+      <button class="vid" data-yt="flRef4PTIHw" type="button">
+        <img src="assets/img/yt/flRef4PTIHw.jpg" alt="" loading="lazy" width="640" height="360" />
+        <span class="vid__play" aria-hidden="true">▶</span>
+        <span class="vid__t">AGENTBOY — Dance (feat. valersy)</span>
+        <span class="vid__g" data-i18n="music.official">Official video</span>
+      </button>
+      <button class="vid" data-yt="PpIUU6YhV-4" type="button">
+        <img src="assets/img/yt/PpIUU6YhV-4.jpg" alt="" loading="lazy" width="640" height="360" />
+        <span class="vid__play" aria-hidden="true">▶</span>
+        <span class="vid__t">UNTRUTH — track presentation</span>
+        <span class="vid__g">Ramada Plaza, Greece · 2024</span>
+      </button>
+      <a class="vid vid--ext" href="https://www.beatport.com/artist/agentboy/1184864" target="_blank" rel="noopener">
+        <span class="vid__ph">Beatport</span>
+        <span class="vid__t" data-i18n="music.beatportT">All releases on Beatport</span>
+        <span class="vid__g" data-i18n="music.beatportG">Buy &amp; stream ↗</span>
+      </a>
     </div>
   </section>
 
-  <!-- ===================== VENUES ===================== -->
-  <section class="section" id="venues">
+  <!-- ===================== 04 · SHOWS ===================== -->
+  <section class="section" id="shows">
     <div class="section__head">
       <span class="section__num">04</span>
-      <h2 class="section__title">Venues &amp; residencies</h2>
+      <h2 class="section__title" data-i18n="shows.title">Shows &amp; venues</h2>
     </div>
-    <div class="venues">
-      <div class="venue">
-        <img src="assets/venue-impera-casa.jpg" alt="Impera Casa" />
-        <span>Impera Casa</span>
-      </div>
-      <div class="venue venue--ph"><span>Time House</span><small>logo soon</small></div>
-      <div class="venue venue--ph"><span>Next Level</span><small>logo soon</small></div>
-      <div class="venue venue--ph"><span>Your venue</span><small>+ add more</small></div>
+
+    <div class="prose prose--tight">
+      <p data-i18n="shows.p1">I have experience performing in a wide range of settings and atmospheres — from clubs and beach bars to festivals and rooftop events. I've also played poolside foam parties, private villa events, and exclusive closed-door parties, adapting my music, energy and interaction with the crowd to fit each environment.</p>
+      <p data-i18n="shows.p2">For me, every venue has its own character, and I enjoy creating the right atmosphere wherever I play.</p>
+    </div>
+
+    <div class="countries">
+      <article class="country">
+        <header><span class="country__flag">🇬🇷</span><h3 data-i18n="country.gr">Greece</h3></header>
+        <p class="country__cities" data-i18n="cities.gr">Komotini · Xanthi · Thessaloniki · Athens · Mykonos · Santorini</p>
+        <ul>
+          <li>Marmelda Bar</li>
+          <li>Bel Air 1992 Club</li>
+          <li>Tucan Beach Bar <em data-i18n="shows.opening">— opening performance</em></li>
+          <li>Kageles Beach Bar</li>
+          <li>SOHO Beach Bar</li>
+          <li>Wine Law · Matute Rooftop · Brettos Bar · 7 Times</li>
+          <li data-i18n="shows.grPrivate">Private villa parties in Santorini, yacht &amp; villa parties in Mykonos</li>
+        </ul>
+      </article>
+
+      <article class="country">
+        <header><span class="country__flag">🇻🇳</span><h3 data-i18n="country.vn">Vietnam</h3></header>
+        <p class="country__cities" data-i18n="cities.vn">Nha Trang · Da Nang</p>
+        <ul>
+          <li>NEXT LEVEL Club <em data-i18n="shows.multiple">— multiple performances</em></li>
+          <li>Time House Bar</li>
+          <li>BOTON Rooftop</li>
+          <li>Lume Sky Bar <em data-i18n="shows.foam">— Foam Party Show</em></li>
+          <li>Zone 86 <em data-i18n="shows.openair">— open-air festival</em></li>
+          <li>The Garden</li>
+          <li>Madison Red Rooftop · Malibu Beach Bar <em data-i18n="shows.guest">— guest artist, Da Nang</em></li>
+          <li data-i18n="shows.vnPrivate">Private villa and yacht parties</li>
+        </ul>
+        <p class="country__note" data-i18n="shows.impera">Founder of IMPERA CASA — events and community built in Nha Trang.</p>
+      </article>
+
+      <article class="country">
+        <header><span class="country__flag">🇹🇭</span><h3 data-i18n="country.th">Thailand</h3></header>
+        <p class="country__cities" data-i18n="cities.th">Phuket · Bangkok</p>
+        <ul>
+          <li>Shaman Club</li>
+          <li>YOOHI Club</li>
+          <li>AETHERT Rooftop <em data-i18n="shows.bangkok">— Bangkok</em></li>
+          <li data-i18n="shows.thPrivate">Private villa and yacht parties</li>
+        </ul>
+      </article>
+
+      <article class="country">
+        <header><span class="country__flag">🇦🇹</span><h3 data-i18n="country.at">Austria</h3></header>
+        <p class="country__cities" data-i18n="cities.at">Amstetten</p>
+        <ul><li>K12 Club</li></ul>
+      </article>
+
+      <article class="country">
+        <header><span class="country__flag">🇨🇿</span><h3 data-i18n="country.cz">Czech Republic</h3></header>
+        <p class="country__cities" data-i18n="cities.cz">Prague</p>
+        <ul>
+          <li>Ankali</li>
+          <li>Le Valmont Club</li>
+        </ul>
+      </article>
     </div>
   </section>
 
-  <!-- ===================== BOOKING / CONTACT ===================== -->
-  <section class="section section--booking" id="booking">
+  <!-- ===================== 05 · GALLERY ===================== -->
+  <section class="section" id="gallery">
     <div class="section__head">
       <span class="section__num">05</span>
-      <h2 class="section__title">Booking</h2>
+      <h2 class="section__title" data-i18n="gallery.title">Gallery</h2>
     </div>
-    <p class="booking__line">For bookings, press &amp; collaborations:</p>
+
+    <div class="shots">
+      <button class="shot" type="button"><img src="assets/img/gallery/club-booth.jpg"       alt="AGENTBOY in the club booth" loading="lazy" /></button>
+      <button class="shot" type="button"><img src="assets/img/gallery/club-crowd.jpg"       alt="Club night crowd" loading="lazy" /></button>
+      <button class="shot" type="button"><img src="assets/img/gallery/beach-solo.jpg"       alt="Beach set" loading="lazy" /></button>
+      <button class="shot" type="button"><img src="assets/img/gallery/beach-crowd-01.jpg"   alt="Beach party crowd" loading="lazy" /></button>
+      <button class="shot" type="button"><img src="assets/img/gallery/sunset-set.jpg"       alt="Sunset set" loading="lazy" /></button>
+      <button class="shot" type="button"><img src="assets/img/gallery/beach-headphones.jpg" alt="AGENTBOY with headphones" loading="lazy" /></button>
+      <button class="shot" type="button"><img src="assets/img/gallery/booth-hands.jpg"      alt="Hands on the mixer" loading="lazy" /></button>
+      <button class="shot" type="button"><img src="assets/img/gallery/beach-crowd-02.jpg"   alt="Beach bar party" loading="lazy" /></button>
+      <button class="shot" type="button"><img src="assets/img/gallery/club-night.jpg"       alt="Club night" loading="lazy" /></button>
+      <button class="shot" type="button"><img src="assets/img/gallery/portrait.jpg"         alt="Studio portrait" loading="lazy" /></button>
+      <button class="shot" type="button"><img src="assets/img/gallery/beach-duo.jpg"        alt="At the decks" loading="lazy" /></button>
+      <button class="shot" type="button"><img src="assets/img/gallery/car-set.jpg"          alt="DJ set in the car" loading="lazy" /></button>
+    </div>
+  </section>
+
+  <!-- ===================== 06 · EVENTS ===================== -->
+  <section class="section" id="events">
+    <div class="section__head">
+      <span class="section__num">06</span>
+      <h2 class="section__title" data-i18n="events.title">Past events</h2>
+    </div>
+    <p class="section__sub" data-i18n="events.sub">Selected line-ups from the Impera Casa nights in Nha Trang.</p>
+
+    <div class="gallery">
+      <figure class="poster">
+        <img src="assets/img/posters/next-level-29-05.jpg" alt="Next Level club line-up, 29 May" loading="lazy" />
+        <figcaption>Next Level Club · 29.05</figcaption>
+      </figure>
+      <figure class="poster">
+        <img src="assets/img/posters/next-level-19-06.jpg" alt="Next Level club line-up, 19 June" loading="lazy" />
+        <figcaption>Next Level Club · 19.06</figcaption>
+      </figure>
+      <figure class="poster">
+        <img src="assets/img/posters/time-house-08-05.jpg" alt="In Time House line-up, 8 May" loading="lazy" />
+        <figcaption>In Time House · 08.05</figcaption>
+      </figure>
+      <figure class="poster">
+        <img src="assets/img/posters/time-house-12-06.jpg" alt="Friday Full House Vibes, 12 June" loading="lazy" />
+        <figcaption>Friday Full House · 12.06</figcaption>
+      </figure>
+      <figure class="poster">
+        <img src="assets/img/posters/neon-white-17-04.jpg" alt="Neon White Party, 17 April" loading="lazy" />
+        <figcaption>Neon White Party · 17.04</figcaption>
+      </figure>
+    </div>
+
+    <div class="label">
+      <img src="assets/img/logo/impera-casa.jpg" alt="Impera Casa" loading="lazy" width="500" height="500" />
+      <div>
+        <h3>IMPERA CASA</h3>
+        <p data-i18n="events.impera">Label, event series and community founded by AGENTBOY in Nha Trang, Vietnam.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 07 · BOOKING ===================== -->
+  <section class="section section--booking" id="booking">
+    <div class="section__head">
+      <span class="section__num">07</span>
+      <h2 class="section__title" data-i18n="booking.title">Booking</h2>
+    </div>
+    <p class="booking__line" data-i18n="booking.line">For bookings, press and collaborations:</p>
+
     <div class="booking__buttons">
-      <!-- PLACEHOLDER links — replace href="#" with real ones -->
-      <a href="#" class="btn btn--primary">Instagram</a>
-      <a href="#" class="btn btn--ghost">Telegram</a>
-      <a href="#" class="btn btn--ghost">Email</a>
+      <a href="mailto:agentboymusic@gmail.com" class="btn btn--primary">Email</a>
+      <a href="https://t.me/agen1boy" class="btn btn--ghost" target="_blank" rel="noopener">Telegram</a>
+      <a href="https://wa.me/306946938249" class="btn btn--ghost" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="https://www.instagram.com/agentboy_ofc/" class="btn btn--ghost" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://linktr.ee/agentboymusic" class="btn btn--ghost" target="_blank" rel="noopener">Linktree</a>
     </div>
-    <p class="booking__contact">Booking: <b>@placeholder</b> · hello@placeholder.com</p>
+
+    <ul class="contacts">
+      <li><span data-i18n="booking.email">Email</span><b>agentboymusic@gmail.com</b></li>
+      <li><span>WhatsApp</span><b>+30 694 693 8249</b></li>
+      <li><span>Telegram</span><b>@agen1boy</b></li>
+    </ul>
   </section>
 
   <!-- ===================== FOOTER ===================== -->
   <footer class="footer">
     <span>© <span id="year"></span> AGENTBOY</span>
-    <span class="footer__note">Press kit · demo</span>
+    <span class="footer__note" data-i18n="footer.note">Press kit</span>
   </footer>
+
+  <!-- ===================== LIGHTBOX ===================== -->
+  <div class="lb" id="lb" hidden>
+    <button class="lb__close" type="button" aria-label="Close">✕</button>
+    <button class="lb__nav lb__nav--prev" type="button" aria-label="Previous">‹</button>
+    <div class="lb__stage"></div>
+    <button class="lb__nav lb__nav--next" type="button" aria-label="Next">›</button>
+  </div>
 
   <script src="script.js"></script>
 </body>
