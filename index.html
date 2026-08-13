@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a0a0c" />
 
   <!-- ============================================================
        AGENTBOY — DJ press kit
@@ -45,13 +46,16 @@
   <header class="nav">
     <a class="nav__logo" href="#hero">AGENT<span>BOY</span></a>
 
-    <nav class="nav__links">
+    <!-- on phones this collapses into the burger panel below the bar -->
+    <nav class="nav__menu" id="nav-menu">
       <a href="#about"   data-i18n="nav.about">About</a>
       <a href="#music"   data-i18n="nav.music">Music</a>
       <a href="#shows"   data-i18n="nav.shows">Shows</a>
       <a href="#gallery" data-i18n="nav.gallery">Gallery</a>
+      <a href="#booking" class="nav__cta" data-i18n="nav.book">Book now</a>
+    </nav>
 
-      <!-- language switcher -->
+    <div class="nav__side">
       <div class="lang">
         <button class="lang__btn" type="button" aria-haspopup="true" aria-expanded="false">
           <span class="lang__cur">EN</span><span class="lang__chev" aria-hidden="true">▾</span>
@@ -59,8 +63,10 @@
         <ul class="lang__menu" hidden></ul>
       </div>
 
-      <a href="#booking" class="nav__cta" data-i18n="nav.book">Book now</a>
-    </nav>
+      <button class="nav__burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </header>
 
   <!-- ===================== HERO — character card ===================== -->
@@ -220,7 +226,7 @@
       </div>
     </div>
 
-    <h3 class="sub-head" data-i18n="music.setsHead">Live sets</h3>
+    <div class="sub-head"><h3 data-i18n="music.setsHead">Live sets</h3></div>
     <div class="vgrid">
       <button class="vid" data-yt="l-ZyWArUfio" type="button">
         <img src="assets/img/yt/l-ZyWArUfio.jpg" alt="" loading="lazy" width="640" height="360" />
@@ -278,7 +284,7 @@
       </button>
     </div>
 
-    <h3 class="sub-head" data-i18n="music.relHead">Releases &amp; official videos</h3>
+    <div class="sub-head"><h3 data-i18n="music.relHead">Releases &amp; official videos</h3></div>
     <div class="vgrid">
       <button class="vid" data-yt="flRef4PTIHw" type="button">
         <img src="assets/img/yt/flRef4PTIHw.jpg" alt="" loading="lazy" width="640" height="360" />
@@ -293,7 +299,7 @@
         <span class="vid__g">Ramada Plaza, Greece · 2024</span>
       </button>
       <a class="vid vid--ext" href="https://www.beatport.com/artist/agentboy/1184864" target="_blank" rel="noopener">
-        <span class="vid__ph">Beatport</span>
+        <span class="vid__ph"><span class="vid__phIcon" aria-hidden="true">↗</span>Beatport</span>
         <span class="vid__t" data-i18n="music.beatportT">All releases on Beatport</span>
         <span class="vid__g" data-i18n="music.beatportG">Buy &amp; stream ↗</span>
       </a>
@@ -442,18 +448,20 @@
     </div>
     <p class="booking__line" data-i18n="booking.line">For bookings, press and collaborations:</p>
 
-    <div class="booking__buttons">
-      <a href="mailto:agentboymusic@gmail.com" class="btn btn--primary">Email</a>
-      <a href="https://t.me/agen1boy" class="btn btn--ghost" target="_blank" rel="noopener">Telegram</a>
-      <a href="https://wa.me/306946938249" class="btn btn--ghost" target="_blank" rel="noopener">WhatsApp</a>
-      <a href="https://www.instagram.com/agentboy_ofc/" class="btn btn--ghost" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://linktr.ee/agentboymusic" class="btn btn--ghost" target="_blank" rel="noopener">Linktree</a>
-    </div>
-
+    <!-- every row is the action itself — no separate button strip repeating them -->
     <ul class="contacts">
-      <li><span data-i18n="booking.email">Email</span><b>agentboymusic@gmail.com</b></li>
-      <li><span>WhatsApp</span><b>+30 694 693 8249</b></li>
-      <li><span>Telegram</span><b>@agen1boy</b></li>
+      <li><a class="contact contact--primary" href="mailto:agentboymusic@gmail.com">
+        <span data-i18n="booking.email">Email</span><b>agentboymusic@gmail.com</b><i aria-hidden="true">→</i>
+      </a></li>
+      <li><a class="contact" href="https://wa.me/306946938249" target="_blank" rel="noopener">
+        <span>WhatsApp</span><b>+30 694 693 8249</b><i aria-hidden="true">↗</i>
+      </a></li>
+      <li><a class="contact" href="https://t.me/agen1boy" target="_blank" rel="noopener">
+        <span>Telegram</span><b>@agen1boy</b><i aria-hidden="true">↗</i>
+      </a></li>
+      <li><a class="contact" href="https://www.instagram.com/agentboy_ofc/" target="_blank" rel="noopener">
+        <span>Instagram</span><b>@agentboy_ofc</b><i aria-hidden="true">↗</i>
+      </a></li>
     </ul>
   </section>
 
@@ -469,6 +477,7 @@
     <button class="lb__nav lb__nav--prev" type="button" aria-label="Previous">‹</button>
     <div class="lb__stage"></div>
     <button class="lb__nav lb__nav--next" type="button" aria-label="Next">›</button>
+    <div class="lb__bar"><span class="lb__cap"></span><span class="lb__count"></span></div>
   </div>
 
   <script src="script.js"></script>

@@ -17,8 +17,26 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;   /* anchors must clear the fixed nav */
+}
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* keyboard focus stays visible everywhere */
+:focus-visible { outline: 2px solid var(--red-soft); outline-offset: 3px; border-radius: 4px; }
+
+/* scroll reveal — class is added by JS, so without JS everything is simply visible */
+.reveal { opacity: 0; transform: translateY(12px); }
+.reveal.is-in { opacity: 1; transform: none; transition: opacity .25s ease, transform .25s ease; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+  .reveal.is-in { transition: none; }
+}
+/* printing / save-as-PDF never scrolls, so un-hide everything */
+@media print {
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
 
 body {
   background: var(--bg);
@@ -109,15 +127,47 @@ a { color: inherit; text-decoration: none; }
   font-size: 22px;
 }
 .nav__logo span { color: var(--red); }
-.nav__links { display: flex; align-items: center; gap: clamp(12px, 2vw, 28px); }
-.nav__links a {
+/* margin-left:auto keeps the links and the language button as one right-hand
+   cluster instead of space-between stranding them at opposite edges */
+.nav__menu {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 2vw, 28px);
+  margin-left: auto;
+}
+.nav__side { display: flex; align-items: center; gap: 10px; margin-left: clamp(12px, 2vw, 28px); }
+.nav__menu a {
   font-size: 14px;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: color .2s;
 }
-.nav__links a:hover { color: var(--text); }
+.nav__menu a:hover { color: var(--text); }
+
+/* burger — phones only */
+.nav__burger {
+  display: none;
+  width: 42px; height: 42px;
+  padding: 11px 9px;
+  gap: 5px;
+  align-content: space-between;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  cursor: pointer;
+}
+.nav__burger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  border-radius: 2px;
+  background: var(--text);
+  transition: transform .2s, opacity .2s;
+}
+.nav--open .nav__burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav--open .nav__burger span:nth-child(2) { opacity: 0; }
+.nav--open .nav__burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 .nav__cta {
   color: var(--text) !important;
   border: 1px solid var(--red);
@@ -409,16 +459,28 @@ a { color: inherit; text-decoration: none; }
   margin-top: 26px;
 }
 
+/* wrapper, so the counter is a sibling of the heading — data-i18n rewrites the
+   heading's textContent and would otherwise wipe an appended child */
 .sub-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 44px 0 18px;
   font-family: "Oswald", sans-serif;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-size: 15px;
   color: var(--muted);
-  margin: 44px 0 18px;
 }
-.sub-head:first-of-type { margin-top: 0; }
+.sub-head h3 { font: inherit; letter-spacing: inherit; }
+.sub-head__count {
+  margin-left: auto;
+  color: var(--red-soft);
+  letter-spacing: 1px;
+  font-variant-numeric: tabular-nums;
+}
+.sub-head__count[hidden] { display: none; }
 
 /* ---------- MUSIC: local vertical clip ---------- */
 .clip {
@@ -511,20 +573,34 @@ a { color: inherit; text-decoration: none; }
 .vid__t { display: block; margin-top: 12px; font-weight: 600; font-size: 14.5px; line-height: 1.35; }
 .vid__g { display: block; margin-top: 4px; font-size: 12px; color: var(--muted); letter-spacing: .4px; }
 .vid--ext { display: flex; flex-direction: column; }
+/* not a dashed empty box — it should read as a card, like the video tiles */
 .vid__ph {
   display: grid;
   place-items: center;
+  align-content: center;
+  gap: 12px;
   aspect-ratio: 16/9;
   border-radius: 12px;
-  border: 1px dashed var(--line);
-  background: var(--surface);
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(90% 120% at 50% 0%, rgba(255,31,61,.14), transparent 62%),
+    linear-gradient(180deg, #1a1a1f 0%, #101013 100%);
   font-family: "Oswald", sans-serif;
   text-transform: uppercase;
   letter-spacing: 3px;
-  color: var(--muted);
-  transition: border-color .2s, color .2s;
+  color: var(--text);
+  transition: border-color .2s, box-shadow .2s;
 }
-.vid--ext:hover .vid__ph { border-color: var(--red); color: var(--text); }
+.vid__phIcon {
+  width: 52px; height: 52px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: rgba(255,31,61,.92);
+  color: #fff;
+  font-size: 20px;
+  box-shadow: var(--glow);
+}
+.vid--ext:hover .vid__ph { border-color: var(--red); box-shadow: 0 0 22px rgba(255,31,61,.18); }
 
 /* ---------- SHOWS: country cards ---------- */
 .countries { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
@@ -616,22 +692,35 @@ a { color: inherit; text-decoration: none; }
   list-style: none;
   display: grid;
   gap: 10px;
-  max-width: 420px;
+  max-width: 460px;
   margin: 0 auto;
   text-align: left;
 }
-.contacts li {
+.contact {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   gap: 16px;
-  padding: 12px 16px;
+  min-height: 58px;              /* comfortable thumb target */
+  padding: 12px 18px;
   border: 1px solid var(--line);
-  border-radius: 10px;
-  background: rgba(22,22,26,.5);
-  font-size: 14px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #1c1c21 0%, #131316 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 4px 12px rgba(0,0,0,.4);
+  font-size: 15px;
+  transition: border-color .2s, box-shadow .2s;
 }
-.contacts span { color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-size: 12px; align-self: center; }
-.contacts b { font-weight: 600; }
+.contact:hover { border-color: var(--red); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 0 20px rgba(255,31,61,.15); }
+.contact span {
+  flex: none;
+  width: 84px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 11px;
+}
+.contact b { font-weight: 600; word-break: break-word; }
+.contact i { margin-left: auto; font-style: normal; color: var(--red); font-size: 16px; }
+.contact--primary { border-color: rgba(255,31,61,.45); background: linear-gradient(180deg, #241419 0%, #161012 100%); }
 
 /* ---------- LABEL CARD (Impera Casa) ---------- */
 .label {
@@ -668,25 +757,52 @@ a { color: inherit; text-decoration: none; }
 }
 .lb[hidden] { display: none; }
 .lb__stage { display: contents; }
+.lb__stage img, .lb--video .lb__stage iframe {
+  animation: lbIn .22s cubic-bezier(.2,.7,.2,1);
+}
+@keyframes lbIn {
+  from { opacity: 0; transform: scale(.965); }
+  to   { opacity: 1; transform: none; }
+}
 .lb__stage img {
   max-width: 100%;
   max-height: 100%;
   width: auto;
   border-radius: 10px;
   box-shadow: 0 30px 80px rgba(0,0,0,.7);
+  touch-action: pan-y;          /* let the swipe handler own horizontal drags */
 }
 .lb--video .lb__stage { display: block; width: min(960px, 100%); }
 .lb--video iframe { width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 12px; }
+
+/* caption + position, sits under the image */
+.lb__bar {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 14px;
+  padding: 16px 70px 20px;
+  font-size: 13px;
+  color: var(--muted);
+  pointer-events: none;
+  background: linear-gradient(0deg, rgba(6,6,8,.85), transparent);
+}
+.lb--video .lb__bar { display: none; }
+.lb__count { font-variant-numeric: tabular-nums; color: var(--red-soft); }
+
 .lb__close, .lb__nav {
   position: absolute;
   z-index: 1;
-  width: 46px; height: 46px;
+  width: 48px; height: 48px;
   display: grid; place-items: center;
   border: 1px solid var(--line);
   border-radius: 50%;
   background: rgba(20,20,24,.85);
+  backdrop-filter: blur(6px);
   color: var(--text);
-  font-size: 22px;
+  font-size: 24px;
   cursor: pointer;
   transition: border-color .2s, background .2s;
 }
@@ -695,6 +811,10 @@ a { color: inherit; text-decoration: none; }
 .lb__nav--prev { left: 14px; }
 .lb__nav--next { right: 14px; }
 .lb__nav[hidden] { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lb__stage img, .lb--video .lb__stage iframe { animation: none; }
+}
 
 /* ---------- LANGUAGE SWITCHER ---------- */
 .lang { position: relative; }
@@ -775,10 +895,92 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 680px) {
-  .nav__links a:not(.nav__cta) { display: none; }
+  /* ---- nav collapses into a burger panel ---- */
+  .nav { padding-block: 12px; }
+  .nav__burger { display: grid; }
+  .nav__menu {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    margin: 0;                 /* drop the desktop auto-margin */
+    padding: 6px 16px 18px;
+    background: rgba(12,12,15,.98);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 20px 40px rgba(0,0,0,.55);
+  }
+  .nav--open .nav__menu { display: flex; }
+  .nav__menu a {
+    padding: 15px 4px;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .nav__menu .nav__cta {
+    margin-top: 14px;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 0;
+    background: var(--red);
+  }
+
+  /* ---- shorter sections: 10vh top+bottom left ~170px of dead space between blocks ---- */
+  .section { padding-block: 46px; }
+  .section--links { padding-top: 34px; }
+  .section__sub { margin-bottom: 24px; }
+
+  /* ---- hero fits one screen, so Book now is reachable without scrolling ---- */
+  .hero { padding: 84px 16px 40px; }
+  .card__art { aspect-ratio: 1/1; }
+  .card__plate { margin: 12px 0 2px; }
+  .card__role { font-size: 11px; letter-spacing: 3px; }
+  .roles { gap: 6px; margin: 10px 0 2px; }
+  .roles li { font-size: 9.5px; padding: 5px 8px; letter-spacing: .8px; }
+  .card__specs { padding: 9px 0; margin: 4px 0; }
+  .card__specs b { font-size: 19px; }
+  /* genres drop the chip look and become one quiet line */
+  .genres { display: block; margin: 8px 0 2px; font-size: 11px; letter-spacing: 1px; }
+  .genres li {
+    display: inline;
+    padding: 0; border: 0; background: none;
+    color: var(--muted);
+  }
+  .genres li + li::before { content: " · "; color: var(--red); }
+  .card__actions { margin-top: 12px; }
+  .card__actions .btn { padding-block: 12px; }
+  .hero__scroll { display: none; }
+
+  /* ---- video grids swipe sideways instead of stacking 11 screens deep ---- */
+  .vgrid {
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    grid-auto-columns: 78%;
+    gap: 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    /* bleed to the screen edges so a card can sit flush while peeking the next */
+    margin-inline: -16px;
+    padding-inline: 16px;
+    scroll-padding-left: 16px;
+    scrollbar-width: none;
+  }
+  .vgrid::-webkit-scrollbar { display: none; }
+  .vid { scroll-snap-align: start; }
+  .vid__t { font-size: 13.5px; }
+
   .shots, .gallery { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
   .label { flex-direction: column; text-align: center; }
-  .contacts li { flex-direction: column; gap: 2px; }
-  .contacts span { align-self: start; }
-  .lb__nav { width: 40px; height: 40px; }
+
+  /* the email is the widest value — give it room instead of breaking mid-word */
+  .contact { padding-inline: 14px; gap: 12px; }
+  .contact span { width: 72px; font-size: 10px; }
+  .contact b { font-size: 14px; word-break: normal; overflow-wrap: anywhere; }
+  .lb__bar { padding: 14px 16px 18px; font-size: 12px; }
+  .lb__close { top: 12px; right: 12px; }
+  .lb__nav { width: 44px; height: 44px; }
+  .lb__nav--prev { left: 8px; }
+  .lb__nav--next { right: 8px; }
 }

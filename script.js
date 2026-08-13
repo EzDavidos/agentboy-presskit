@@ -140,6 +140,72 @@ function initAbout() {
   });
 }
 
+/* ---------- burger menu (phones) ---------- */
+function initBurger() {
+  const nav = document.querySelector(".nav");
+  const btn = nav?.querySelector(".nav__burger");
+  const menu = document.getElementById("nav-menu");
+  if (!nav || !btn || !menu) return;
+
+  const setOpen = (open) => {
+    nav.classList.toggle("nav--open", open);
+    btn.setAttribute("aria-expanded", String(open));
+  };
+
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    setOpen(!nav.classList.contains("nav--open"));
+  });
+  // any destination closes it — the panel covers the page underneath
+  menu.addEventListener("click", (e) => { if (e.target.closest("a")) setOpen(false); });
+  document.addEventListener("click", (e) => { if (!nav.contains(e.target)) setOpen(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
+}
+
+/* ---------- swipeable video rows: "3 / 9" next to the heading ---------- */
+function initCarouselCounters() {
+  document.querySelectorAll(".vgrid").forEach((grid) => {
+    const head = grid.previousElementSibling;
+    if (!head || !head.classList.contains("sub-head")) return;
+
+    const cards = [...grid.children];
+    const out = document.createElement("span");
+    out.className = "sub-head__count";
+    head.appendChild(out);
+
+    const sync = () => {
+      // horizontal only: on the desktop grid every card shares the same offsetLeft row
+      const scrollable = grid.scrollWidth - grid.clientWidth > 8;
+      out.hidden = !scrollable;
+      if (!scrollable) return;
+      const i = cards.findIndex((c) => c.offsetLeft - grid.scrollLeft >= -4);
+      out.textContent = `${(i < 0 ? cards.length : i + 1)} / ${cards.length}`;
+    };
+    grid.addEventListener("scroll", sync, { passive: true });
+    window.addEventListener("resize", sync, { passive: true });
+    sync();
+  });
+}
+
+/* ---------- reveal blocks as they scroll in ---------- */
+function initReveal() {
+  const targets = document.querySelectorAll(
+    ".section__head, .about, .prose, .clip, .sub-head, .vgrid, .countries, .shots, .gallery, .label, .links, .contacts, .booking__line"
+  );
+  if (!("IntersectionObserver" in window)) return;
+
+  targets.forEach((el) => el.classList.add("reveal"));
+  const io = new IntersectionObserver(
+    (entries) => entries.forEach((en) => {
+      if (!en.isIntersecting) return;
+      en.target.classList.add("is-in");
+      io.unobserve(en.target);           // one-shot: no flicker on the way back up
+    }),
+    { rootMargin: "0px 0px -8% 0px", threshold: 0.05 }
+  );
+  targets.forEach((el) => io.observe(el));
+}
+
 /* ---------- lightbox: photos + YouTube (loaded only on click) ---------- */
 function initLightbox() {
   const lb = document.getElementById("lb");
@@ -147,6 +213,8 @@ function initLightbox() {
   const stage = lb.querySelector(".lb__stage");
   const prevBtn = lb.querySelector(".lb__nav--prev");
   const nextBtn = lb.querySelector(".lb__nav--next");
+  const cap = lb.querySelector(".lb__cap");
+  const count = lb.querySelector(".lb__count");
 
   let group = [];   // sibling images for arrow navigation
   let index = 0;
@@ -157,6 +225,8 @@ function initLightbox() {
     img.src = src.src;
     img.alt = src.alt || "";
     stage.replaceChildren(img);
+    if (cap) cap.textContent = src.alt || "";
+    if (count) count.textContent = group.length > 1 ? `${index + 1} / ${group.length}` : "";
   };
 
   const openImages = (siblings, i) => {
@@ -234,6 +304,22 @@ function initLightbox() {
     if (e.key === "ArrowLeft") step(-1);
     if (e.key === "ArrowRight") step(1);
   });
+
+  // swipe: on a phone the arrows are a fallback, the gesture is the real control
+  let x0 = null, y0 = null;
+  lb.addEventListener("touchstart", (e) => {
+    if (e.touches.length !== 1) return;
+    x0 = e.touches[0].clientX;
+    y0 = e.touches[0].clientY;
+  }, { passive: true });
+  lb.addEventListener("touchend", (e) => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    const dy = e.changedTouches[0].clientY - y0;
+    x0 = y0 = null;
+    if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;  // ignore vertical drags
+    step(dx < 0 ? 1 : -1);
+  }, { passive: true });
 }
 
 /* ---------- misc ---------- */
@@ -248,7 +334,10 @@ function initChrome() {
 }
 
 buildLangMenu();
+initBurger();
 initAbout();
 initLightbox();
+initCarouselCounters();
+initReveal();
 initChrome();
 setLang(initialLang());
