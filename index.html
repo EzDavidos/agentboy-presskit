@@ -15,12 +15,16 @@
   <meta name="description" data-i18n-attr="content:meta.description"
         content="AGENTBOY — DJ and producer. Progressive house, indie dance, melodic techno. Booking and press kit." />
 
-  <!-- Open Graph (sharing in Telegram / IG DM / WhatsApp) -->
+  <!-- Open Graph (sharing in Telegram / IG DM / WhatsApp).
+       og:image and og:url must be absolute — crawlers do not resolve relative
+       paths and do not run JS. Update both when the custom domain is bought. -->
   <meta property="og:title" content="AGENTBOY — DJ &amp; Producer" />
   <meta property="og:description" data-i18n-attr="content:meta.description"
         content="Progressive house · indie dance · melodic techno. Asia-based." />
-  <meta property="og:image" content="assets/img/hero.jpg" />
+  <meta property="og:image" content="https://ezdavidos.github.io/agentboy-presskit/assets/img/hero.jpg" />
+  <meta property="og:url" content="https://ezdavidos.github.io/agentboy-presskit/" />
   <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
