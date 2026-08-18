@@ -4,8 +4,9 @@
    ============================================================ */
 
 /* ---------- language registry ----------
-   `ready: false` languages appear in the menu but stay disabled until
-   i18n/<code>.js exists. Add the file, flip the flag, done. */
+   Only `ready: true` languages are offered. A menu full of greyed-out
+   "soon" entries reads as an unfinished site, so unwritten dictionaries
+   stay out of it entirely — add i18n/<code>.js, flip the flag, done. */
 const LANGS = [
   { code: "en", short: "EN", name: "English",  ready: true  },
   { code: "ru", short: "RU", name: "Русский",  ready: true  },
@@ -71,6 +72,9 @@ function setLang(code) {
     .then(() => {
       translate(code);
       try { localStorage.setItem(STORE_KEY, code); } catch (e) { /* private mode */ }
+      const url = new URL(location.href);
+      url.searchParams.set("lang", code);
+      history.replaceState(null, "", url);
     })
     .catch((err) => {
       console.warn(err.message, "— falling back to", FALLBACK);
@@ -79,6 +83,11 @@ function setLang(code) {
 }
 
 function initialLang() {
+  // ?lang=ru wins: without it the choice lives in localStorage only and
+  // nobody can send someone "the Russian one"
+  const asked = new URLSearchParams(location.search).get("lang");
+  if (asked && LANGS.some((l) => l.code === asked && l.ready)) return asked;
+
   let saved = null;
   try { saved = localStorage.getItem(STORE_KEY); } catch (e) { /* ignore */ }
   if (saved && LANGS.some((l) => l.code === saved && l.ready)) return saved;
@@ -96,11 +105,9 @@ function buildLangMenu() {
   const btn = wrap.querySelector(".lang__btn");
   const menu = wrap.querySelector(".lang__menu");
 
-  menu.innerHTML = LANGS.map(
-    (l) => `<li><button type="button" data-lang="${l.code}"${l.ready ? "" : " disabled"}>
-      <span>${l.name}</span>${l.ready ? "" : '<small data-i18n="lang.soon">soon</small>'}
-    </button></li>`
-  ).join("");
+  menu.innerHTML = LANGS.filter((l) => l.ready)
+    .map((l) => `<li><button type="button" data-lang="${l.code}"><span>${l.name}</span></button></li>`)
+    .join("");
 
   const close = () => { menu.hidden = true; btn.setAttribute("aria-expanded", "false"); };
   const open = () => { menu.hidden = false; btn.setAttribute("aria-expanded", "true"); };
@@ -216,6 +223,30 @@ function initCopy() {
       setTimeout(() => btn.classList.remove("is-copied"), 1600);
     });
   });
+}
+
+/* ---------- teaser: one big play target instead of the native control ---------- */
+function initClipPlay() {
+  document.querySelectorAll(".clip__player").forEach((wrap) => {
+    const video = wrap.querySelector("video");
+    const btn = wrap.querySelector(".clip__play");
+    if (!video || !btn) return;
+
+    btn.addEventListener("click", () => video.play());
+    video.addEventListener("play", () => (btn.hidden = true));
+    video.addEventListener("ended", () => (btn.hidden = false));
+  });
+}
+
+/* ---------- back to top ---------- */
+function initToTop() {
+  const btn = document.querySelector(".totop");
+  if (!btn) return;
+
+  const sync = () => btn.classList.toggle("totop--on", window.scrollY > window.innerHeight);
+  window.addEventListener("scroll", sync, { passive: true });
+  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  sync();
 }
 
 /* ---------- sticky book bar: only between the hero and the booking block ---------- */
@@ -391,6 +422,8 @@ initLightbox();
 initCarouselCounters();
 initBookBar();
 initCopy();
+initClipPlay();
+initToTop();
 initReveal();
 initChrome();
 setLang(initialLang());

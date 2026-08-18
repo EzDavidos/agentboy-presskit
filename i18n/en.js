@@ -6,6 +6,7 @@ window.I18N.en = {
   "nav.about": "About",
   "nav.music": "Music",
   "nav.shows": "Shows",
+  "nav.formats": "Booking info",
   "nav.gallery": "Gallery",
   "nav.book": "Book now",
 
@@ -66,6 +67,7 @@ window.I18N.en = {
   "music.sub": "Live sets, official videos and releases.",
   "music.newRelease": "Latest release",
   "music.getTrack": "Listen on Spotify",
+  "music.play": "Play the teaser",
   "music.setsHead": "Live sets",
   "music.relHead": "Releases & official videos",
   "music.opening": "Beach bar opening",
@@ -138,6 +140,7 @@ window.I18N.en = {
 
   "bookbar.book": "Book now",
 
-  "footer.note": "Press kit",
-  "lang.soon": "soon"
+  "totop": "Back to top",
+
+  "footer.note": "Press kit"
 };

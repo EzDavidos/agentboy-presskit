@@ -6,6 +6,7 @@ window.I18N.ru = {
   "nav.about": "Обо мне",
   "nav.music": "Музыка",
   "nav.shows": "Выступления",
+  "nav.formats": "Условия",
   "nav.gallery": "Галерея",
   "nav.book": "Забукать",
 
@@ -66,6 +67,7 @@ window.I18N.ru = {
   "music.sub": "Живые сеты, официальные видео и релизы.",
   "music.newRelease": "Свежий релиз",
   "music.getTrack": "Слушать на Spotify",
+  "music.play": "Смотреть тизер",
   "music.setsHead": "Живые сеты",
   "music.relHead": "Релизы и официальные видео",
   "music.opening": "Открытие пляжного бара",
@@ -138,6 +140,7 @@ window.I18N.ru = {
 
   "bookbar.book": "Забукать",
 
-  "footer.note": "Пресс-кит",
-  "lang.soon": "скоро"
+  "totop": "Наверх",
+
+  "footer.note": "Пресс-кит"
 };

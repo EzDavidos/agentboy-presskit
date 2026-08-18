@@ -57,6 +57,7 @@
     <nav class="nav__menu" id="nav-menu">
       <a href="#music"   data-i18n="nav.music">Music</a>
       <a href="#shows"   data-i18n="nav.shows">Shows</a>
+      <a href="#formats" data-i18n="nav.formats">Booking info</a>
       <a href="#gallery" data-i18n="nav.gallery">Gallery</a>
       <a href="#about"   data-i18n="nav.about">About</a>
       <a href="#booking" class="nav__cta" data-i18n="nav.book">Book now</a>
@@ -166,10 +167,15 @@
 
     <!-- latest release teaser, hosted locally, loads only on play -->
     <div class="clip">
-      <video class="clip__video" controls playsinline preload="none"
-             poster="assets/video/darkness-poster.jpg">
-        <source src="assets/video/darkness-teaser.mp4" type="video/mp4" />
-      </video>
+      <!-- the native control is a ~30px target on a phone and looks nothing
+           like the YouTube cards below; JS swaps this overlay for playback -->
+      <div class="clip__player">
+        <video class="clip__video" controls playsinline preload="none"
+               poster="assets/video/darkness-poster.jpg">
+          <source src="assets/video/darkness-teaser.mp4" type="video/mp4" />
+        </video>
+        <button class="clip__play" type="button" data-i18n-attr="aria-label:music.play" aria-label="Play">▶</button>
+      </div>
       <div class="clip__meta">
         <span class="clip__badge" data-i18n="music.newRelease">Latest release</span>
         <h3>DARKNESS <small>feat. XENA</small></h3>
@@ -563,14 +569,14 @@
 
     <!-- every row is the action itself — no separate button strip repeating them -->
     <ul class="contacts">
-      <li><a class="contact contact--primary" href="mailto:agentboymusic@gmail.com">
-        <span data-i18n="booking.email">Email</span><b>agentboymusic@gmail.com</b><i aria-hidden="true">→</i>
-      </a></li>
-      <li><a class="contact" href="https://wa.me/306946938249" target="_blank" rel="noopener">
+      <li><a class="contact contact--primary" href="https://wa.me/306946938249" target="_blank" rel="noopener">
         <span>WhatsApp</span><b>+30 694 693 8249</b><i aria-hidden="true">↗</i>
       </a></li>
       <li><a class="contact" href="https://t.me/agen1boy" target="_blank" rel="noopener">
         <span>Telegram</span><b>@agen1boy</b><i aria-hidden="true">↗</i>
+      </a></li>
+      <li><a class="contact" href="mailto:agentboymusic@gmail.com">
+        <span data-i18n="booking.email">Email</span><b>agentboymusic@gmail.com</b><i aria-hidden="true">→</i>
       </a></li>
       <li><a class="contact" href="https://www.instagram.com/agentboy_ofc/" target="_blank" rel="noopener">
         <span>Instagram</span><b>@agentboy_ofc</b><i aria-hidden="true">↗</i>
@@ -583,6 +589,9 @@
     <span>© <span id="year"></span> AGENTBOY</span>
     <span class="footer__note" data-i18n="footer.note">Press kit</span>
   </footer>
+
+  <!-- ===================== BACK TO TOP ===================== -->
+  <button class="totop" type="button" data-i18n-attr="aria-label:totop" aria-label="Back to top">↑</button>
 
   <!-- ===================== STICKY BOOK BAR (phones) ===================== -->
   <!-- on phones the nav CTA is buried in the burger panel, so between the hero
