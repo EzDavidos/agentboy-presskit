@@ -26,11 +26,11 @@ BIO_EN = """AGENTBOY — DJ & producer
 
 ONE LINE
 AGENTBOY — DJ and producer. Progressive house, indie dance, melodic techno.
-Based in Nha Trang, Vietnam.
+Currently in Nha Trang, Vietnam. Available worldwide.
 
 SHORT BIO
-AGENTBOY (Andrii Smoliar) is a DJ and producer from Kyiv, Ukraine, now based
-in Nha Trang, Vietnam. He plays progressive house, indie dance and melodic
+AGENTBOY (Andrii Smoliar) is a DJ and producer from Kyiv, Ukraine, currently
+in Nha Trang, Vietnam and available worldwide. He plays progressive house, indie dance and melodic
 techno at 122-128 BPM, and has performed across Greece, Vietnam, Thailand,
 Austria and the Czech Republic — from clubs and beach bars to rooftops,
 open-air festivals and private villa and yacht parties. Founder of the Impera
@@ -68,11 +68,11 @@ BIO_RU = """AGENTBOY — диджей и продюсер
 
 ОДНОЙ СТРОКОЙ
 AGENTBOY — диджей и продюсер. Progressive house, indie dance, melodic techno.
-База — Нячанг, Вьетнам.
+Сейчас в Нячанге, Вьетнам. Готов ехать в любую точку мира.
 
 КОРОТКОЕ БИО
-AGENTBOY (Андрей Смоляр) — диджей и продюсер из Киева, сейчас живёт в
-Нячанге, Вьетнам. Играет progressive house, indie dance и melodic techno в
+AGENTBOY (Андрей Смоляр) — диджей и продюсер из Киева, сейчас в Нячанге,
+Вьетнам, готов ехать в любую точку мира. Играет progressive house, indie dance и melodic techno в
 диапазоне 122-128 BPM. Выступал в Греции, Вьетнаме, Таиланде, Австрии и
 Чехии — от клубов и пляжных баров до руфтопов, опен-эйр фестивалей и
 приватных вечеринок на виллах и яхтах. Основатель серии вечеринок Impera

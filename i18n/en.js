@@ -11,7 +11,7 @@ window.I18N.en = {
   "nav.book": "Book now",
 
   "hero.resident": "Resident",
-  "hero.based": "Asia-based",
+  "hero.based": "Currently in Asia",
   "hero.role": "DJ / Producer",
   "hero.tagline": "dreams come true",
   "hero.bpm": "BPM range",
@@ -27,7 +27,7 @@ window.I18N.en = {
   "genre.indie": "indie dance",
   "genre.melodic": "melodic techno",
 
-  "marquee": "AGENTBOY ✦ ASIA-BASED ✦ DREAMS COME TRUE ✦ PROGRESSIVE HOUSE ✦ MELODIC TECHNO ✦ BOOK NOW ✦ ",
+  "marquee": "AGENTBOY ✦ WORLDWIDE ✦ DREAMS COME TRUE ✦ PROGRESSIVE HOUSE ✦ MELODIC TECHNO ✦ BOOK NOW ✦ ",
 
   "link.sets": "sets & videos",
   "link.stream": "stream",
@@ -36,7 +36,7 @@ window.I18N.en = {
 
   "about.title": "About",
   "about.caption": "Andrii Smoliar · AGENTBOY",
-  "about.lead": "DJ and producer from Kyiv. Started behind the decks in Greece in 2022, now plays across Southeast Asia. For now in Nha Trang.",
+  "about.lead": "DJ and producer from Kyiv. Started behind the decks in Greece in 2022, plays across Europe and Southeast Asia. For now in Nha Trang.",
   "about.p1": "Hi, I'm AGENTBOY, my real name is Andrii Smoliar, and I'm originally from Kyiv, Ukraine. I grew up playing sports and never imagined that one day I would find myself in music and DJing.",
   "about.p2": "My journey started when I was 18. I went to a club with my friends and was fascinated by the way the DJ could control the energy of the crowd through music. I stood next to the DJ booth, watching everything he did, and after the party I kept thinking about it. Still, I told myself that becoming a DJ was unrealistic, so I continued simply going to parties and enjoying the music.",
   "about.p3": "One day, while hanging out with friends at a bar, one of them told me: “Andrii, you should give it a try. If you don't do it now, you may never get the chance.” He invited me behind the decks, and we played together. Seeing people enjoy the music and feeling that connection with the crowd completely changed everything for me. I received dozens of great reactions and realized that this was something I truly wanted to pursue.",
@@ -111,7 +111,7 @@ window.I18N.en = {
   "formats.set6": "Foam party show",
   "formats.soundHead": "Sound",
   "formats.termsHead": "Booking terms",
-  "formats.term1": "Based in Nha Trang, Vietnam",
+  "formats.term1": "Currently in Nha Trang, Vietnam — available worldwide",
   "formats.term2": "Played across Greece, Vietnam, Thailand, Austria and the Czech Republic",
   "formats.term3": "Fee depends on the format, the city and the date — just ask",
   "formats.term4": "Technical rider on request",
@@ -122,7 +122,7 @@ window.I18N.en = {
   "formats.ask": "Ask about a date",
 
   "press.bioHead": "Short bio",
-  "press.bio": "AGENTBOY (Andrii Smoliar) is a DJ and producer from Kyiv, Ukraine, now based in Nha Trang, Vietnam. He plays progressive house, indie dance and melodic techno at 122–128 BPM, and has performed across Greece, Vietnam, Thailand, Austria and the Czech Republic — from clubs and beach bars to rooftops, open-air festivals and private villa and yacht parties. Founder of the Impera Casa event series, artist on Alveda Music.",
+  "press.bio": "AGENTBOY (Andrii Smoliar) is a DJ and producer from Kyiv, Ukraine, currently in Nha Trang, Vietnam and available worldwide. He plays progressive house, indie dance and melodic techno at 122–128 BPM, and has performed across Greece, Vietnam, Thailand, Austria and the Czech Republic — from clubs and beach bars to rooftops, open-air festivals and private villa and yacht parties. Founder of the Impera Casa event series, artist on Alveda Music.",
   "press.copy": "Copy",
   "press.packHead": "Press pack",
   "press.packText": "Photos, the Impera Casa logo and the bio in English and Russian, ready for a poster. ZIP, 2 MB.",
