@@ -104,6 +104,8 @@ window.I18N.ru = {
   "booking.line": "По вопросам выступлений, прессы и коллабораций:",
   "booking.email": "Почта",
 
+  "bookbar.book": "Забронировать",
+
   "footer.note": "Пресс-кит",
   "lang.soon": "скоро"
 };

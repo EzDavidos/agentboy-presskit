@@ -493,6 +493,15 @@
     <span class="footer__note" data-i18n="footer.note">Press kit</span>
   </footer>
 
+  <!-- ===================== STICKY BOOK BAR (phones) ===================== -->
+  <!-- on phones the nav CTA is buried in the burger panel, so between the hero
+       and the booking block there is no reachable way to book. JS hides the bar
+       while either of those two is on screen; without JS it simply stays. -->
+  <div class="bookbar">
+    <a class="bookbar__btn bookbar__btn--primary" href="#booking" data-i18n="bookbar.book">Book now</a>
+    <a class="bookbar__btn" href="https://wa.me/306946938249" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+
   <!-- ===================== LIGHTBOX ===================== -->
   <div class="lb" id="lb" hidden>
     <button class="lb__close" type="button" aria-label="Close">✕</button>

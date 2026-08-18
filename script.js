@@ -187,6 +187,26 @@ function initCarouselCounters() {
   });
 }
 
+/* ---------- sticky book bar: only between the hero and the booking block ---------- */
+function initBookBar() {
+  const bar = document.querySelector(".bookbar");
+  if (!bar || !("IntersectionObserver" in window)) return;
+
+  const zones = ["hero", "booking"].map((id) => document.getElementById(id)).filter(Boolean);
+  if (!zones.length) return;
+
+  // added from JS, never in the markup: without JS the bar just stays visible
+  bar.classList.add("bookbar--off");
+
+  const onScreen = new Set();
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => (en.isIntersecting ? onScreen.add(en.target) : onScreen.delete(en.target)));
+    bar.classList.toggle("bookbar--off", onScreen.size > 0);
+  }, { threshold: 0 });
+
+  zones.forEach((z) => io.observe(z));
+}
+
 /* ---------- reveal blocks as they scroll in ---------- */
 function initReveal() {
   const targets = document.querySelectorAll(
@@ -338,6 +358,7 @@ initBurger();
 initAbout();
 initLightbox();
 initCarouselCounters();
+initBookBar();
 initReveal();
 initChrome();
 setLang(initialLang());

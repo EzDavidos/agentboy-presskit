@@ -104,6 +104,8 @@ window.I18N.en = {
   "booking.line": "For bookings, press and collaborations:",
   "booking.email": "Email",
 
+  "bookbar.book": "Book now",
+
   "footer.note": "Press kit",
   "lang.soon": "soon"
 };

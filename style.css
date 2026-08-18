@@ -281,6 +281,24 @@ a { color: inherit; text-decoration: none; }
 .card__actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
 .card__actions .btn { flex: 1; text-align: center; padding-inline: 14px; }
 
+/* On a laptop the portrait card is ~1000px tall, so "Book now" fell below the
+   fold — the first screen showed a photo and nothing to act on. Going landscape
+   here halves the height. The DOM order already matches: the art takes column 1
+   across all rows, the five remaining children auto-place into column 2. */
+@media (min-width: 901px) {
+  .hcard { width: min(880px, 92vw); }
+  .card__frame {
+    display: grid;
+    grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+    column-gap: clamp(20px, 3vw, 34px);
+    align-items: start;
+  }
+  .card__art { grid-column: 1; grid-row: 1 / span 5; }
+  .card__plate { margin-top: 0; }
+  .card__specs { justify-content: flex-start; text-align: left; }
+  .card__actions { margin-top: 18px; }
+}
+
 /* ---------- MARQUEE (movement) ---------- */
 .marquee {
   overflow: hidden;
@@ -891,6 +909,10 @@ a { color: inherit; text-decoration: none; }
   font-size: 13px;
 }
 
+/* ---------- STICKY BOOK BAR (phones only) ---------- */
+/* below the nav (50) and the lightbox (100) on purpose */
+.bookbar { display: none; }
+
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 900px) {
   .about { grid-template-columns: 1fr; }
@@ -990,4 +1012,36 @@ a { color: inherit; text-decoration: none; }
   .lb__nav { width: 44px; height: 44px; }
   .lb__nav--prev { left: 8px; }
   .lb__nav--next { right: 8px; }
+
+  /* ---- the CTA that follows the page down ---- */
+  .bookbar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 40;
+    display: flex;
+    gap: 10px;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(12,12,15,.94);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+    transition: transform .25s ease;
+  }
+  .bookbar--off { transform: translateY(110%); }
+  .bookbar__btn {
+    flex: 1;
+    padding: 13px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+  }
+  .bookbar__btn--primary { background: var(--red); border-color: var(--red); color: #fff; }
+  /* the bar floats over the page — keep it off the last line of the footer */
+  .footer { padding-bottom: calc(28px + 64px + env(safe-area-inset-bottom)); }
 }
+
+@media (prefers-reduced-motion: reduce) { .bookbar { transition: none; } }
