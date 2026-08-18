@@ -165,25 +165,6 @@
     </div>
     <p class="section__sub" data-i18n="music.sub">Live sets, official videos and releases.</p>
 
-    <!-- latest release teaser, hosted locally, loads only on play -->
-    <div class="clip">
-      <!-- the native control is a ~30px target on a phone and looks nothing
-           like the YouTube cards below; JS swaps this overlay for playback -->
-      <div class="clip__player">
-        <video class="clip__video" controls playsinline preload="none"
-               poster="assets/video/darkness-poster.jpg">
-          <source src="assets/video/darkness-teaser.mp4" type="video/mp4" />
-        </video>
-        <button class="clip__play" type="button" data-i18n-attr="aria-label:music.play" aria-label="Play">▶</button>
-      </div>
-      <div class="clip__meta">
-        <span class="clip__badge" data-i18n="music.newRelease">Latest release</span>
-        <h3>DARKNESS <small>feat. XENA</small></h3>
-        <p class="clip__line">08.08.2026 · Alveda Music</p>
-        <a class="btn btn--ghost" href="https://open.spotify.com/artist/2LTT8rloXK8dqXhueuWkZp" target="_blank" rel="noopener" data-i18n="music.getTrack">Get the track</a>
-      </div>
-    </div>
-
     <div class="sub-head"><h3 data-i18n="music.setsHead">Live sets</h3></div>
     <div class="vgrid">
       <button class="vid" data-yt="l-ZyWArUfio" type="button">
@@ -262,6 +243,16 @@
 
     <div class="sub-head"><h3 data-i18n="music.relHead">Releases &amp; official videos</h3></div>
     <div class="vgrid">
+      <!-- hosted locally rather than on YouTube; the preview is the vertical
+           poster on a blurred fill so the card matches the 16:9 ones -->
+      <button class="vid" data-video="assets/video/darkness-teaser.mp4" type="button">
+        <span class="vid__thumb">
+          <img src="assets/img/yt/darkness.jpg" alt="" loading="lazy" width="640" height="360" />
+          <span class="vid__play" aria-hidden="true">▶</span>
+        </span>
+        <span class="vid__t">AGENTBOY — DARKNESS (feat. XENA)</span>
+        <span class="vid__g"><span data-i18n="music.newRelease">Latest release</span> · 08.08.2026 · Alveda Music</span>
+      </button>
       <button class="vid" data-yt="flRef4PTIHw" type="button">
         <span class="vid__thumb">
           <img src="assets/img/yt/flRef4PTIHw.jpg" alt="" loading="lazy" width="640" height="360" />
@@ -278,12 +269,14 @@
         <span class="vid__t">UNTRUTH — track presentation</span>
         <span class="vid__g">Ramada Plaza, Greece · 2024</span>
       </button>
-      <a class="vid vid--ext" href="https://www.beatport.com/artist/agentboy/1184864" target="_blank" rel="noopener">
-        <span class="vid__ph"><span class="vid__phIcon" aria-hidden="true">↗</span>Beatport</span>
-        <span class="vid__t" data-i18n="music.beatportT">All releases on Beatport</span>
-        <span class="vid__g" data-i18n="music.beatportG">Buy &amp; stream ↗</span>
-      </a>
     </div>
+
+    <!-- out of the grid on purpose: as a fourth tile it was stranded alone on a
+         second row, and it is a link rather than something to watch -->
+    <p class="vgrid__after">
+      <a class="btn btn--ghost" href="https://www.beatport.com/artist/agentboy/1184864"
+         target="_blank" rel="noopener" data-i18n="music.beatportT">All releases on Beatport ↗</a>
+    </p>
   </section>
 
   <!-- ===================== 02 · SHOWS ===================== -->
@@ -299,7 +292,7 @@
 
     <div class="countries">
       <article class="country">
-        <header><span class="country__flag">🇬🇷</span><h3 data-i18n="country.gr">Greece</h3></header>
+        <header><img class="country__flag" src="assets/img/flags/gr.svg" alt="" width="27" height="18" loading="lazy" /><h3 data-i18n="country.gr">Greece</h3></header>
         <p class="country__cities" data-i18n="cities.gr">Komotini · Xanthi · Thessaloniki · Athens · Mykonos · Santorini</p>
         <ul>
           <li>Marmelda Bar</li>
@@ -313,7 +306,7 @@
       </article>
 
       <article class="country">
-        <header><span class="country__flag">🇻🇳</span><h3 data-i18n="country.vn">Vietnam</h3></header>
+        <header><img class="country__flag" src="assets/img/flags/vn.svg" alt="" width="27" height="18" loading="lazy" /><h3 data-i18n="country.vn">Vietnam</h3></header>
         <p class="country__cities" data-i18n="cities.vn">Nha Trang · Da Nang</p>
         <ul>
           <li>NEXT LEVEL Club <em data-i18n="shows.multiple">— multiple performances</em></li>
@@ -329,7 +322,7 @@
       </article>
 
       <article class="country">
-        <header><span class="country__flag">🇹🇭</span><h3 data-i18n="country.th">Thailand</h3></header>
+        <header><img class="country__flag" src="assets/img/flags/th.svg" alt="" width="27" height="18" loading="lazy" /><h3 data-i18n="country.th">Thailand</h3></header>
         <p class="country__cities" data-i18n="cities.th">Phuket · Bangkok</p>
         <ul>
           <li>Shaman Club</li>
@@ -340,13 +333,13 @@
       </article>
 
       <article class="country">
-        <header><span class="country__flag">🇦🇹</span><h3 data-i18n="country.at">Austria</h3></header>
+        <header><img class="country__flag" src="assets/img/flags/at.svg" alt="" width="27" height="18" loading="lazy" /><h3 data-i18n="country.at">Austria</h3></header>
         <p class="country__cities" data-i18n="cities.at">Amstetten</p>
         <ul><li>K12 Club</li></ul>
       </article>
 
       <article class="country">
-        <header><span class="country__flag">🇨🇿</span><h3 data-i18n="country.cz">Czech Republic</h3></header>
+        <header><img class="country__flag" src="assets/img/flags/cz.svg" alt="" width="27" height="18" loading="lazy" /><h3 data-i18n="country.cz">Czech Republic</h3></header>
         <p class="country__cities" data-i18n="cities.cz">Prague</p>
         <ul>
           <li>Ankali</li>
@@ -380,23 +373,23 @@
       </article>
 
       <article class="fact">
+        <h3 data-i18n="formats.termsHead">Booking terms</h3>
+        <ul>
+          <li data-i18n="formats.term1">Currently in Nha Trang, Vietnam — available worldwide</li>
+          <li data-i18n="formats.term2">Played across Greece, Vietnam, Thailand, Austria and the Czech Republic</li>
+          <li data-i18n="formats.term3">Fee depends on the format, the city and the date — just ask</li>
+          <li data-i18n="formats.term4">Technical rider on request</li>
+          <li data-i18n="formats.term5">Fastest reply on WhatsApp or Telegram</li>
+        </ul>
+      </article>
+
+      <article class="fact">
         <h3 data-i18n="formats.soundHead">Sound</h3>
         <ul>
           <li>Progressive house</li>
           <li>Indie dance</li>
           <li>Melodic techno</li>
           <li><b>122–128</b> BPM</li>
-        </ul>
-      </article>
-
-      <article class="fact">
-        <h3 data-i18n="formats.termsHead">Booking terms</h3>
-        <ul>
-          <li data-i18n="formats.term1">Based in Nha Trang, Vietnam</li>
-          <li data-i18n="formats.term2">Has played across Greece, Vietnam, Thailand, Austria and the Czech Republic</li>
-          <li data-i18n="formats.term3">Fee depends on the format, the city and the date — just ask</li>
-          <li data-i18n="formats.term4">Technical rider on request</li>
-          <li data-i18n="formats.term5">Fastest reply on WhatsApp or Telegram</li>
         </ul>
       </article>
 

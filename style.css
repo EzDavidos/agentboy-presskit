@@ -517,85 +517,13 @@ a { color: inherit; text-decoration: none; }
   font-variant-numeric: tabular-nums;
 }
 .sub-head__count[hidden] { display: none; }
-
-/* ---------- MUSIC: local vertical clip ---------- */
-.clip {
-  display: grid;
-  grid-template-columns: minmax(0, 225px) 1fr;
-  gap: clamp(20px, 4vw, 40px);
-  align-items: center;
-  padding: clamp(18px, 3vw, 28px);
-  margin-bottom: 44px;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: linear-gradient(180deg, #16161b 0%, #0e0e11 100%);
-  /* the meta column needs ~550px; without a cap the card ran the full 988px
-     and the extra 320px stayed empty next to the text */
-  max-width: 700px;
-}
-/* the wrapper IS the video box, so the overlay centres on it without
-   anyone recomputing a height from the width */
-.clip__player { position: relative; }
-.clip__play {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  width: 62px; height: 62px;
-  display: grid;
-  place-items: center;
-  padding-left: 4px;                /* optical centring of the triangle */
-  border: 1px solid rgba(255,255,255,.25);
-  border-radius: 50%;
-  background: rgba(10,10,12,.6);
-  backdrop-filter: blur(4px);
-  color: #fff;
-  font-size: 22px;
-  cursor: pointer;
-  transition: background .2s, transform .15s;
-}
-.clip__play:hover { background: var(--red); transform: scale(1.05); }
-.clip__play[hidden] { display: none; }
-
-.clip__video {
-  display: block;            /* inline video leaves a baseline gap, which makes
-                                the wrapper taller than the frame and drops the
-                                play button a few px below centre */
-  width: 100%;
-  aspect-ratio: 9/16;
-  border-radius: 14px;
-  background: #000;
-  border: 1px solid var(--line);
-}
-.clip__badge {
-  display: inline-block;
-  margin-bottom: 12px;
-  padding: 5px 11px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,31,61,.4);
-  background: rgba(255,31,61,.1);
-  color: var(--red-soft);
-  font-size: 10.5px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-}
-.clip__meta h3 {
+/* the same counter next to a big section title needs its own size */
+.section__head .sub-head__count {
   font-family: "Oswald", sans-serif;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: clamp(26px, 4vw, 40px);
-  line-height: 1.1;
+  font-size: 15px;
 }
-.clip__meta h3 small {
-  display: block;
-  font-size: 14px;
-  letter-spacing: 3px;
-  color: var(--muted);
-  margin-top: 4px;
-}
-.clip__line { color: var(--red-soft) !important; font-size: 13px; letter-spacing: 1.5px; margin: 10px 0 12px !important; }
-.clip__meta p { color: var(--muted); margin-bottom: 20px; max-width: 46ch; }
 
 /* ---------- MUSIC: video grid (thumbs are local, player loads on click) ---------- */
 .vgrid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
@@ -644,38 +572,26 @@ a { color: inherit; text-decoration: none; }
 }
 .vid__t { display: block; margin-top: 12px; font-weight: 600; font-size: 14.5px; line-height: 1.35; }
 .vid__g { display: block; margin-top: 4px; font-size: 12px; color: var(--muted); letter-spacing: .4px; }
-.vid--ext { display: flex; flex-direction: column; }
-/* not a dashed empty box — it should read as a card, like the video tiles */
-.vid__ph {
-  display: grid;
-  place-items: center;
-  align-content: center;
-  gap: 12px;
-  aspect-ratio: 16/9;
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  background:
-    radial-gradient(90% 120% at 50% 0%, rgba(255,31,61,.14), transparent 62%),
-    linear-gradient(180deg, #1a1a1f 0%, #101013 100%);
-  font-family: "Oswald", sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: var(--text);
-  transition: border-color .2s, box-shadow .2s;
-}
-.vid__phIcon {
-  width: 52px; height: 52px;
-  display: grid; place-items: center;
-  border-radius: 50%;
-  background: rgba(255,31,61,.92);
-  color: #fff;
-  font-size: 20px;
-  box-shadow: var(--glow);
-}
-.vid--ext:hover .vid__ph { border-color: var(--red); box-shadow: 0 0 22px rgba(255,31,61,.18); }
+.vgrid__after { margin-top: 20px; }
 
 /* ---------- SHOWS: country cards ---------- */
-.countries { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); align-items: start; }
+/* one horizontal shelf, not a grid: the five lists run from seven entries to
+   one, so a grid either stretches the short cards into empty boxes or leaves a
+   ragged bottom edge. Uniform tiles on a shelf read as intentional. */
+.countries {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 310px;
+  gap: 18px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 2px;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.countries::-webkit-scrollbar { display: none; }
+.country { scroll-snap-align: start; }
 .country {
   padding: 22px;
   border: 1px solid var(--line);
@@ -683,7 +599,15 @@ a { color: inherit; text-decoration: none; }
   background: linear-gradient(180deg, #17171c 0%, #0f0f12 100%);
 }
 .country header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
-.country__flag { font-size: 22px; line-height: 1; }
+/* drawn, not emoji: Windows ships no flag glyphs, so the emoji fell back to
+   the two-letter country code ("GR", "VN") for every Windows visitor */
+.country__flag {
+  flex: none;
+  width: 27px;
+  height: 18px;
+  border-radius: 2px;
+  border: 1px solid rgba(255,255,255,.16);
+}
 .country h3 {
   font-family: "Oswald", sans-serif;
   font-weight: 600;
@@ -717,9 +641,11 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- FORMATS & BOOKING INFO ---------- */
 /* same card language as .country, minus the flag row */
-/* align-items:start — stretched cards left up to 290px of empty box under
-   the shorter lists, and the lists differ in length by design */
-.facts { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); align-items: start; }
+/* two columns, not four: at ~230px wide "Booking terms" wrapped to twice the
+   height of its neighbours. Wider columns wrap less, and the markup pairs the
+   two long lists on one row and the two short ones on the other, so the
+   stretched cards end up nearly the same height. */
+.facts { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
 .fact {
   padding: 22px;
   border: 1px solid var(--line);
@@ -898,7 +824,7 @@ a { color: inherit; text-decoration: none; }
 }
 .lb[hidden] { display: none; }
 .lb__stage { display: contents; }
-.lb__stage img, .lb--video .lb__stage iframe {
+.lb__stage img, .lb--video .lb__stage iframe, .lb--file .lb__stage video {
   animation: lbIn .22s cubic-bezier(.2,.7,.2,1);
 }
 @keyframes lbIn {
@@ -915,6 +841,10 @@ a { color: inherit; text-decoration: none; }
 }
 .lb--video .lb__stage { display: block; width: min(960px, 100%); }
 .lb--video iframe { width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 12px; }
+/* the locally hosted teaser is portrait — fit it to the viewport instead of
+   forcing it into the 16:9 box a YouTube embed needs */
+.lb--file .lb__stage { width: auto; }
+.lb--file video { display: block; max-width: 100%; max-height: 84svh; border-radius: 12px; }
 
 /* caption + position, sits under the image */
 .lb__bar {
@@ -954,7 +884,7 @@ a { color: inherit; text-decoration: none; }
 .lb__nav[hidden] { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .lb__stage img, .lb--video .lb__stage iframe { animation: none; }
+  .lb__stage img, .lb--video .lb__stage iframe, .lb--file .lb__stage video { animation: none; }
 }
 
 /* ---------- LANGUAGE SWITCHER ---------- */
@@ -1120,10 +1050,6 @@ a { color: inherit; text-decoration: none; }
 
   .about { grid-template-columns: 1fr; }
   .about__media { position: static; max-width: 340px; }
-  .clip { grid-template-columns: 1fr; }
-  .clip__player { max-width: 280px; margin: 0 auto; }
-  .clip__meta { text-align: center; }
-  .clip__meta p { margin-inline: auto; }
 }
 
 /* tablets: the portrait card plus the full hero padding pushed the CTA off a
@@ -1178,6 +1104,14 @@ a { color: inherit; text-decoration: none; }
   .vgrid::-webkit-scrollbar { display: none; }
   .vid { scroll-snap-align: start; }
   .vid__t { font-size: 13.5px; }
+
+  .countries {
+    grid-auto-columns: 82%;
+    gap: 12px;
+    margin-inline: -16px;
+    padding-inline: 16px;
+    scroll-padding-left: 16px;
+  }
 
   .shots, .gallery { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
   .label { flex-direction: column; text-align: center; }

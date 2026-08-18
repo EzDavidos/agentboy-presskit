@@ -175,11 +175,16 @@ function initBurger() {
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
 }
 
-/* ---------- swipeable video rows: "3 / 9" next to the heading ---------- */
+/* ---------- swipeable rows: "3 / 9" next to the heading ----------
+   The counter is placed as a sibling of the heading, never inside it:
+   translate() writes textContent on [data-i18n] and would wipe a child. */
 function initCarouselCounters() {
-  document.querySelectorAll(".vgrid").forEach((grid) => {
-    const head = grid.previousElementSibling;
-    if (!head || !head.classList.contains("sub-head")) return;
+  document.querySelectorAll(".vgrid, .countries").forEach((grid) => {
+    const prev = grid.previousElementSibling;
+    const head = prev && prev.classList.contains("sub-head")
+      ? prev
+      : grid.closest(".section")?.querySelector(".section__head");
+    if (!head) return;
 
     const cards = [...grid.children];
     const out = document.createElement("span");
@@ -187,7 +192,7 @@ function initCarouselCounters() {
     head.appendChild(out);
 
     const sync = () => {
-      // horizontal only: on the desktop grid every card shares the same offsetLeft row
+      // horizontal only: on a desktop grid every card shares the same offsetLeft row
       const scrollable = grid.scrollWidth - grid.clientWidth > 8;
       out.hidden = !scrollable;
       if (!scrollable) return;
@@ -225,19 +230,6 @@ function initCopy() {
   });
 }
 
-/* ---------- teaser: one big play target instead of the native control ---------- */
-function initClipPlay() {
-  document.querySelectorAll(".clip__player").forEach((wrap) => {
-    const video = wrap.querySelector("video");
-    const btn = wrap.querySelector(".clip__play");
-    if (!video || !btn) return;
-
-    btn.addEventListener("click", () => video.play());
-    video.addEventListener("play", () => (btn.hidden = true));
-    video.addEventListener("ended", () => (btn.hidden = false));
-  });
-}
-
 /* ---------- back to top ---------- */
 function initToTop() {
   const btn = document.querySelector(".totop");
@@ -272,7 +264,7 @@ function initBookBar() {
 /* ---------- reveal blocks as they scroll in ---------- */
 function initReveal() {
   const targets = document.querySelectorAll(
-    ".section__head, .about, .prose, .clip, .sub-head, .vgrid, .countries, .shots, .gallery, .label, .links, .contacts, .booking__line"
+    ".section__head, .about, .prose, .sub-head, .vgrid, .countries, .shots, .gallery, .label, .links, .contacts, .booking__line"
   );
   if (!("IntersectionObserver" in window)) return;
 
@@ -314,15 +306,29 @@ function initLightbox() {
   const openImages = (siblings, i) => {
     group = siblings;
     index = i;
-    lb.classList.remove("lb--video");
+    lb.classList.remove("lb--video", "lb--file");
     prevBtn.hidden = nextBtn.hidden = group.length < 2;
     showImage();
+    openLb();
+  };
+
+  const openFile = (src) => {
+    group = [];
+    lb.classList.add("lb--video", "lb--file");
+    prevBtn.hidden = nextBtn.hidden = true;
+    const v = document.createElement("video");
+    v.src = src;
+    v.controls = true;
+    v.autoplay = true;
+    v.playsInline = true;
+    stage.replaceChildren(v);
     openLb();
   };
 
   const openVideo = (id) => {
     group = [];
     lb.classList.add("lb--video");
+    lb.classList.remove("lb--file");
     prevBtn.hidden = nextBtn.hidden = true;
     const frame = document.createElement("iframe");
     frame.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0`;
@@ -376,6 +382,11 @@ function initLightbox() {
     el.addEventListener("click", () => openVideo(el.dataset.yt))
   );
 
+  // locally hosted clips
+  document.querySelectorAll("[data-video]").forEach((el) =>
+    el.addEventListener("click", () => openFile(el.dataset.video))
+  );
+
   lb.querySelector(".lb__close").addEventListener("click", closeLb);
   prevBtn.addEventListener("click", (e) => { e.stopPropagation(); step(-1); });
   nextBtn.addEventListener("click", (e) => { e.stopPropagation(); step(1); });
@@ -422,7 +433,6 @@ initLightbox();
 initCarouselCounters();
 initBookBar();
 initCopy();
-initClipPlay();
 initToTop();
 initReveal();
 initChrome();
