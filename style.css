@@ -351,9 +351,9 @@ a { color: inherit; text-decoration: none; }
 .links {
   display: grid;
   gap: 14px;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  max-width: 860px;
-  margin: 0 auto;
+  /* no max-width + auto margins: centring this block alone left it inset 64px
+     from the left edge every other section starts at */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 .link {
   display: flex;
@@ -416,7 +416,8 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- SECTIONS ---------- */
 .section {
-  padding: clamp(56px, 10vh, 110px) clamp(16px, 5vw, 56px);
+  /* 10vh left ~200px of dead space between blocks on a laptop */
+  padding: clamp(56px, 7vh, 88px) clamp(16px, 5vw, 56px);
   max-width: 1100px;
   margin: 0 auto;
 }
@@ -520,7 +521,7 @@ a { color: inherit; text-decoration: none; }
 /* ---------- MUSIC: local vertical clip ---------- */
 .clip {
   display: grid;
-  grid-template-columns: minmax(0, 260px) 1fr;
+  grid-template-columns: minmax(0, 225px) 1fr;
   gap: clamp(20px, 4vw, 40px);
   align-items: center;
   padding: clamp(18px, 3vw, 28px);
@@ -528,6 +529,9 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid var(--line);
   border-radius: 18px;
   background: linear-gradient(180deg, #16161b 0%, #0e0e11 100%);
+  /* the meta column needs ~550px; without a cap the card ran the full 988px
+     and the extra 320px stayed empty next to the text */
+  max-width: 700px;
 }
 /* the wrapper IS the video box, so the overlay centres on it without
    anyone recomputing a height from the width */
@@ -671,7 +675,7 @@ a { color: inherit; text-decoration: none; }
 .vid--ext:hover .vid__ph { border-color: var(--red); box-shadow: 0 0 22px rgba(255,31,61,.18); }
 
 /* ---------- SHOWS: country cards ---------- */
-.countries { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.countries { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); align-items: start; }
 .country {
   padding: 22px;
   border: 1px solid var(--line);
@@ -713,7 +717,9 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- FORMATS & BOOKING INFO ---------- */
 /* same card language as .country, minus the flag row */
-.facts { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); }
+/* align-items:start — stretched cards left up to 290px of empty box under
+   the shorter lists, and the lists differ in length by design */
+.facts { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); align-items: start; }
 .fact {
   padding: 22px;
   border: 1px solid var(--line);
@@ -750,6 +756,7 @@ a { color: inherit; text-decoration: none; }
   display: grid;
   gap: 18px;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  align-items: start;
   margin-top: 18px;
 }
 .press__col {
@@ -771,7 +778,7 @@ a { color: inherit; text-decoration: none; }
 }
 .press__bio { font-size: 14px; color: var(--text); }
 .press__note { font-size: 14px; color: var(--muted); }
-.press__col .btn { margin-top: auto; }
+.press__col .btn { margin-top: 4px; }
 /* confirmation as a pseudo-element: translate() owns textContent and would
    wipe any label we wrote into it */
 .press__copy.is-copied::after { content: " ✓"; color: var(--red-soft); }
@@ -791,7 +798,8 @@ a { color: inherit; text-decoration: none; }
 .shot:hover { border-color: var(--red); transform: translateY(-2px); }
 
 /* ---------- EVENT POSTERS ---------- */
-.gallery { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+/* 180px, not 190px: five posters then fit one row at the 988px content width */
+.gallery { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
 .poster {
   cursor: zoom-in;
   position: relative;
@@ -1047,15 +1055,6 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 900px) {
-  .about { grid-template-columns: 1fr; }
-  .about__media { position: static; max-width: 340px; }
-  .clip { grid-template-columns: 1fr; }
-  .clip__player { max-width: 280px; margin: 0 auto; }
-  .clip__meta { text-align: center; }
-  .clip__meta p { margin-inline: auto; }
-}
-
-@media (max-width: 680px) {
   /* ---- nav collapses into a burger panel ---- */
   .nav { padding-block: 12px; }
   .nav__burger { display: grid; }
@@ -1087,6 +1086,54 @@ a { color: inherit; text-decoration: none; }
     background: var(--red);
   }
 
+  /* ---- the CTA that follows the page down ---- */
+  .bookbar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 40;
+    display: flex;
+    gap: 10px;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(12,12,15,.94);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+    transition: transform .25s ease;
+  }
+  .bookbar--off { transform: translateY(110%); }
+  .bookbar__btn {
+    flex: 1;
+    padding: 13px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+  }
+  .bookbar__btn--primary { background: var(--red); border-color: var(--red); color: #fff; }
+  /* sit above the bar, not on it */
+  .totop { bottom: calc(78px + env(safe-area-inset-bottom)); width: 42px; height: 42px; }
+  /* the bar floats over the page — keep it off the last line of the footer */
+  .footer { padding-bottom: calc(28px + 64px + env(safe-area-inset-bottom)); }
+
+  .about { grid-template-columns: 1fr; }
+  .about__media { position: static; max-width: 340px; }
+  .clip { grid-template-columns: 1fr; }
+  .clip__player { max-width: 280px; margin: 0 auto; }
+  .clip__meta { text-align: center; }
+  .clip__meta p { margin-inline: auto; }
+}
+
+/* tablets: the portrait card plus the full hero padding pushed the CTA off a
+   1024px-tall screen, and the phone rules below only start at 680px */
+@media (min-width: 681px) and (max-width: 900px) {
+  .hero { padding-top: 100px; }
+  .card__art { aspect-ratio: 1/1; }
+}
+
+@media (max-width: 680px) {
   /* ---- shorter sections: 10vh top+bottom left ~170px of dead space between blocks ---- */
   .section { padding-block: 46px; }
   .section--links { padding-top: 34px; }
@@ -1144,38 +1191,6 @@ a { color: inherit; text-decoration: none; }
   .lb__nav { width: 44px; height: 44px; }
   .lb__nav--prev { left: 8px; }
   .lb__nav--next { right: 8px; }
-
-  /* ---- the CTA that follows the page down ---- */
-  .bookbar {
-    position: fixed;
-    left: 0; right: 0; bottom: 0;
-    z-index: 40;
-    display: flex;
-    gap: 10px;
-    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
-    background: rgba(12,12,15,.94);
-    backdrop-filter: blur(12px);
-    border-top: 1px solid var(--line);
-    transition: transform .25s ease;
-  }
-  .bookbar--off { transform: translateY(110%); }
-  .bookbar__btn {
-    flex: 1;
-    padding: 13px 10px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    color: var(--text);
-    font-size: 13px;
-    font-weight: 600;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-  }
-  .bookbar__btn--primary { background: var(--red); border-color: var(--red); color: #fff; }
-  /* sit above the bar, not on it */
-  .totop { bottom: calc(78px + env(safe-area-inset-bottom)); width: 42px; height: 42px; }
-  /* the bar floats over the page — keep it off the last line of the footer */
-  .footer { padding-bottom: calc(28px + 64px + env(safe-area-inset-bottom)); }
 }
 
 @media (prefers-reduced-motion: reduce) { .bookbar { transition: none; } }
