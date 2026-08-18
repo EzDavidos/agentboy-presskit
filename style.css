@@ -703,6 +703,36 @@ a { color: inherit; text-decoration: none; }
 .fact li b { font-family: "Oswald", sans-serif; letter-spacing: .5px; }
 .facts__cta { margin-top: 26px; text-align: center; }
 
+.press {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin-top: 18px;
+}
+.press__col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 22px;
+  border: 1px dashed var(--line);
+  border-radius: 16px;
+}
+.press__col h3 {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 17px;
+  color: var(--red-soft);
+}
+.press__bio { font-size: 14px; color: var(--text); }
+.press__note { font-size: 14px; color: var(--muted); }
+.press__col .btn { margin-top: auto; }
+/* confirmation as a pseudo-element: translate() owns textContent and would
+   wipe any label we wrote into it */
+.press__copy.is-copied::after { content: " ✓"; color: var(--red-soft); }
+
 /* ---------- GALLERY (photos) ---------- */
 .shots { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
 .shot {

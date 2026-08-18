@@ -115,6 +115,13 @@ window.I18N.en = {
   "formats.also2": "Event production with Impera Casa",
   "formats.ask": "Ask about a date",
 
+  "press.bioHead": "Short bio",
+  "press.bio": "AGENTBOY (Andrii Smoliar) is a DJ and producer from Kyiv, Ukraine, now based in Nha Trang, Vietnam. He plays progressive house, indie dance and melodic techno at 122–128 BPM, and has performed across Greece, Vietnam, Thailand, Austria and the Czech Republic — from clubs and beach bars to rooftops, open-air festivals and private villa and yacht parties. Founder of the Impera Casa event series, artist on Alveda Music.",
+  "press.copy": "Copy",
+  "press.packHead": "Press pack",
+  "press.packText": "Photos, the Impera Casa logo and the bio in English and Russian, ready for a poster. ZIP, 2 MB.",
+  "press.download": "Download",
+
   "gallery.title": "Gallery",
 
   "events.title": "Past events",

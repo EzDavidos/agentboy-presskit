@@ -187,6 +187,31 @@ function initCarouselCounters() {
   });
 }
 
+/* ---------- copy-to-clipboard buttons (data-copy="<target id>") ---------- */
+function initCopy() {
+  document.querySelectorAll("[data-copy]").forEach((btn) => {
+    const src = document.getElementById(btn.dataset.copy);
+    if (!src) return;
+
+    btn.addEventListener("click", async () => {
+      const text = src.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (e) {
+        // insecure origin or denied — select the text so ctrl+C still works
+        const range = document.createRange();
+        range.selectNodeContents(src);
+        const sel = getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        return;
+      }
+      btn.classList.add("is-copied");
+      setTimeout(() => btn.classList.remove("is-copied"), 1600);
+    });
+  });
+}
+
 /* ---------- sticky book bar: only between the hero and the booking block ---------- */
 function initBookBar() {
   const bar = document.querySelector(".bookbar");
@@ -359,6 +384,7 @@ initAbout();
 initLightbox();
 initCarouselCounters();
 initBookBar();
+initCopy();
 initReveal();
 initChrome();
 setLang(initialLang());
