@@ -26,7 +26,7 @@ window.I18N.en = {
   "genre.indie": "indie dance",
   "genre.melodic": "melodic techno",
 
-  "marquee": "AGENTBOY ✦ ASIA LOCATION ✦ DREAMS COME TRUE ✦ PROGRESSIVE HOUSE ✦ MELODIC TECHNO ✦ BOOK NOW ✦ ",
+  "marquee": "AGENTBOY ✦ ASIA-BASED ✦ DREAMS COME TRUE ✦ PROGRESSIVE HOUSE ✦ MELODIC TECHNO ✦ BOOK NOW ✦ ",
 
   "link.sets": "sets & videos",
   "link.stream": "stream",
@@ -35,7 +35,7 @@ window.I18N.en = {
 
   "about.title": "About",
   "about.caption": "Andrii Smoliar · AGENTBOY",
-  "about.lead": "AGENTBOY is a DJ and producer moving between warm progressive house, indie dance and melodic techno. For now in Nha Trang.",
+  "about.lead": "DJ and producer from Kyiv. Started behind the decks in Greece in 2022, now plays across Southeast Asia. For now in Nha Trang.",
   "about.p1": "Hi, I'm AGENTBOY, my real name is Andrii Smoliar, and I'm originally from Kyiv, Ukraine. I grew up playing sports and never imagined that one day I would find myself in music and DJing.",
   "about.p2": "My journey started when I was 18. I went to a club with my friends and was fascinated by the way the DJ could control the energy of the crowd through music. I stood next to the DJ booth, watching everything he did, and after the party I kept thinking about it. Still, I told myself that becoming a DJ was unrealistic, so I continued simply going to parties and enjoying the music.",
   "about.p3": "One day, while hanging out with friends at a bar, one of them told me: “Andrii, you should give it a try. If you don't do it now, you may never get the chance.” He invited me behind the decks, and we played together. Seeing people enjoy the music and feeling that connection with the crowd completely changed everything for me. I received dozens of great reactions and realized that this was something I truly wanted to pursue.",
@@ -56,11 +56,16 @@ window.I18N.en = {
   "approach.p5": "I'm an open and approachable person, and I always try to connect with the crowd during my performances. I talk to guests, react to their energy, and I'm not afraid to become part of the party myself.",
   "approach.p6": "It's not enough for me to simply play a good set. I want every person to leave feeling that they were part of something special.",
 
+  "approach.point1": "I read the floor while I play — eyes, movement, reaction — and change the energy to match.",
+  "approach.point2": "I get the table crowd dancing, not just the people already on the floor.",
+  "approach.point3": "I invite guests behind the booth and show them how the rhythm works.",
+  "approach.more": "Read the full text",
+  "approach.less": "Collapse",
+
   "music.title": "Music",
   "music.sub": "Live sets, official videos and releases.",
   "music.newRelease": "Latest release",
-  "music.clipText": "Official teaser for the latest single, out now on Alveda Music.",
-  "music.getTrack": "Get the track",
+  "music.getTrack": "Listen on Spotify",
   "music.setsHead": "Live sets",
   "music.relHead": "Releases & official videos",
   "music.opening": "Beach bar opening",
@@ -71,7 +76,6 @@ window.I18N.en = {
 
   "shows.title": "Shows & venues",
   "shows.p1": "I have experience performing in a wide range of settings and atmospheres — from clubs and beach bars to festivals and rooftop events. I've also played poolside foam parties, private villa events, and exclusive closed-door parties, adapting my music, energy and interaction with the crowd to fit each environment.",
-  "shows.p2": "For me, every venue has its own character, and I enjoy creating the right atmosphere wherever I play.",
   "shows.opening": "— opening performance",
   "shows.multiple": "— multiple performances",
   "shows.foam": "— Foam Party Show",
@@ -81,7 +85,7 @@ window.I18N.en = {
   "shows.grPrivate": "Private villa parties in Santorini, yacht & villa parties in Mykonos",
   "shows.vnPrivate": "Private villa and yacht parties",
   "shows.thPrivate": "Private villa and yacht parties",
-  "shows.impera": "Founder of IMPERA CASA — events and community built in Nha Trang.",
+  "shows.impera": "Founder of IMPERA CASA, Nha Trang.",
 
   "country.gr": "Greece",
   "country.vn": "Vietnam",

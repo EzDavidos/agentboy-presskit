@@ -126,8 +126,8 @@
   <!-- ===================== MARQUEE ===================== -->
   <div class="marquee" aria-hidden="true">
     <div class="marquee__track">
-      <span data-i18n="marquee">AGENTBOY ✦ ASIA LOCATION ✦ DREAMS COME TRUE ✦ PROGRESSIVE HOUSE ✦ MELODIC TECHNO ✦ BOOK NOW ✦&nbsp;</span>
-      <span data-i18n="marquee">AGENTBOY ✦ ASIA LOCATION ✦ DREAMS COME TRUE ✦ PROGRESSIVE HOUSE ✦ MELODIC TECHNO ✦ BOOK NOW ✦&nbsp;</span>
+      <span data-i18n="marquee">AGENTBOY ✦ ASIA-BASED ✦ DREAMS COME TRUE ✦ PROGRESSIVE HOUSE ✦ MELODIC TECHNO ✦ BOOK NOW ✦&nbsp;</span>
+      <span data-i18n="marquee">AGENTBOY ✦ ASIA-BASED ✦ DREAMS COME TRUE ✦ PROGRESSIVE HOUSE ✦ MELODIC TECHNO ✦ BOOK NOW ✦&nbsp;</span>
     </div>
   </div>
 
@@ -174,7 +174,6 @@
         <span class="clip__badge" data-i18n="music.newRelease">Latest release</span>
         <h3>DARKNESS <small>feat. XENA</small></h3>
         <p class="clip__line">08.08.2026 · Alveda Music</p>
-        <p data-i18n="music.clipText">Official teaser for the latest single, out now on Alveda Music.</p>
         <a class="btn btn--ghost" href="https://open.spotify.com/artist/2LTT8rloXK8dqXhueuWkZp" target="_blank" rel="noopener" data-i18n="music.getTrack">Get the track</a>
       </div>
     </div>
@@ -290,7 +289,6 @@
 
     <div class="prose prose--tight">
       <p data-i18n="shows.p1">I have experience performing in a wide range of settings and atmospheres — from clubs and beach bars to festivals and rooftop events. I've also played poolside foam parties, private villa events, and exclusive closed-door parties, adapting my music, energy and interaction with the crowd to fit each environment.</p>
-      <p data-i18n="shows.p2">For me, every venue has its own character, and I enjoy creating the right atmosphere wherever I play.</p>
     </div>
 
     <div class="countries">
@@ -510,7 +508,7 @@
         <p data-i18n="about.p1">Hi, I'm AGENTBOY, my real name is Andrii Smoliar, and I'm originally from Kyiv, Ukraine. I grew up playing sports and never imagined that one day I would find myself in music and DJing.</p>
         <p data-i18n="about.p2">My journey started when I was 18. I went to a club with my friends and was fascinated by the way the DJ could control the energy of the crowd through music. I stood next to the DJ booth, watching everything he did, and after the party I kept thinking about it. Still, I told myself that becoming a DJ was unrealistic, so I continued simply going to parties and enjoying the music.</p>
 
-        <div class="about__more" hidden>
+        <div class="about__more" id="about-more" hidden>
           <p data-i18n="about.p3">One day, while hanging out with friends at a bar, one of them told me: “Andrii, you should give it a try. If you don't do it now, you may never get the chance.” He invited me behind the decks, and we played together. Seeing people enjoy the music and feeling that connection with the crowd completely changed everything for me. I received dozens of great reactions and realized that this was something I truly wanted to pursue.</p>
           <p data-i18n="about.p4">In 2022, I moved to Greece with my wife and bought my first DJ controller — the Pioneer DDJ-400. From that moment, I spent days and nights practicing, experimenting, and searching for my own sound. I also started learning music production in Ableton Live 11.</p>
           <p data-i18n="about.p5">The journey was not easy. I visited clubs and bars across Greece, watched different parties, studied the scene, and dreamed of getting my chance to play. Eventually, I was invited to perform at Marmelda in Komotini, Greece.</p>
@@ -520,7 +518,8 @@
           <p data-i18n="about.p9">Today, my sound is shaped by progressive house, indie dance and melodic techno — music focused on atmosphere, emotion, energy, and creating a strong connection with the crowd.</p>
         </div>
 
-        <button class="btn btn--ghost about__toggle" type="button" data-i18n="about.more">Read the full story</button>
+        <button class="btn btn--ghost about__toggle" type="button"
+                data-more="about-more" data-more-key="about" data-i18n="about.more">Read the full story</button>
       </div>
     </div>
   </section>
@@ -532,14 +531,26 @@
       <h2 class="section__title" data-i18n="approach.title">What sets me apart</h2>
     </div>
 
-    <div class="prose">
+    <!-- the three concrete things first: five paragraphs about reading the
+         floor is what every DJ bio says, and nobody scrolling reads it -->
+    <ul class="points">
+      <li data-i18n="approach.point1">I read the floor while I play — eyes, movement, reaction — and change the energy to match.</li>
+      <li data-i18n="approach.point2">I get the table crowd dancing, not just the people already on the floor.</li>
+      <li data-i18n="approach.point3">I invite guests behind the booth and show them how the rhythm works.</li>
+    </ul>
+
+    <p class="prose__pull" data-i18n="approach.p6">It's not enough for me to simply play a good set. I want every person to leave feeling that they were part of something special.</p>
+
+    <div class="prose approach__more" id="approach-more" hidden>
       <p data-i18n="approach.p1">My biggest strength is my ability to feel the crowd and read the energy of the dance floor. During my performances, I don't just focus on the music — I watch the people, their eyes, their movements, and their reactions. This allows me to understand what the crowd needs and create the right energy at the right moment.</p>
       <p data-i18n="approach.p2">I love turning even the most relaxed guests into part of the show. Someone might be sitting at a table, but little by little the music makes them move — first their foot, then their head, and before they know it they are dancing with everyone else.</p>
       <p data-i18n="approach.p3">If someone doesn't know how to move to electronic music, I'm happy to invite them behind the DJ booth and show them the rhythm, explain how the music works, and help them feel the beat from the inside.</p>
       <p data-i18n="approach.p4">For me, a DJ is not just someone standing behind the decks. A DJ is someone who creates emotions, connects people, and brings them together through music.</p>
       <p data-i18n="approach.p5">I'm an open and approachable person, and I always try to connect with the crowd during my performances. I talk to guests, react to their energy, and I'm not afraid to become part of the party myself.</p>
-      <p class="prose__pull" data-i18n="approach.p6">It's not enough for me to simply play a good set. I want every person to leave feeling that they were part of something special.</p>
     </div>
+
+    <button class="btn btn--ghost approach__toggle" type="button"
+            data-more="approach-more" data-more-key="approach" data-i18n="approach.more">Read the full text</button>
   </section>
 
   <!-- ===================== 08 · BOOKING ===================== -->

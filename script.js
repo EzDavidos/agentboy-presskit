@@ -63,7 +63,7 @@ function translate(code) {
     b.setAttribute("aria-current", b.dataset.lang === code ? "true" : "false");
   });
 
-  syncAboutToggle();
+  syncMoreToggles();
 }
 
 function setLang(code) {
@@ -119,24 +119,30 @@ function buildLangMenu() {
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
 }
 
-/* ---------- about: expand the full story ---------- */
-function syncAboutToggle() {
-  const btn = document.querySelector(".about__toggle");
-  const more = document.querySelector(".about__more");
-  if (!btn || !more) return;
-  const dict = window.I18N[document.documentElement.lang] || {};
-  const key = more.hidden ? "about.more" : "about.less";
-  btn.dataset.i18n = key;
-  if (dict[key]) btn.textContent = dict[key];
+/* ---------- expandable text blocks (About, What sets me apart) ----------
+   A toggle points at its block with data-more="<id>" and names the i18n key
+   pair with data-more-key="<prefix>" -> <prefix>.more / <prefix>.less. */
+function moreToggles() {
+  return [...document.querySelectorAll("[data-more]")]
+    .map((btn) => ({ btn, body: document.getElementById(btn.dataset.more), prefix: btn.dataset.moreKey }))
+    .filter((t) => t.body && t.prefix);
 }
 
-function initAbout() {
-  const btn = document.querySelector(".about__toggle");
-  const more = document.querySelector(".about__more");
-  if (!btn || !more) return;
-  btn.addEventListener("click", () => {
-    more.hidden = !more.hidden;
-    syncAboutToggle();
+function syncMoreToggles() {
+  const dict = window.I18N[document.documentElement.lang] || {};
+  moreToggles().forEach(({ btn, body, prefix }) => {
+    const key = `${prefix}.${body.hidden ? "more" : "less"}`;
+    btn.dataset.i18n = key;
+    if (dict[key]) btn.textContent = dict[key];
+  });
+}
+
+function initMore() {
+  moreToggles().forEach(({ btn, body }) => {
+    btn.addEventListener("click", () => {
+      body.hidden = !body.hidden;
+      syncMoreToggles();
+    });
   });
 }
 
@@ -380,7 +386,7 @@ function initChrome() {
 
 buildLangMenu();
 initBurger();
-initAbout();
+initMore();
 initLightbox();
 initCarouselCounters();
 initBookBar();
