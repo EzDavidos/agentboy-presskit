@@ -1,0 +1,1443 @@
+/* ============================================================
+   AGENTBOY — DJ press kit (DEMO)
+   Dark club / techno style. Black base, red-neon accents.
+   ============================================================ */
+
+:root {
+  --bg:        #0a0a0c;
+  --bg-2:      #111114;
+  --surface:   #16161a;
+  --line:      #2a2a31;
+  --text:      #f4f4f6;
+  --muted:     #9a9aa5;
+  --red:       #ff1f3d;
+  --red-soft:  #ff445e;
+  --glow:      0 0 24px rgba(255, 31, 61, .45);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;   /* anchors must clear the fixed nav */
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* keyboard focus stays visible everywhere */
+:focus-visible { outline: 2px solid var(--red-soft); outline-offset: 3px; border-radius: 4px; }
+
+/* scroll reveal — class is added by JS, so without JS everything is simply visible */
+.reveal { opacity: 0; transform: translateY(12px); }
+.reveal.is-in { opacity: 1; transform: none; transition: opacity .25s ease, transform .25s ease; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+  .reveal.is-in { transition: none; }
+}
+/* printing / save-as-PDF never scrolls, so un-hide everything */
+@media print {
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", system-ui, sans-serif;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* height:auto keeps the width/height attributes as CLS hints only — without it
+   they win over aspect-ratio and squash the image. */
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+
+/* ---------- LIQUID LIGHT (slow red light flowing on black) ---------- */
+.liquid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;             /* behind content, above body background */
+  pointer-events: none;
+  overflow: hidden;
+}
+.liquid__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  mix-blend-mode: screen;     /* light adds onto black, reads as glow */
+  will-change: transform;
+}
+.liquid__blob--a {
+  width: 62vmax; height: 62vmax;
+  background: radial-gradient(circle, rgba(255,31,61,.42), transparent 68%);
+  animation: flowA 38s ease-in-out infinite;
+}
+.liquid__blob--b {
+  width: 50vmax; height: 50vmax;
+  background: radial-gradient(circle, rgba(180,18,38,.40), transparent 68%);
+  animation: flowB 46s ease-in-out infinite;
+}
+.liquid__blob--c {
+  width: 38vmax; height: 38vmax;
+  background: radial-gradient(circle, rgba(255,70,94,.30), transparent 66%);
+  animation: flowC 30s ease-in-out infinite;
+}
+/* each blob drifts edge-to-edge on its own slow loop -> liquid feel */
+@keyframes flowA {
+  0%   { transform: translate(-30vw, -20vh) scale(1); }
+  50%  { transform: translate(40vw, 30vh) scale(1.25); }
+  100% { transform: translate(-30vw, -20vh) scale(1); }
+}
+@keyframes flowB {
+  0%   { transform: translate(70vw, 60vh) scale(1.1); }
+  50%  { transform: translate(-10vw, -10vh) scale(.85); }
+  100% { transform: translate(70vw, 60vh) scale(1.1); }
+}
+@keyframes flowC {
+  0%   { transform: translate(10vw, 80vh) scale(.9); }
+  50%  { transform: translate(80vw, -5vh) scale(1.2); }
+  100% { transform: translate(10vw, 80vh) scale(.9); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .liquid__blob { animation: none; }
+}
+
+/* keep real content above the light */
+.nav, .hero, .section, .footer, .marquee { position: relative; z-index: 1; }
+
+/* ---------- NAV ---------- */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px clamp(16px, 5vw, 56px);
+  background: linear-gradient(180deg, rgba(10,10,12,.92), rgba(10,10,12,0));
+  backdrop-filter: blur(6px);
+  transition: background .25s;
+}
+/* solid backing once the hero is scrolled past */
+.nav--solid { background: rgba(10,10,12,.92); border-bottom: 1px solid var(--line); }
+.nav__logo {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 22px;
+}
+.nav__logo span { color: var(--red); }
+/* margin-left:auto keeps the links and the language button as one right-hand
+   cluster instead of space-between stranding them at opposite edges */
+.nav__menu {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 2vw, 28px);
+  margin-left: auto;
+}
+.nav__side { display: flex; align-items: center; gap: 10px; margin-left: clamp(12px, 2vw, 28px); }
+.nav__menu a {
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color .2s;
+}
+.nav__menu a:hover { color: var(--text); }
+
+/* burger — phones only */
+.nav__burger {
+  display: none;
+  width: 42px; height: 42px;
+  padding: 11px 9px;
+  gap: 5px;
+  align-content: space-between;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  cursor: pointer;
+}
+.nav__burger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  border-radius: 2px;
+  background: var(--text);
+  transition: transform .2s, opacity .2s;
+}
+.nav--open .nav__burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav--open .nav__burger span:nth-child(2) { opacity: 0; }
+.nav--open .nav__burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav__cta {
+  color: var(--text) !important;
+  border: 1px solid var(--red);
+  padding: 8px 16px;
+  border-radius: 999px;
+}
+.nav__cta:hover { background: var(--red); box-shadow: var(--glow); }
+
+/* ---------- HERO (character card) ---------- */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(96px, 15vh, 150px) 16px clamp(44px, 9vh, 80px);
+}
+
+/* the card: raised metallic rim around an inset face = convex edge */
+.hcard {
+  width: min(440px, 92vw);
+  padding: 4px;
+  border-radius: 24px;
+  background: linear-gradient(150deg, #4d4d55 0%, #17171b 38%, #0a0a0c 70%, #2c2c34 100%);
+  box-shadow:
+    0 0 0 1px #000,
+    0 40px 80px rgba(0,0,0,.7),
+    0 0 70px rgba(255,31,61,.20);
+}
+
+.card__frame {
+  position: relative;
+  border-radius: 21px;
+  padding: clamp(16px, 4vw, 22px);
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(255,31,61,.15), transparent 55%),
+    linear-gradient(165deg, #16161b 0%, #0c0c0e 100%);
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,.07),
+    inset -2px -3px 10px rgba(0,0,0,.75);
+  overflow: hidden;
+}
+
+/* card art / portrait */
+.card__art {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  border: 1px solid var(--line);
+}
+.card__art img { width: 100%; height: 100%; object-fit: cover; object-position: center 26%; }
+.card__rarity, .card__loc {
+  position: absolute; top: 10px;
+  font-size: 10.5px; font-weight: 700; letter-spacing: 1.5px;
+  padding: 5px 9px; border-radius: 999px;
+  background: rgba(10,10,12,.72);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,.12);
+}
+.card__rarity { left: 10px; color: var(--red-soft); }
+.card__loc { right: 10px; color: var(--text); }
+
+/* name plate */
+.card__plate { margin: 16px 0 4px; }
+.card__role { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); }
+.card__name {
+  position: relative;
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: clamp(40px, 12vw, 58px);
+  line-height: .95;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.card__name span { color: var(--red); }
+.card__tagline {
+  margin-top: 6px;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--red-soft);
+}
+
+/* titles / roles — chips right under the name plate */
+.roles { list-style: none; display: flex; flex-wrap: wrap; gap: 7px; margin: 13px 0 4px; }
+.roles li {
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+  color: var(--red-soft);
+  border: 1px solid rgba(255,31,61,.35);
+  background: rgba(255,31,61,.07);
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+/* spec strip */
+.card__specs {
+  display: flex; justify-content: center; gap: 10px;
+  padding: 12px 0; margin: 6px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+.card__specs b { display: block; font-family: "Oswald", sans-serif; font-size: 22px; letter-spacing: 1px; color: var(--text); }
+.card__specs small { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+
+.card__actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+.card__actions .btn { flex: 1; text-align: center; padding-inline: 14px; }
+
+/* On a laptop the portrait card is ~1000px tall, so "Book now" fell below the
+   fold — the first screen showed a photo and nothing to act on. Going landscape
+   here halves the height. The DOM order already matches: the art takes column 1
+   across all rows, the five remaining children auto-place into column 2. */
+@media (min-width: 901px) {
+  .hcard { width: min(880px, 92vw); }
+  .card__frame {
+    display: grid;
+    grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+    column-gap: clamp(20px, 3vw, 34px);
+    align-items: start;
+  }
+  .card__art { grid-column: 1; grid-row: 1 / span 5; }
+  .card__plate { margin-top: 0; }
+  .card__specs { justify-content: flex-start; text-align: left; }
+  .card__actions { margin-top: 18px; }
+}
+
+/* ---------- MARQUEE (movement) ---------- */
+.marquee {
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: rgba(255,31,61,.04);
+  padding: 12px 0;
+}
+.marquee__track { display: flex; width: max-content; animation: marquee 24s linear infinite; }
+.marquee__track span {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600; text-transform: uppercase; letter-spacing: 3px;
+  font-size: clamp(14px, 2.4vw, 20px);
+  color: var(--muted); white-space: nowrap;
+}
+@keyframes marquee { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }
+
+.genres {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 6px 0 2px;
+}
+.genres li {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text);
+  border: 1px solid var(--line);
+  background: rgba(22,22,26,.6);
+  padding: 6px 11px;
+  border-radius: 999px;
+}
+
+.hero__scroll {
+  position: absolute;
+  z-index: 2;
+  right: clamp(16px, 5vw, 56px);
+  bottom: 28px;
+  color: var(--muted);
+  font-size: 14px;
+  animation: bob 1.8s ease-in-out infinite;
+}
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+/* ---------- MEDIA LINKS (stacked plaques, small 3D volume) ---------- */
+.section--links { padding-top: clamp(34px, 7vh, 60px); padding-bottom: 0; }
+.links {
+  display: grid;
+  gap: 14px;
+  /* no max-width + auto margins: centring this block alone left it inset 64px
+     from the left edge every other section starts at */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+.link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 17px 22px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #1c1c21 0%, #131316 100%);
+  border: 1px solid var(--line);
+  /* small 3D volume: top highlight + soft drop shadow */
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.07),
+    0 6px 14px rgba(0,0,0,.5);
+  transition: border-color .2s, box-shadow .2s;
+}
+.link:hover {
+  border-color: var(--red);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.09),
+    0 8px 18px rgba(0,0,0,.55),
+    0 0 22px rgba(255,31,61,.16);
+}
+.link__name {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 17px;
+}
+.link__tag {
+  margin-left: auto;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+.link__arr { color: var(--red); font-size: 17px; }
+
+/* ---------- BUTTONS ---------- */
+.btn {
+  display: inline-block;
+  /* reset the UA button look so <button class="btn"> matches <a class="btn"> */
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 13px 26px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: transform .15s, box-shadow .2s, background .2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn--primary { background: var(--red); color: #fff; box-shadow: var(--glow); }
+.btn--primary:hover { background: var(--red-soft); }
+.btn--ghost { border-color: var(--line); color: var(--text); }
+.btn--ghost:hover { border-color: var(--red); }
+
+/* ---------- SECTIONS ---------- */
+.section {
+  /* 10vh left ~200px of dead space between blocks on a laptop */
+  padding: clamp(56px, 7vh, 88px) clamp(16px, 5vw, 56px);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.section__head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 12px; }
+.section__num {
+  font-family: "Oswald", sans-serif;
+  color: var(--red);
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+.section__title {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: clamp(32px, 7vw, 64px);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.section__sub { max-width: 62ch; color: var(--muted); margin-bottom: 32px; }
+
+/* ---------- ABOUT ---------- */
+.about { display: grid; gap: clamp(24px, 4vw, 44px); grid-template-columns: 300px 1fr; align-items: start; }
+.about__media {
+  position: sticky;
+  top: 96px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.about__media img { width: 100%; }
+.about__media figcaption {
+  padding: 12px 14px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.about__lead {
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 500;
+  margin-bottom: 22px;
+}
+.about__body p { color: var(--muted); margin-bottom: 16px; max-width: 68ch; }
+.about__body .about__lead { color: var(--text); }
+.about__toggle { margin-top: 8px; }
+
+/* ---------- PROSE (approach / shows intro) ---------- */
+.prose { max-width: 74ch; }
+.prose p { color: var(--muted); margin-bottom: 16px; }
+.prose__pull {
+  color: var(--text) !important;
+  font-size: clamp(18px, 2.4vw, 23px);
+  font-weight: 500;
+  line-height: 1.45;
+  border-left: 2px solid var(--red);
+  padding-left: 20px;
+  margin-top: 26px;
+}
+
+/* the three headline claims, ahead of the long text */
+.points { list-style: none; display: grid; gap: 14px; max-width: 74ch; }
+.points li {
+  position: relative;
+  padding-left: 26px;
+  font-size: clamp(15px, 1.6vw, 17px);
+  color: var(--text);
+}
+.points li::before {
+  content: "";
+  position: absolute; left: 0; top: 10px;
+  width: 14px; height: 2px;
+  background: var(--red);
+}
+.approach__toggle { margin-top: 22px; }
+.approach__more { margin-top: 26px; }
+
+/* wrapper, so the counter is a sibling of the heading — data-i18n rewrites the
+   heading's textContent and would otherwise wipe an appended child */
+.sub-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 44px 0 18px;
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 15px;
+  color: var(--muted);
+}
+.sub-head h3 { font: inherit; letter-spacing: inherit; }
+.sub-head__count {
+  margin-left: auto;
+  color: var(--red-soft);
+  letter-spacing: 1px;
+  font-variant-numeric: tabular-nums;
+}
+.sub-head__count[hidden] { display: none; }
+/* the same counter next to a big section title needs its own size */
+.section__head .sub-head__count {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 15px;
+}
+
+/* ---------- MUSIC: video grid (thumbs are local, player loads on click) ---------- */
+.vgrid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.vid {
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  padding: 0 0 14px;
+  background: none;
+  border: 0;
+}
+/* the thumb wrapper IS the image box, so the play button can centre itself
+   against it — deriving the thumb height from the card width instead drifts
+   by a few px on fractional column widths */
+.vid__thumb {
+  position: relative;
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  transition: border-color .2s, box-shadow .2s;
+}
+.vid img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+.vid:hover .vid__thumb { border-color: var(--red); box-shadow: 0 0 22px rgba(255,31,61,.18); }
+.vid__play {
+  position: absolute;
+  inset: 0;
+  margin: auto;                 /* centred by the box model, no aspect maths */
+  width: 52px; height: 52px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: rgba(255,31,61,.92);
+  color: #fff;
+  font-size: 17px;
+  padding-left: 3px;
+  box-shadow: var(--glow);
+  pointer-events: none;
+}
+.vid__t { display: block; margin-top: 12px; font-weight: 600; font-size: 14.5px; line-height: 1.35; }
+.vid__g { display: block; margin-top: 4px; font-size: 12px; color: var(--muted); letter-spacing: .4px; }
+.vgrid__after { margin-top: 20px; }
+
+/* ---------- SHOWS: photo mosaic ---------- */
+/* Fixed row heights, not aspect ratios: the source photos are a mix of
+   portrait and landscape, so the tiles have to agree on a height and let
+   object-fit do the cropping. */
+.venues {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1.2fr 1.2fr 1fr 1fr;
+  grid-template-rows: repeat(2, clamp(168px, 17vw, 205px)) clamp(150px, 14vw, 176px);
+}
+.venue--gr { grid-column: 1 / 3; grid-row: 1 / 3; }
+.venue--vn { grid-column: 3 / 5; grid-row: 1; }
+.venue--th { grid-column: 3 / 5; grid-row: 2; }
+.venue--at { grid-column: 1 / 3; grid-row: 3; }
+.venue--cz { grid-column: 3 / 5; grid-row: 3; }
+
+.venue {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--bg-2);
+}
+.venue > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+}
+/* the caption sits on the photo, so it needs its own floor of darkness */
+.venue::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+    rgba(6,6,8,.94) 0%, rgba(6,6,8,.78) 26%, rgba(6,6,8,.22) 62%, rgba(6,6,8,.34) 100%);
+}
+.venue__body {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: clamp(14px, 1.6vw, 20px);
+}
+.venue__name { display: flex; align-items: center; gap: 11px; }
+.venue__name span {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.1;
+}
+.venue__flag {
+  flex: none;
+  width: 30px;
+  height: 20px;
+  border-radius: 2px;
+  border: 1px solid rgba(255,255,255,.22);
+}
+.venue__foot { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; }
+.venue__cities { font-size: 13.5px; color: #d7d7dd; letter-spacing: .3px; }
+.venue__count {
+  flex: none;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  color: #cfcfd6;
+}
+.venue__count b { color: var(--red); font-family: "Oswald", sans-serif; font-size: 13px; margin-right: 5px; }
+
+/* ---------- SHOWS: highlights panel ---------- */
+.vhl {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) auto;
+  align-items: start;
+  margin-top: 16px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(180deg, #16161b 0%, #0e0e11 100%);
+}
+.vhl__col { padding-inline: 26px; border-left: 1px solid var(--line); }
+.vhl__col:first-child { padding-left: 0; border-left: 0; }
+.vhl__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  font-size: 13.5px;
+  color: var(--red-soft);
+}
+.vhl__head svg { flex: none; width: 15px; height: 15px; }
+.vhl__list { list-style: none; display: grid; gap: 10px; }
+.vhl__list li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+.vhl__list li::before {
+  content: "";
+  position: absolute; left: 0; top: 8px;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--red);
+}
+.vhl__list b {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: var(--text);
+}
+.vhl__list em { font-style: normal; }
+.vhl__cta { display: flex; align-items: center; padding-left: 26px; border-left: 1px solid var(--line); }
+
+/* arrows live in CSS: translate() writes textContent and would wipe a span */
+.btn--arrow::after { content: " →"; }
+.btn--dl::after { content: " ↓"; }
+
+.venues__all { margin-top: 18px; }
+.venues__intro { max-width: 74ch; margin-bottom: 22px; color: var(--muted); }
+/* the shelf turns into a plain grid here: someone who opened the full list
+   wants to read it, not swipe through it */
+.countries.countries--all {
+  grid-auto-flow: row;
+  grid-auto-columns: auto;
+  grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
+  overflow: visible;
+  scroll-snap-type: none;
+}
+
+/* ---------- SHOWS: country cards ---------- */
+/* one horizontal shelf, not a grid: the five lists run from seven entries to
+   one, so a grid either stretches the short cards into empty boxes or leaves a
+   ragged bottom edge. Uniform tiles on a shelf read as intentional. */
+.countries {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 310px;
+  gap: 18px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 2px;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.countries::-webkit-scrollbar { display: none; }
+.country { scroll-snap-align: start; }
+.country {
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(180deg, #17171c 0%, #0f0f12 100%);
+}
+.country header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+/* drawn, not emoji: Windows ships no flag glyphs, so the emoji fell back to
+   the two-letter country code ("GR", "VN") for every Windows visitor */
+.country__flag {
+  flex: none;
+  width: 27px;
+  height: 18px;
+  border-radius: 2px;
+  border: 1px solid rgba(255,255,255,.16);
+}
+.country h3 {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 20px;
+}
+.country__cities { font-size: 12.5px; color: var(--red-soft); letter-spacing: .5px; margin-bottom: 14px; }
+.country ul { list-style: none; display: grid; gap: 8px; }
+.country li {
+  font-size: 14px;
+  padding-left: 16px;
+  position: relative;
+  color: var(--text);
+}
+.country li::before {
+  content: "";
+  position: absolute; left: 0; top: 9px;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--red);
+}
+.country li em { font-style: normal; color: var(--muted); font-size: 13px; }
+.country__note {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ---------- FORMATS & BOOKING INFO ---------- */
+/* Everything here is confirmed by the client. Anything not confirmed
+   (fee, gear list, travel terms) says "on request" instead of a number. */
+.bk {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: linear-gradient(180deg, #16161b 0%, #0e0e11 100%);
+  overflow: hidden;
+}
+.bk__top { display: grid; grid-template-columns: 1.05fr 1fr; }
+
+.bk__media {
+  position: relative;
+  display: grid;
+  min-height: clamp(360px, 33vw, 440px);
+  border-right: 1px solid var(--line);
+}
+.bk__photo { position: absolute; inset: 0; }
+/* the supplied frame puts him on the right and leaves the left dark for the
+   caption — bias the crop right so that stays true when the column is tall */
+.bk__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 68% center; }
+.bk__photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+    rgba(6,6,8,.95) 0%, rgba(6,6,8,.82) 30%, rgba(6,6,8,.25) 66%, rgba(6,6,8,.35) 100%);
+}
+.bk__mediaBody {
+  position: relative;
+  z-index: 1;
+  align-self: end;
+  padding: clamp(18px, 2.2vw, 28px);
+}
+.bk__h {
+  margin-bottom: 14px;
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  font-size: clamp(18px, 1.8vw, 22px);
+}
+
+.chips { list-style: none; display: flex; flex-wrap: wrap; gap: 9px; }
+.chips li {
+  padding: 9px 15px;
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 999px;
+  background: rgba(10,10,12,.55);
+  backdrop-filter: blur(3px);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.1px;
+  white-space: nowrap;
+}
+.chips--sm li {
+  padding: 7px 13px;
+  border-color: var(--line);
+  background: rgba(255,255,255,.02);
+  backdrop-filter: none;
+  font-size: 11.5px;
+  letter-spacing: 1px;
+}
+
+.bk__terms { display: flex; flex-direction: column; padding: clamp(18px, 2.2vw, 28px); }
+.bk__label {
+  margin-bottom: 6px;
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  font-size: 16px;
+  color: var(--red-soft);
+}
+.terms { list-style: none; }
+.term {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.term__ico {
+  display: grid;
+  place-items: center;
+  width: 40px; height: 40px;
+  border: 1px solid rgba(255,31,61,.38);
+  border-radius: 50%;
+  color: var(--red);
+}
+.term__ico svg { width: 18px; height: 18px; }
+.term__n { font-family: "Oswald", sans-serif; font-size: 15px; letter-spacing: 1px; color: var(--red); }
+.term__t { font-size: 14.5px; color: var(--text); }
+
+.bk__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+/* nowrap + wrap on the row: both labels stay on one line, and the one that
+   no longer fits takes a full-width row of its own instead of breaking */
+.bk__cta .btn {
+  flex: 1 1 auto;
+  padding-inline: 16px;
+  font-size: 13px;
+  letter-spacing: 1.1px;
+  text-align: center;
+  white-space: nowrap;
+}
+.bk__note { margin-top: 10px; font-size: 12px; color: var(--muted); }
+
+/* grid, not flex-wrap: the two groups keep one row and one divider between
+   them, and each group wraps its own chips */
+.bk__strip {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+  align-items: center;
+  gap: 18px 26px;
+  padding: 16px clamp(18px, 2.2vw, 28px);
+  border-top: 1px solid var(--line);
+  background: rgba(255,255,255,.015);
+}
+.bk__group { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.bk__group + .bk__group { padding-left: 26px; border-left: 1px solid var(--line); }
+.bk__groupLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  font-size: 13px;
+  color: var(--red-soft);
+}
+.bk__groupLabel svg { flex: none; width: 15px; height: 15px; }
+
+.press {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  margin-top: 18px;
+}
+/* the cover keeps its own proportions — cropping it cuts the wordmark */
+.press__cover {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+.press__cover img { width: 100%; }
+.press__col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 22px;
+  border: 1px dashed var(--line);
+  border-radius: 16px;
+}
+.press__col h3 {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 17px;
+  color: var(--red-soft);
+}
+.press__bio { font-size: 14px; color: var(--text); }
+.press__note { font-size: 14px; color: var(--muted); }
+.press__col .btn { margin-top: 4px; }
+/* confirmation as a pseudo-element: translate() owns textContent and would
+   wipe any label we wrote into it */
+.press__copy.is-copied::after { content: " ✓"; color: var(--red-soft); }
+
+/* ---------- GALLERY (photos) ---------- */
+.shots { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+.shot {
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface);
+  cursor: zoom-in;
+  transition: border-color .2s, transform .15s;
+}
+.shot img { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+.shot:hover { border-color: var(--red); transform: translateY(-2px); }
+
+/* ---------- EVENT POSTERS ---------- */
+/* 180px, not 190px: five posters then fit one row at the 988px content width */
+.gallery { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.poster {
+  cursor: zoom-in;
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.poster img { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+/* caption sits below the flyer, not on top of it — the line-up stays readable */
+.poster figcaption {
+  padding: 11px 14px;
+  font-size: 12.5px;
+  letter-spacing: .5px;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+}
+.poster:hover { border-color: var(--red); }
+
+/* ---------- BOOKING ---------- */
+.section--booking {
+  text-align: center;
+  border-top: 1px solid var(--line);
+  background:
+    radial-gradient(80% 120% at 50% 0%, rgba(255,31,61,.10), transparent 60%);
+}
+.section--booking .section__head { justify-content: center; }
+.booking__line { color: var(--muted); margin-bottom: 26px; }
+.booking__buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+.contacts {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  max-width: 460px;
+  margin: 0 auto;
+  text-align: left;
+}
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 58px;              /* comfortable thumb target */
+  padding: 12px 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #1c1c21 0%, #131316 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 4px 12px rgba(0,0,0,.4);
+  font-size: 15px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.contact:hover { border-color: var(--red); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 0 20px rgba(255,31,61,.15); }
+.contact span {
+  flex: none;
+  width: 84px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 11px;
+}
+.contact b { font-weight: 600; word-break: break-word; }
+.contact i { margin-left: auto; font-style: normal; color: var(--red); font-size: 16px; }
+.contact--primary { border-color: rgba(255,31,61,.45); background: linear-gradient(180deg, #241419 0%, #161012 100%); }
+
+/* ---------- LABEL CARD (Impera Casa) ---------- */
+.label {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-top: 34px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(180deg, #17171c 0%, #0f0f12 100%);
+}
+.label img { width: 90px; height: 90px; object-fit: cover; border-radius: 12px; flex: none; }
+.label h3 {
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  letter-spacing: 3px;
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+.label p { color: var(--muted); font-size: 14px; }
+
+/* ---------- LIGHTBOX ---------- */
+.lb {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 4vw, 48px);
+  background: rgba(6,6,8,.94);
+  backdrop-filter: blur(8px);
+}
+.lb[hidden] { display: none; }
+.lb__stage { display: contents; }
+.lb__stage img, .lb--video .lb__stage iframe, .lb--file .lb__stage video {
+  animation: lbIn .22s cubic-bezier(.2,.7,.2,1);
+}
+@keyframes lbIn {
+  from { opacity: 0; transform: scale(.965); }
+  to   { opacity: 1; transform: none; }
+}
+.lb__stage img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  border-radius: 10px;
+  box-shadow: 0 30px 80px rgba(0,0,0,.7);
+  touch-action: pan-y;          /* let the swipe handler own horizontal drags */
+}
+.lb--video .lb__stage { display: block; width: min(960px, 100%); }
+.lb--video iframe { width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 12px; }
+/* the locally hosted teaser is portrait — fit it to the viewport instead of
+   forcing it into the 16:9 box a YouTube embed needs */
+.lb--file .lb__stage { width: auto; }
+.lb--file video { display: block; max-width: 100%; max-height: 84svh; border-radius: 12px; }
+
+/* caption + position, sits under the image */
+.lb__bar {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 14px;
+  padding: 16px 70px 20px;
+  font-size: 13px;
+  color: var(--muted);
+  pointer-events: none;
+  background: linear-gradient(0deg, rgba(6,6,8,.85), transparent);
+}
+.lb--video .lb__bar { display: none; }
+.lb__count { font-variant-numeric: tabular-nums; color: var(--red-soft); }
+
+.lb__close, .lb__nav {
+  position: absolute;
+  z-index: 1;
+  width: 48px; height: 48px;
+  display: grid; place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(20,20,24,.85);
+  backdrop-filter: blur(6px);
+  color: var(--text);
+  font-size: 24px;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+.lb__close:hover, .lb__nav:hover { border-color: var(--red); background: rgba(255,31,61,.18); }
+.lb__close { top: 18px; right: 18px; font-size: 17px; }
+.lb__nav--prev { left: 14px; }
+.lb__nav--next { right: 14px; }
+.lb__nav[hidden] { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lb__stage img, .lb--video .lb__stage iframe, .lb--file .lb__stage video { animation: none; }
+}
+
+/* ---------- LANGUAGE SWITCHER ---------- */
+.lang { position: relative; }
+.lang__btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 11px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color .2s, border-color .2s;
+}
+.lang__btn:hover { color: var(--text); border-color: var(--red); }
+.lang__chev { font-size: 10px; }
+.lang__menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 168px;
+  list-style: none;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(16,16,20,.98);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 40px rgba(0,0,0,.6);
+}
+.lang__menu[hidden] { display: none; }
+.lang__menu button {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 9px 12px;
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  color: var(--text);
+  background: none;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.lang__menu button:hover:not(:disabled) { background: rgba(255,31,61,.14); }
+.lang__menu button:disabled { color: var(--muted); cursor: default; }
+.lang__menu button[aria-current="true"] { color: var(--red-soft); font-weight: 600; }
+.lang__menu small { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
+/* ---------- FOOTER ---------- */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 28px clamp(16px, 5vw, 56px);
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* ---------- BACK TO TOP ---------- */
+.totop {
+  position: fixed;
+  right: clamp(16px, 5vw, 40px);
+  bottom: 24px;
+  z-index: 45;
+  width: 46px; height: 46px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(12,12,15,.9);
+  backdrop-filter: blur(8px);
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s, border-color .2s;
+}
+.totop:hover { border-color: var(--red); }
+.totop--on { opacity: 1; pointer-events: auto; }
+@media (prefers-reduced-motion: reduce) { .totop { transition: none; } }
+
+/* ---------- STICKY BOOK BAR (phones only) ---------- */
+/* below the nav (50) and the lightbox (100) on purpose */
+.bookbar { display: none; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  /* ---- nav collapses into a burger panel ---- */
+  .nav { padding-block: 12px; }
+  .nav__burger { display: grid; }
+  .nav__menu {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    margin: 0;                 /* drop the desktop auto-margin */
+    padding: 6px 16px 18px;
+    background: rgba(12,12,15,.98);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 20px 40px rgba(0,0,0,.55);
+  }
+  .nav--open .nav__menu { display: flex; }
+  .nav__menu a {
+    padding: 15px 4px;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .nav__menu .nav__cta {
+    margin-top: 14px;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 0;
+    background: var(--red);
+  }
+
+  /* ---- the CTA that follows the page down ---- */
+  .bookbar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 40;
+    display: flex;
+    gap: 10px;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(12,12,15,.94);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+    transition: transform .25s ease;
+  }
+  .bookbar--off { transform: translateY(110%); }
+  .bookbar__btn {
+    flex: 1;
+    padding: 13px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+  }
+  .bookbar__btn--primary { background: var(--red); border-color: var(--red); color: #fff; }
+  /* sit above the bar, not on it */
+  .totop { bottom: calc(78px + env(safe-area-inset-bottom)); width: 42px; height: 42px; }
+  /* the bar floats over the page — keep it off the last line of the footer */
+  .footer { padding-bottom: calc(28px + 64px + env(safe-area-inset-bottom)); }
+
+  .about { grid-template-columns: 1fr; }
+  .about__media { position: static; max-width: 340px; }
+
+  /* booking panel: photo on top, terms underneath — side by side the terms
+     column got narrower than its own text */
+  .bk__top { grid-template-columns: 1fr; }
+  .bk__media { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
+  .bk__photo { position: relative; aspect-ratio: 3/2; }
+  .bk__mediaBody { padding: 18px clamp(16px, 4vw, 24px) 22px; }
+  .bk__strip { grid-template-columns: 1fr; }
+  .bk__group + .bk__group { padding: 14px 0 0; border-left: 0; border-top: 1px solid var(--line); }
+}
+
+/* tablets: the portrait card plus the full hero padding pushed the CTA off a
+   1024px-tall screen, and the phone rules below only start at 680px */
+@media (min-width: 681px) and (max-width: 900px) {
+  .hero { padding-top: 100px; }
+  .card__art { aspect-ratio: 1/1; }
+
+  /* mosaic drops to two columns; Greece keeps the wide slot on top */
+  .venues {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: none;
+    grid-auto-rows: clamp(150px, 24vw, 200px);
+  }
+  .venue--gr { grid-column: 1 / 3; grid-row: span 2; }
+  .venue--vn, .venue--th, .venue--at, .venue--cz { grid-column: auto; grid-row: auto; }
+
+  /* highlights: 2 x 2, the CTA takes the last cell */
+  .vhl { grid-template-columns: 1fr 1fr; }
+  .vhl__col, .vhl__cta { padding: 20px 22px; border-left: 1px solid var(--line); }
+  .vhl__col:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .vhl__col:nth-child(1), .vhl__col:nth-child(2) { padding-top: 0; }
+  .vhl__col:nth-child(3), .vhl__cta { border-top: 1px solid var(--line); }
+  .vhl__cta .btn { width: 100%; text-align: center; }
+}
+
+@media (max-width: 680px) {
+  /* ---- shorter sections: 10vh top+bottom left ~170px of dead space between blocks ---- */
+  .section { padding-block: 46px; }
+  .section--links { padding-top: 34px; }
+  .section__sub { margin-bottom: 24px; }
+
+  /* ---- hero fits one screen, so Book now is reachable without scrolling ---- */
+  .hero { padding: 84px 16px 40px; }
+  .card__art { aspect-ratio: 1/1; }
+  .card__plate { margin: 12px 0 2px; }
+  .card__role { font-size: 11px; letter-spacing: 3px; }
+  .roles { gap: 6px; margin: 10px 0 2px; }
+  .roles li { font-size: 9.5px; padding: 5px 8px; letter-spacing: .8px; }
+  .card__specs { padding: 9px 0; margin: 4px 0; }
+  .card__specs b { font-size: 19px; }
+  /* genres drop the chip look and become one quiet line */
+  .genres { display: block; margin: 8px 0 2px; font-size: 11px; letter-spacing: 1px; }
+  .genres li {
+    display: inline;
+    padding: 0; border: 0; background: none;
+    color: var(--muted);
+  }
+  .genres li + li::before { content: " · "; color: var(--red); }
+  .card__actions { margin-top: 12px; }
+  .card__actions .btn { padding-block: 12px; }
+  .hero__scroll { display: none; }
+
+  /* ---- video grids swipe sideways instead of stacking 11 screens deep ---- */
+  .vgrid {
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    grid-auto-columns: 78%;
+    gap: 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    /* bleed to the screen edges so a card can sit flush while peeking the next */
+    margin-inline: -16px;
+    padding-inline: 16px;
+    scroll-padding-left: 16px;
+    scrollbar-width: none;
+  }
+  .vgrid::-webkit-scrollbar { display: none; }
+  .vid { scroll-snap-align: start; }
+  .vid__t { font-size: 13.5px; }
+
+  .countries {
+    grid-auto-columns: 82%;
+    gap: 12px;
+    margin-inline: -16px;
+    padding-inline: 16px;
+    scroll-padding-left: 16px;
+  }
+  /* the full list is read, not swiped — keep it stacked */
+  .countries.countries--all { grid-auto-columns: auto; margin-inline: 0; padding-inline: 0; }
+
+  /* ---- mosaic: one card per screen row ---- */
+  .venues { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-rows: auto; gap: 12px; }
+  .venue { aspect-ratio: 16/10; }
+  .venue--gr { aspect-ratio: 4/3; }
+  .venue--gr, .venue--vn, .venue--th, .venue--at, .venue--cz { grid-column: auto; grid-row: auto; }
+  .venue__body { padding: 16px; }
+  .venue__name span { font-size: clamp(18px, 5.4vw, 23px); }
+  .venue__cities { font-size: 13px; }
+  /* the count moves off the caption line: Greece's city list already fills it */
+  .venue__count {
+    position: absolute;
+    top: 14px; right: 14px;
+    padding: 6px 11px;
+    border: 1px solid rgba(255,31,61,.4);
+    border-radius: 999px;
+    background: rgba(6,6,8,.6);
+    font-size: 10px;
+    letter-spacing: 1.4px;
+  }
+  .venue__count b { font-size: 12px; margin-right: 4px; }
+
+  /* ---- highlights: one column, hairlines instead of dividers ---- */
+  .vhl { grid-template-columns: 1fr; padding: 20px; }
+  .vhl__col, .vhl__cta { padding: 18px 0 0; border-left: 0; border-top: 1px solid var(--line); margin-top: 18px; }
+  .vhl__col:first-child { padding-top: 0; border-top: 0; margin-top: 0; }
+  .vhl__cta .btn { width: 100%; text-align: center; }
+
+  /* ---- booking panel ---- */
+  .bk__photo { aspect-ratio: 4/3; }
+  .bk__h { font-size: 19px; }
+  .chips li { padding: 8px 12px; font-size: 11px; letter-spacing: .9px; white-space: normal; }
+  .bk__terms { padding: 20px 16px 22px; }
+  .term { gap: 12px; padding: 12px 0; }
+  .term__ico { width: 34px; height: 34px; }
+  .term__ico svg { width: 16px; height: 16px; }
+  .term__n { font-size: 13px; }
+  .term__t { font-size: 14px; }
+  .bk__cta { flex-direction: column; gap: 10px; }
+  .bk__cta .btn { flex: none; width: 100%; }
+  .bk__strip { gap: 14px; padding: 16px; }
+  .press { grid-template-columns: 1fr; }
+
+  .shots, .gallery { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .label { flex-direction: column; text-align: center; }
+
+  /* the email is the widest value — give it room instead of breaking mid-word */
+  .contact { padding-inline: 14px; gap: 12px; }
+  .contact span { width: 72px; font-size: 10px; }
+  .contact b { font-size: 14px; word-break: normal; overflow-wrap: anywhere; }
+  .lb__bar { padding: 14px 16px 18px; font-size: 12px; }
+  .lb__close { top: 12px; right: 12px; }
+  .lb__nav { width: 44px; height: 44px; }
+  .lb__nav--prev { left: 8px; }
+  .lb__nav--next { right: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) { .bookbar { transition: none; } }

@@ -1,0 +1,16 @@
+# WSL / OS junk
+*Zone.Identifier
+.DS_Store
+Thumbs.db
+
+# Originals from the client (raw photos, the 105 MB video, old screenshots).
+# Everything the site actually serves lives in assets/ as a processed copy.
+_source/
+
+# Working notes and the client's raw brief — internal, must never be served.
+# The site is public static hosting: anything committed here is downloadable.
+client_info.txt
+local_doc/
+
+# Claude Code local settings
+.claude/
