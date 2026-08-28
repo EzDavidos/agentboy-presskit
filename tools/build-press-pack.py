@@ -55,7 +55,7 @@ Thailand — Shaman Club, YOOHI Club, AETHERT Rooftop.
 Austria — K12 Club. Czech Republic — Ankali, Le Valmont Club.
 
 LINKS
-Press kit  https://ezdavidos.github.io/agentboy-presskit/
+Press kit  https://agentboy.org/
 Spotify    https://open.spotify.com/artist/2LTT8rloXK8dqXhueuWkZp
 Beatport   https://www.beatport.com/artist/agentboy/1184864
 YouTube    https://www.youtube.com/@agentboymusic
@@ -98,7 +98,7 @@ Zone 86, The Garden, Madison Red Rooftop, Malibu Beach Bar.
 Австрия — K12 Club. Чехия — Ankali, Le Valmont Club.
 
 ССЫЛКИ
-Пресс-кит  https://ezdavidos.github.io/agentboy-presskit/
+Пресс-кит  https://agentboy.org/
 Spotify    https://open.spotify.com/artist/2LTT8rloXK8dqXhueuWkZp
 Beatport   https://www.beatport.com/artist/agentboy/1184864
 YouTube    https://www.youtube.com/@agentboymusic
@@ -113,7 +113,7 @@ WhatsApp   +30 694 693 8249
 Telegram   @agen1boy
 Instagram  @agentboy_ofc
 
-Press kit  https://ezdavidos.github.io/agentboy-presskit/
+Press kit  https://agentboy.org/
 """
 
 

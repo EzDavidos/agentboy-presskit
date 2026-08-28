@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Helper page used to render the 1200x630 OG card, not a page of the site.
+Disallow: /tools/
