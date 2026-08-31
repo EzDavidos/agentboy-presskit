@@ -26,11 +26,12 @@ BIO_EN = """AGENTBOY — DJ & producer
 
 ONE LINE
 AGENTBOY — DJ and producer. Progressive house, indie dance, melodic techno.
-Currently in Nha Trang, Vietnam. Available worldwide.
+Currently in Nha Trang, Vietnam.
+Available for booking and touring at international venues.
 
 SHORT BIO
 AGENTBOY (Andrii Smoliar) is a DJ and producer from Kyiv, Ukraine, currently
-in Nha Trang, Vietnam and available worldwide. He plays progressive house, indie dance and melodic
+in Nha Trang, Vietnam, available for booking and touring at international venues. He plays progressive house, indie dance and melodic
 techno at 122-128 BPM, and has performed across Greece, Vietnam, Thailand,
 Austria and the Czech Republic — from clubs and beach bars to rooftops,
 open-air festivals and private villa and yacht parties. Founder of the Impera
@@ -60,7 +61,7 @@ Spotify    https://open.spotify.com/artist/2LTT8rloXK8dqXhueuWkZp
 Beatport   https://www.beatport.com/artist/agentboy/1184864
 YouTube    https://www.youtube.com/@agentboymusic
 Instagram  https://www.instagram.com/agentboy_ofc/
-All links  https://linktr.ee/agentboymusic
+SoundCloud https://soundcloud.com/agentboymusic
 """
 
 BIO_RU = """AGENTBOY — диджей и продюсер
@@ -68,11 +69,13 @@ BIO_RU = """AGENTBOY — диджей и продюсер
 
 ОДНОЙ СТРОКОЙ
 AGENTBOY — диджей и продюсер. Progressive house, indie dance, melodic techno.
-Сейчас в Нячанге, Вьетнам. Готов ехать в любую точку мира.
+Сейчас в Нячанге, Вьетнам.
+Доступен к бронированию и гастролям на международных площадках.
 
 КОРОТКОЕ БИО
 AGENTBOY (Андрей Смоляр) — диджей и продюсер из Киева, сейчас в Нячанге,
-Вьетнам, готов ехать в любую точку мира. Играет progressive house, indie dance и melodic techno в
+Вьетнам, доступен к бронированию и гастролям на международных площадках.
+Играет progressive house, indie dance и melodic techno в
 диапазоне 122-128 BPM. Выступал в Греции, Вьетнаме, Таиланде, Австрии и
 Чехии — от клубов и пляжных баров до руфтопов, опен-эйр фестивалей и
 приватных вечеринок на виллах и яхтах. Основатель серии вечеринок Impera
@@ -103,7 +106,7 @@ Spotify    https://open.spotify.com/artist/2LTT8rloXK8dqXhueuWkZp
 Beatport   https://www.beatport.com/artist/agentboy/1184864
 YouTube    https://www.youtube.com/@agentboymusic
 Instagram  https://www.instagram.com/agentboy_ofc/
-Все ссылки https://linktr.ee/agentboymusic
+SoundCloud https://soundcloud.com/agentboymusic
 """
 
 CONTACTS = """AGENTBOY — booking & press

@@ -173,8 +173,17 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid var(--red);
   padding: 8px 16px;
   border-radius: 999px;
+  white-space: nowrap;
 }
 .nav__cta:hover { background: var(--red); box-shadow: var(--glow); }
+/* the RU label ("Забронировать") is half again as wide as the EN one, and at
+   just over the 900px desktop cut-off the row has nothing to spare */
+@media (min-width: 901px) and (max-width: 1120px) {
+  .nav__menu { gap: 14px; }
+  .nav__menu a { font-size: 13px; letter-spacing: .6px; }
+  .nav__side { margin-left: 14px; }
+  .nav__cta { padding: 8px 12px; }
+}
 
 /* ---------- HERO (character card) ---------- */
 .hero {
@@ -966,27 +975,53 @@ a { color: inherit; text-decoration: none; }
 .shot img { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
 .shot:hover { border-color: var(--red); transform: translateY(-2px); }
 
-/* ---------- EVENT POSTERS ---------- */
-/* 180px, not 190px: five posters then fit one row at the 988px content width */
-.gallery { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
-.poster {
-  cursor: zoom-in;
-  position: relative;
-  border-radius: 14px;
-  overflow: hidden;
+/* ---------- PLACEHOLDERS ---------- */
+/* empty slots standing in for photos and clips the client has not sent yet:
+   same surface, border and radius as the real media so nothing shifts when a
+   file finally lands here. The hatch is a static gradient, not an animation. */
+.ph {
+  background:
+    repeating-linear-gradient(135deg,
+      rgba(255,255,255,.022) 0 10px, transparent 10px 20px),
+    var(--surface);
+  border-radius: inherit;
+}
+/* inside a tile that already has its own frame (venue card, booking photo) */
+.ph--fill { position: absolute; inset: 0; border-radius: 0; }
+
+/* ---------- EVENT REEL ---------- */
+/* horizontal strip of clips: wheel and mouse-drag are wired up in script.js,
+   touch scrolls it natively */
+.reel {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  cursor: grab;
+  /* bleed to the container edges so a slide can sit flush while the next peeks */
+  margin-inline: -4px;
+  padding: 4px;
+  scroll-padding-left: 4px;
+}
+.reel::-webkit-scrollbar { display: none; }
+.reel.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+.reel.is-dragging * { pointer-events: none; }
+
+.reel__track {
+  display: grid;
+  grid-auto-flow: column;
+  /* 300px, not 320px: three slides then leave the fourth peeking at the
+     988px content width, which is what says the strip scrolls */
+  grid-auto-columns: minmax(0, 300px);
+  gap: 16px;
+  width: max-content;
+}
+.reel__slide {
+  aspect-ratio: 16 / 9;
   border: 1px solid var(--line);
-  background: var(--surface);
+  border-radius: 14px;
+  scroll-snap-align: start;
 }
-.poster img { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
-/* caption sits below the flyer, not on top of it — the line-up stays readable */
-.poster figcaption {
-  padding: 11px 14px;
-  font-size: 12.5px;
-  letter-spacing: .5px;
-  color: var(--muted);
-  border-top: 1px solid var(--line);
-}
-.poster:hover { border-color: var(--red); }
 
 /* ---------- BOOKING ---------- */
 .section--booking {
@@ -1426,7 +1461,10 @@ a { color: inherit; text-decoration: none; }
   .bk__strip { gap: 14px; padding: 16px; }
   .press { grid-template-columns: 1fr; }
 
-  .shots, .gallery { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .shots { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  /* one slide per screen with the next one peeking, same as the video rows */
+  .reel { margin-inline: -16px; padding-inline: 16px; scroll-padding-left: 16px; }
+  .reel__track { grid-auto-columns: 78vw; gap: 12px; }
   .label { flex-direction: column; text-align: center; }
 
   /* the email is the widest value — give it room instead of breaking mid-word */

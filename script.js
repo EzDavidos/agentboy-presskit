@@ -179,14 +179,15 @@ function initBurger() {
    The counter is placed as a sibling of the heading, never inside it:
    translate() writes textContent on [data-i18n] and would wipe a child. */
 function initCarouselCounters() {
-  document.querySelectorAll(".vgrid, .countries:not(.countries--all)").forEach((grid) => {
+  document.querySelectorAll(".vgrid, .countries:not(.countries--all), .reel").forEach((grid) => {
     const prev = grid.previousElementSibling;
     const head = prev && prev.classList.contains("sub-head")
       ? prev
       : grid.closest(".section")?.querySelector(".section__head");
     if (!head) return;
 
-    const cards = [...grid.children];
+    // the reel scrolls the wrapper but lays the slides out one level down
+    const cards = [...(grid.querySelector(".reel__track") || grid).children];
     const out = document.createElement("span");
     out.className = "sub-head__count";
     head.appendChild(out);
@@ -261,10 +262,66 @@ function initBookBar() {
   zones.forEach((z) => io.observe(z));
 }
 
+/* ---------- horizontal reel (past events): wheel + drag ----------
+   Wheel: a vertical wheel over the reel scrolls it sideways, but only while
+   there is room left — at either end the event is left alone so the page keeps
+   scrolling instead of the reel swallowing it.
+   Drag: pointer events on the empty space between the slides; the click that
+   ends a drag is suppressed so a future link inside a slide stays clickable. */
+function initReels() {
+  document.querySelectorAll("[data-reel]").forEach((reel) => {
+    const atEdge = (d) =>
+      (d < 0 && reel.scrollLeft <= 0) ||
+      (d > 0 && reel.scrollLeft >= reel.scrollWidth - reel.clientWidth - 1);
+
+    reel.addEventListener("wheel", (e) => {
+      if (e.ctrlKey) return;                       // pinch-zoom on trackpads
+      // a horizontal-dominant gesture is already handled natively
+      const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (!d || atEdge(d)) return;
+      e.preventDefault();
+      reel.scrollLeft += d;
+    }, { passive: false });
+
+    let id = null, startX = 0, startLeft = 0, moved = 0;
+
+    reel.addEventListener("pointerdown", (e) => {
+      // touch already scrolls the strip natively — dragging it as well doubles it
+      if (e.pointerType !== "mouse" || e.button !== 0 || e.target.closest("a, button")) return;
+      id = e.pointerId; startX = e.clientX; startLeft = reel.scrollLeft; moved = 0;
+      reel.classList.add("is-dragging");
+    });
+
+    reel.addEventListener("pointermove", (e) => {
+      if (e.pointerId !== id) return;
+      const dx = e.clientX - startX;
+      // capture keeps the drag alive past the edge of the strip; it throws if the
+      // pointer is already gone, and that must not stop the scroll below
+      if (Math.abs(dx) > 3 && !reel.hasPointerCapture(id)) {
+        try { reel.setPointerCapture(id); } catch { /* pointer no longer active */ }
+      }
+      moved = Math.max(moved, Math.abs(dx));
+      reel.scrollLeft = startLeft - dx;
+    });
+
+    const end = (e) => {
+      if (e.pointerId !== id) return;
+      if (reel.hasPointerCapture(id)) reel.releasePointerCapture(id);
+      id = null;
+      reel.classList.remove("is-dragging");
+    };
+    reel.addEventListener("pointerup", end);
+    reel.addEventListener("pointercancel", end);
+    reel.addEventListener("click", (e) => { if (moved > 3) { e.preventDefault(); e.stopPropagation(); } }, true);
+
+    reel.addEventListener("dragstart", (e) => e.preventDefault());
+  });
+}
+
 /* ---------- reveal blocks as they scroll in ---------- */
 function initReveal() {
   const targets = document.querySelectorAll(
-    ".section__head, .about, .prose, .sub-head, .vgrid, .venues, .vhl, .bk, .press, .shots, .gallery, .label, .links, .contacts, .booking__line"
+    ".section__head, .about, .prose, .sub-head, .vgrid, .venues, .vhl, .bk, .press, .shots, .reel, .label, .links, .contacts, .booking__line"
   );
   if (!("IntersectionObserver" in window)) return;
 
@@ -363,20 +420,6 @@ function initLightbox() {
     );
   });
 
-  // event posters — figures, made keyboard-operable here rather than in markup
-  document.querySelectorAll(".gallery").forEach((grid) => {
-    const figs = [...grid.querySelectorAll(".poster")];
-    const imgs = figs.map((f) => f.querySelector("img"));
-    figs.forEach((fig, i) => {
-      fig.setAttribute("role", "button");
-      fig.setAttribute("tabindex", "0");
-      fig.addEventListener("click", () => openImages(imgs, i));
-      fig.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openImages(imgs, i); }
-      });
-    });
-  });
-
   // YouTube cards
   document.querySelectorAll("[data-yt]").forEach((el) =>
     el.addEventListener("click", () => openVideo(el.dataset.yt))
@@ -431,6 +474,7 @@ initBurger();
 initMore();
 initLightbox();
 initCarouselCounters();
+initReels();
 initBookBar();
 initCopy();
 initToTop();
