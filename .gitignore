@@ -14,3 +14,7 @@ local_doc/
 
 # Claude Code local settings
 .claude/
+
+# Vercel CLI link data
+.vercel
+.env*

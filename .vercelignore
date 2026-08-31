@@ -1,0 +1,23 @@
+# Mirrors .gitignore: the CLI uploads the working directory, not the git tree,
+# so everything internal has to be excluded here as well or it ends up publicly
+# downloadable on the deployment.
+
+# Originals from the client (raw photos, the 105 MB video, old screenshots).
+_source/
+
+# Working notes and the client's raw brief — internal, must never be served.
+client_info.txt
+local_doc/
+
+# Local tooling
+.claude/
+.vercel/
+tools/
+
+# WSL / OS junk
+*Zone.Identifier
+.DS_Store
+Thumbs.db
+
+# Vercel CLI env pull
+.env*.local
