@@ -1,21 +1,17 @@
 <!doctype html>
-<!-- Former source for assets/img/og.jpg. The live preview card is now the
-     supplied press-kit banner (assets/img/press-cover.jpg cropped to 1200x630);
-     rebuild that instead. Kept here as the fallback generator.
-
-     Original notes: the link preview card (1200x630).
-     Rebuild after changing the hero photo or the tagline:
+<!-- Source for assets/img/og.jpg — the link preview card (1200x630).
+     Rebuild after changing the press photo or the tagline:
        python3 -m http.server 8899
        then screenshot http://localhost:8899/tools/og-card.html at 1200x630
-     A vertical photo cannot be used directly: Telegram and WhatsApp crop
-     previews to landscape and cut the face out. -->
+     A photo cannot be used on its own: Telegram and WhatsApp crop previews to
+     landscape, and the name has to stay readable in the feed. -->
 <html><head><meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{width:1200px;height:630px;overflow:hidden;background:#0a0a0c;color:#f4f4f6;font-family:Inter,sans-serif;display:flex}
 .art{position:relative;width:470px;height:630px;flex:none}
-.art img{width:100%;height:100%;object-fit:cover;object-position:center 24%}
+.art img{width:100%;height:100%;object-fit:cover;object-position:63% center}
 .art::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,12,0) 45%,#0a0a0c 100%)}
 .side{flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 70px 0 30px;position:relative}
 .glow{position:absolute;width:700px;height:700px;right:-220px;top:-160px;border-radius:50%;
@@ -25,10 +21,10 @@ body{width:1200px;height:630px;overflow:hidden;background:#0a0a0c;color:#f4f4f6;
 .name span{color:#ff1f3d}
 .tag{position:relative;margin-top:14px;font-size:24px;letter-spacing:7px;text-transform:uppercase;color:#ff445e}
 .meta{position:relative;margin-top:40px;display:flex;gap:10px;flex-wrap:wrap}
-.meta i{font-style:normal;font-size:19px;letter-spacing:1.4px;text-transform:uppercase;color:#f4f4f6;
-        border:1px solid #2a2a31;background:rgba(22,22,26,.7);padding:9px 16px;border-radius:999px}
+.meta i{font-style:normal;font-size:17px;letter-spacing:1.2px;text-transform:uppercase;color:#f4f4f6;
+        border:1px solid #2a2a31;background:rgba(22,22,26,.7);padding:8px 14px;border-radius:999px;white-space:nowrap}
 </style></head><body>
-<div class="art"><img src="../assets/img/hero.jpg"></div>
+<div class="art"><img src="../assets/img/press-cover.jpg"></div>
 <div class="side">
   <div class="glow"></div>
   <p class="role">DJ / Producer</p>

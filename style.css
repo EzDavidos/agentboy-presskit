@@ -808,9 +808,9 @@ a { color: inherit; text-decoration: none; }
   border-right: 1px solid var(--line);
 }
 .bk__photo { position: absolute; inset: 0; }
-/* the supplied frame puts him on the right and leaves the left dark for the
-   caption — bias the crop right so that stays true when the column is tall */
-.bk__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 68% center; }
+/* the frame is already cropped to 3:2 around him, so the box only ever trims
+   width — he sits right of centre, so bias the crop that way */
+.bk__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 62% center; }
 .bk__photo::after {
   content: "";
   position: absolute;
@@ -932,7 +932,7 @@ a { color: inherit; text-decoration: none; }
   align-items: start;
   margin-top: 18px;
 }
-/* the cover keeps its own proportions — cropping it cuts the wordmark */
+/* the cover keeps its own proportions — it is a photo, not a fixed-ratio slot */
 .press__cover {
   overflow: hidden;
   border: 1px solid var(--line);
