@@ -22,9 +22,12 @@
   <meta property="og:title" content="AGENTBOY — DJ &amp; Producer" />
   <meta property="og:description" data-i18n-attr="content:meta.description"
         content="Progressive house · indie dance · melodic techno. Available worldwide." />
-  <!-- purpose-built 1200x630 card (tools/og-card.html): the hero photo is
-       vertical and messengers crop previews to landscape, cutting the face out -->
-  <meta property="og:image" content="https://agentboy.org/assets/img/og.jpg" />
+  <!-- purpose-built 1200x630 card (tools/og-card.html): a bare photo crops
+       badly in a landscape preview and loses the name.
+       The filename carries a date on purpose: Telegram caches the image by URL
+       on its own CDN, and refreshing the page preview does not replace it.
+       Rebuilding the card means giving it a new filename here too. -->
+  <meta property="og:image" content="https://agentboy.org/assets/img/og-2026-09.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:url" content="https://agentboy.org/" />

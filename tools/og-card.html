@@ -1,8 +1,11 @@
 <!doctype html>
-<!-- Source for assets/img/og.jpg — the link preview card (1200x630).
-     Rebuild after changing the press photo or the tagline:
+<!-- Source for the link preview card (1200x630), served as
+     assets/img/og-<year>-<month>.jpg. Rebuild after changing the press photo
+     or the tagline:
        python3 -m http.server 8899
        then screenshot http://localhost:8899/tools/og-card.html at 1200x630
+     Save it under a NEW filename and update og:image in index.html: Telegram
+     caches the image by URL, so overwriting the old file changes nothing.
      A photo cannot be used on its own: Telegram and WhatsApp crop previews to
      landscape, and the name has to stay readable in the feed. -->
 <html><head><meta charset="utf-8">
