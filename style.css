@@ -925,6 +925,75 @@ a { color: inherit; text-decoration: none; }
 }
 .bk__groupLabel svg { flex: none; width: 15px; height: 15px; }
 
+/* ---------- RIDER (sits between the booking panel and the press block) ---------- */
+.rider__head {
+  margin: 30px 0 14px;
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 17px;
+  color: var(--red-soft);
+}
+.rider { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
+.rider__card {
+  padding: clamp(18px, 2.2vw, 26px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(180deg, #16161b 0%, #0e0e11 100%);
+}
+/* the hospitality rider carries two lists, so it takes the full row */
+.rider__card--wide { grid-column: 1 / -1; }
+/* the fee is what a promoter looks for first — fill it so it reads first too */
+.rider__card--accent {
+  border-color: transparent;
+  background: linear-gradient(160deg, var(--red) 0%, #d4102c 100%);
+  color: #0a0a0c;
+}
+.rider__ico {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin-bottom: 14px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--red);
+}
+.rider__ico svg { width: 18px; height: 18px; }
+.rider__card--accent .rider__ico { border-color: rgba(10,10,12,.32); color: #0a0a0c; }
+.rider__label {
+  display: block;
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  font-size: 12.5px;
+  color: var(--red-soft);
+}
+.rider__card--accent .rider__label { color: rgba(10,10,12,.85); }
+.rider__title {
+  margin: 6px 0 8px;
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  font-size: clamp(22px, 2.6vw, 30px);
+  line-height: 1.1;
+}
+.rider__text { font-size: 14px; color: var(--muted); max-width: 46ch; }
+.rider__card--accent .rider__text { color: rgba(10,10,12,.85); }
+.rider__lists { display: grid; gap: 18px; grid-template-columns: 1fr 1fr; margin-top: 18px; }
+.rider__group { display: grid; gap: 10px; align-content: start; }
+.rider__groupLabel {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
 .press {
   display: grid;
   gap: 18px;
@@ -1459,6 +1528,7 @@ a { color: inherit; text-decoration: none; }
   .bk__cta { flex-direction: column; gap: 10px; }
   .bk__cta .btn { flex: none; width: 100%; }
   .bk__strip { gap: 14px; padding: 16px; }
+  .rider, .rider__lists { grid-template-columns: 1fr; }
   .press { grid-template-columns: 1fr; }
 
   .shots { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
