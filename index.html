@@ -252,9 +252,10 @@
     </div>
     <p class="section__sub" data-i18n="shows.sub">From intimate clubs and rooftops to beach bars, festivals and private events.</p>
 
-    <!-- photo mosaic: one card per country. Greece leads because it holds the
-         longest list; Austria and Czech Republic share the bottom row so the
-         block keeps a straight edge instead of two half-empty tiles. -->
+    <!-- photo mosaic: one card per country, tile shape follows the photo.
+         The two landscape shots take the wide row on top, the three 2:3
+         portraits the row underneath, so no frame is cropped to a band.
+         DOM order matches the visual order for tab and screen readers. -->
     <div class="venues">
       <article class="venue venue--gr">
         <img src="assets/img/gallery/beach-crowd-02.jpg" alt="Beach bar party" width="1280" height="854" loading="lazy" />
@@ -266,20 +267,6 @@
           <div class="venue__foot">
             <p class="venue__cities" data-i18n="cities.gr">Komotini · Xanthi · Thessaloniki · Athens · Mykonos · Santorini</p>
             <p class="venue__count"><b>9</b><span data-i18n="venues.count">venues</span></p>
-          </div>
-        </div>
-      </article>
-
-      <article class="venue venue--vn">
-        <img src="assets/img/gallery/club-crowd.jpg" alt="Club night crowd" width="854" height="1280" loading="lazy" />
-        <div class="venue__body">
-          <h3 class="venue__name">
-            <img class="venue__flag" src="assets/img/flags/vn.svg" alt="" width="27" height="18" loading="lazy" />
-            <span data-i18n="country.vn">Vietnam</span>
-          </h3>
-          <div class="venue__foot">
-            <p class="venue__cities" data-i18n="cities.vn">Nha Trang · Da Nang</p>
-            <p class="venue__count"><b>8</b><span data-i18n="venues.count">venues</span></p>
           </div>
         </div>
       </article>
@@ -298,8 +285,22 @@
         </div>
       </article>
 
+      <article class="venue venue--vn">
+        <img src="assets/img/gallery/club-crowd.jpg" alt="Club night crowd" width="854" height="1280" loading="lazy" />
+        <div class="venue__body">
+          <h3 class="venue__name">
+            <img class="venue__flag" src="assets/img/flags/vn.svg" alt="" width="27" height="18" loading="lazy" />
+            <span data-i18n="country.vn">Vietnam</span>
+          </h3>
+          <div class="venue__foot">
+            <p class="venue__cities" data-i18n="cities.vn">Nha Trang · Da Nang</p>
+            <p class="venue__count"><b>8</b><span data-i18n="venues.count">venues</span></p>
+          </div>
+        </div>
+      </article>
+
       <article class="venue venue--at">
-        <div class="ph ph--fill" aria-hidden="true"></div>
+        <img src="assets/img/gallery/booth-bw.jpg" alt="AGENTBOY at the turntables" width="640" height="960" loading="lazy" />
         <div class="venue__body">
           <h3 class="venue__name">
             <img class="venue__flag" src="assets/img/flags/at.svg" alt="" width="27" height="18" loading="lazy" />
