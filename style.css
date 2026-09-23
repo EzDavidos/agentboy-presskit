@@ -808,9 +808,9 @@ a { color: inherit; text-decoration: none; }
   border-right: 1px solid var(--line);
 }
 .bk__photo { position: absolute; inset: 0; }
-/* the frame is already cropped to 3:2 around him, so the box only ever trims
-   width — he sits right of centre, so bias the crop that way */
-.bk__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 62% center; }
+/* portrait 2:3 frame in a landscape-ish box: the crop only trims height, so
+   keep the top — his face and cap — in view. Phones get the whole frame below */
+.bk__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; }
 .bk__photo::after {
   content: "";
   position: absolute;
@@ -1404,7 +1404,11 @@ a { color: inherit; text-decoration: none; }
      column got narrower than its own text */
   .bk__top { grid-template-columns: 1fr; }
   .bk__media { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
-  .bk__photo { position: relative; aspect-ratio: 3/2; }
+  /* the box takes the photo's own 2:3, so nothing is cropped; capped in width
+     so a tablet does not get a 1200px-tall picture. The heavy fade was there
+     for text laid over the photo — here the text sits below, so only a hint */
+  .bk__photo { position: relative; aspect-ratio: 2/3; width: 100%; max-width: 460px; margin-inline: auto; }
+  .bk__photo::after { background: linear-gradient(to top, rgba(6,6,8,.55) 0%, rgba(6,6,8,0) 22%); }
   .bk__mediaBody { padding: 18px clamp(16px, 4vw, 24px) 22px; }
   .bk__strip { grid-template-columns: 1fr; }
   .bk__group + .bk__group { padding: 14px 0 0; border-left: 0; border-top: 1px solid var(--line); }
@@ -1516,7 +1520,6 @@ a { color: inherit; text-decoration: none; }
   .vhl__cta .btn { width: 100%; text-align: center; }
 
   /* ---- booking panel ---- */
-  .bk__photo { aspect-ratio: 4/3; }
   .bk__h { font-size: 19px; }
   .chips li { padding: 8px 12px; font-size: 11px; letter-spacing: .9px; white-space: normal; }
   .bk__terms { padding: 20px 16px 22px; }
