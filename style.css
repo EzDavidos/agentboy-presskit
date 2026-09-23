@@ -1398,7 +1398,7 @@ a { color: inherit; text-decoration: none; }
   .footer { padding-bottom: calc(28px + 64px + env(safe-area-inset-bottom)); }
 
   .about { grid-template-columns: 1fr; }
-  .about__media { position: static; max-width: 340px; }
+  .about__media { position: static; max-width: 340px; margin-inline: auto; }
 
   /* booking panel: photo on top, terms underneath — side by side the terms
      column got narrower than its own text */
