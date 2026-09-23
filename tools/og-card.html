@@ -1,10 +1,10 @@
 <!doctype html>
 <!-- Source for the link preview card (1200x630), served as
-     assets/img/og-<year>-<month>.jpg. Rebuild after changing the press photo
+     assets/img/og-<year>-<month>[-<day>].jpg. Rebuild after changing the press photo
      or the tagline:
        python3 -m http.server 8899
        then screenshot http://localhost:8899/tools/og-card.html at 1200x630
-     Save it under a NEW filename and update og:image in index.html: Telegram
+     Save it under a NEW filename (add the day when the month is taken) and update og:image in index.html: Telegram
      caches the image by URL, so overwriting the old file changes nothing.
      A photo cannot be used on its own: Telegram and WhatsApp crop previews to
      landscape, and the name has to stay readable in the feed. -->
@@ -33,6 +33,6 @@ body{width:1200px;height:630px;overflow:hidden;background:#0a0a0c;color:#f4f4f6;
   <p class="role">DJ / Producer</p>
   <h1 class="name">AGENT<span>BOY</span></h1>
   <p class="tag">dreams come true</p>
-  <div class="meta"><i>Progressive house</i><i>Melodic techno</i><i>Worldwide</i></div>
+  <div class="meta"><i>House</i><i>Indie dance</i><i>Melodic techno</i></div>
 </div>
 </body></html>
