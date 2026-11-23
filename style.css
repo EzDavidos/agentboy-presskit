@@ -447,7 +447,8 @@ a { color: inherit; text-decoration: none; }
 .section__sub { max-width: 62ch; color: var(--muted); margin-bottom: 32px; }
 
 /* ---------- ABOUT ---------- */
-.about { display: grid; gap: clamp(24px, 4vw, 44px); grid-template-columns: 300px 1fr; align-items: start; }
+/* 400px: the About photo is a landscape frame, at 300px it shrank to a strip */
+.about { display: grid; gap: clamp(24px, 4vw, 44px); grid-template-columns: 400px 1fr; align-items: start; }
 .about__media {
   position: sticky;
   top: 96px;
@@ -464,9 +465,12 @@ a { color: inherit; text-decoration: none; }
   text-transform: uppercase;
   color: var(--muted);
 }
+/* the lead is the full short bio now (~70 words), so it is set smaller
+   than a one-liner would be and carries the emphasis by weight instead */
 .about__lead {
-  font-size: clamp(20px, 3vw, 28px);
-  font-weight: 500;
+  font-size: clamp(17px, 1.5vw, 21px);
+  line-height: 1.5;
+  font-weight: 600;
   margin-bottom: 22px;
 }
 .about__body p { color: var(--muted); margin-bottom: 16px; max-width: 68ch; }
@@ -998,16 +1002,27 @@ a { color: inherit; text-decoration: none; }
   display: grid;
   gap: 18px;
   grid-template-columns: 1fr 1fr;
-  align-items: start;
+  align-items: stretch;
   margin-top: 18px;
 }
-/* the cover keeps its own proportions — it is a photo, not a fixed-ratio slot */
+/* side by side, the photo takes the height of the bio card, not its own:
+   the near-square rooftop shot would otherwise hang far below the text.
+   Absolute positioning keeps the image out of the row height. */
 .press__cover {
+  position: relative;
+  min-height: 280px;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 16px;
 }
-.press__cover img { width: 100%; }
+.press__cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 55%;
+}
 .press__col {
   display: flex;
   flex-direction: column;
@@ -1533,6 +1548,9 @@ a { color: inherit; text-decoration: none; }
   .bk__strip { gap: 14px; padding: 16px; }
   .rider, .rider__lists { grid-template-columns: 1fr; }
   .press { grid-template-columns: 1fr; }
+  /* stacked, the photo is shown whole again */
+  .press__cover { min-height: 0; }
+  .press__cover img { position: static; height: auto; }
 
   .shots { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
   /* one slide per screen with the next one peeking, same as the video rows */

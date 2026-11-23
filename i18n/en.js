@@ -35,7 +35,6 @@ window.I18N.en = {
 
   "about.title": "About",
   "about.caption": "Andrii Smoliar · AGENTBOY",
-  "about.lead": "DJ and producer from Kyiv. Started behind the decks in Greece in 2022, plays across Europe and Southeast Asia. For now in Nha Trang.",
   "about.p1": "Hi, I'm AGENTBOY, my real name is Andrii Smoliar, and I'm originally from Kyiv, Ukraine. I grew up playing sports and never imagined that one day I would find myself in music and DJing.",
   "about.p2": "My journey started when I was 18. I went to a club with my friends and was fascinated by the way the DJ could control the energy of the crowd through music. I stood next to the DJ booth, watching everything he did, and after the party I kept thinking about it. Still, I told myself that becoming a DJ was unrealistic, so I continued simply going to parties and enjoying the music.",
   "about.p3": "One day, while hanging out with friends at a bar, one of them told me: “Andrii, you should give it a try. If you don't do it now, you may never get the chance.” He invited me behind the decks, and we played together. Seeing people enjoy the music and feeling that connection with the crowd completely changed everything for me. I received dozens of great reactions and realized that this was something I truly wanted to pursue.",
