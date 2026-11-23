@@ -42,7 +42,7 @@ window.I18N.en = {
   "about.p5": "The journey was not easy. I visited clubs and bars across Greece, watched different parties, studied the scene, and dreamed of getting my chance to play. Eventually, I was invited to perform at Marmelda in Komotini, Greece.",
   "about.p6": "I was in a new country, practically unknown to everyone, and more than 50 people came to the event. I was extremely nervous, but once I started playing, I completely immersed myself in the music. The night was a success, and I received amazing feedback from the crowd.",
   "about.p7": "That moment gave me the confidence to believe in myself. I started playing every week, then twice a week, and eventually began focusing more seriously on music production.",
-  "about.p8": "After releasing my first original track, which received radio support in Greece and India, I began receiving invitations to perform at different venues across Greece.",
+  "about.p8": "After releasing my first track, which received radio support in Greece and India, I began receiving invitations to perform at different venues across Greece.",
   "about.p9": "Today, my sound is shaped by progressive house, indie dance and melodic techno — music focused on atmosphere, emotion, energy, and creating a strong connection with the crowd.",
   "about.more": "Read the full story",
   "about.less": "Collapse",
