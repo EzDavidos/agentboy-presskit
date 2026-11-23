@@ -10,7 +10,6 @@ window.I18N.en = {
   "nav.gallery": "Gallery",
   "nav.book": "Book now",
 
-  "hero.resident": "Resident",
   "hero.based": "Currently in Asia",
   "hero.role": "DJ / Producer",
   "hero.tagline": "dreams come true",

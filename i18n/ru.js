@@ -10,7 +10,6 @@ window.I18N.ru = {
   "nav.gallery": "Галерея",
   "nav.book": "Забронировать",
 
-  "hero.resident": "Резидент",
   "hero.based": "Сейчас в Азии",
   "hero.role": "DJ / Продюсер",
   "hero.tagline": "dreams come true",
