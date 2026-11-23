@@ -48,7 +48,7 @@ Club night, beach bar, rooftop and sunset, open-air festival, private villa
 and yacht party, foam party show.
 
 VENUES
-Greece — Marmelda Bar, Bel Air 1992 Club, Tucan Beach Bar (opening), Kageles
+Greece — Marmelada Bar, Bel Air 1992 Club, Tucan Beach Bar (opening), Kageles
 Beach Bar, SOHO Beach Bar, Wine Law, Matute Rooftop, Brettos Bar, 7 Times.
 Vietnam — NEXT LEVEL Club, Time House Bar, BOTON Rooftop, Lume Sky Bar,
 Zone 86, The Garden, Madison Red Rooftop, Malibu Beach Bar.
@@ -92,7 +92,7 @@ Progressive house, indie dance, melodic techno — 122-128 BPM
 вечеринка на вилле или яхте, пенная вечеринка.
 
 ПЛОЩАДКИ
-Греция — Marmelda Bar, Bel Air 1992 Club, Tucan Beach Bar (открытие),
+Греция — Marmelada Bar, Bel Air 1992 Club, Tucan Beach Bar (открытие),
 Kageles Beach Bar, SOHO Beach Bar, Wine Law, Matute Rooftop, Brettos Bar,
 7 Times.
 Вьетнам — NEXT LEVEL Club, Time House Bar, BOTON Rooftop, Lume Sky Bar,
