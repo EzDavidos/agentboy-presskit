@@ -321,7 +321,7 @@ function initReels() {
 /* ---------- reveal blocks as they scroll in ---------- */
 function initReveal() {
   const targets = document.querySelectorAll(
-    ".section__head, .about, .prose, .sub-head, .vgrid, .venues, .vhl, .bk, .press, .shots, .reel, .label, .links, .contacts, .booking__line"
+    ".section__head, .about, .prose, .sub-head, .vgrid, .vpanel, .bk, .press, .shots, .reel, .label, .links, .contacts, .booking__line"
   );
   if (!("IntersectionObserver" in window)) return;
 

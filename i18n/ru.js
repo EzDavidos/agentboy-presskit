@@ -82,11 +82,6 @@ window.I18N.ru = {
 
   "venues.count": "площадок",
   "venues.count1": "площадка",
-  "venues.hlGr": "Греция · главное",
-  "venues.hlVn": "Вьетнам · главное",
-  "venues.hlTh": "Таиланд · главное",
-  "venues.more": "Все площадки",
-  "venues.less": "Свернуть",
 
   "country.gr": "Греция",
   "country.vn": "Вьетнам",

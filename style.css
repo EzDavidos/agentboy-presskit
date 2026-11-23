@@ -585,213 +585,116 @@ a { color: inherit; text-decoration: none; }
 .vid__g { display: block; margin-top: 4px; font-size: 12px; color: var(--muted); letter-spacing: .4px; }
 .vgrid__after { margin-top: 20px; }
 
-/* ---------- SHOWS: photo mosaic ---------- */
-/* tile shape follows the photo instead of the other way round: the two
-   landscape frames take the top row, the three 2:3 portraits the row below.
-   Heights come from aspect-ratio, so the rows keep their proportions at any
-   width and there are no pixel row sizes to re-tune. */
-.venues {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(6, 1fr);
-}
-.venue--gr { grid-column: 1 / 4; grid-row: 1; aspect-ratio: 2 / 1; }
-.venue--th { grid-column: 4 / 7; grid-row: 1; aspect-ratio: 2 / 1; }
-.venue--vn { grid-column: 1 / 3; grid-row: 2; aspect-ratio: 2 / 3; }
-.venue--at { grid-column: 3 / 5; grid-row: 2; aspect-ratio: 2 / 3; }
-.venue--cz { grid-column: 5 / 7; grid-row: 2; aspect-ratio: 2 / 3; }
-
-.venue {
+/* ---------- SHOWS: venues panel ---------- */
+/* one panel over the blurred hero photo. The photo layer is cut larger than
+   the panel so its slow drift never uncovers an edge; the shade on top is
+   dark enough for 14px text wherever the photo is bright. */
+.vpanel {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
+  padding: clamp(22px, 3.4vw, 44px);
   border: 1px solid var(--line);
   border-radius: 16px;
   background: var(--bg-2);
 }
-.venue > img {
+.vpanel__bg {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 38%;
+  inset: -8%;
+  z-index: -2;
+  background: url("assets/img/shows-bg.jpg") center 35% / cover no-repeat;
+  animation: vpanel-drift 26s ease-in-out infinite alternate;
+  will-change: transform;
 }
-/* the caption sits on the photo, so it needs its own floor of darkness */
-.venue::after {
+.vpanel::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top,
-    rgba(6,6,8,.94) 0%, rgba(6,6,8,.78) 26%, rgba(6,6,8,.22) 62%, rgba(6,6,8,.34) 100%);
+  z-index: -1;
+  background:
+    radial-gradient(70% 60% at 85% 0%, rgba(255,31,61,.16), transparent 70%),
+    linear-gradient(180deg, rgba(10,10,12,.52) 0%, rgba(10,10,12,.76) 100%);
 }
-.venue__body {
-  position: relative;
-  z-index: 1;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 8px;
-  padding: clamp(14px, 1.6vw, 20px);
+@keyframes vpanel-drift {
+  from { transform: scale(1) translate3d(0, 0, 0); }
+  to   { transform: scale(1.08) translate3d(-2%, -1.5%, 0); }
 }
-.venue__name { display: flex; align-items: center; gap: 11px; }
-.venue__name span {
-  font-family: "Oswald", sans-serif;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-size: clamp(20px, 2vw, 26px);
-  line-height: 1.1;
-}
-.venue__flag {
-  flex: none;
-  width: 30px;
-  height: 20px;
-  border-radius: 2px;
-  border: 1px solid rgba(255,255,255,.22);
-}
-/* the tiles are narrower than they were, and Greece's city list no longer
-   shares a line with the count — let it drop instead of colliding with it */
-.venue__foot { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 14px; }
-.venue__cities { font-size: 13.5px; color: #d7d7dd; letter-spacing: .3px; }
-.venue__count {
-  flex: none;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 1.6px;
-  color: #cfcfd6;
-}
-.venue__count b { color: var(--red); font-family: "Oswald", sans-serif; font-size: 13px; margin-right: 5px; }
-
-/* ---------- SHOWS: highlights panel ---------- */
-.vhl {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr) auto;
-  align-items: start;
-  margin-top: 16px;
-  padding: 24px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: linear-gradient(180deg, #16161b 0%, #0e0e11 100%);
-}
-.vhl__col { padding-inline: 26px; border-left: 1px solid var(--line); }
-.vhl__col:first-child { padding-left: 0; border-left: 0; }
-.vhl__head {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 14px;
-  font-family: "Oswald", sans-serif;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1.4px;
-  font-size: 13.5px;
-  color: var(--red-soft);
-}
-.vhl__head svg { flex: none; width: 15px; height: 15px; }
-.vhl__list { list-style: none; display: grid; gap: 10px; }
-.vhl__list li {
-  position: relative;
-  padding-left: 16px;
-  font-size: 13.5px;
-  color: var(--muted);
-}
-.vhl__list li::before {
-  content: "";
-  position: absolute; left: 0; top: 8px;
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: var(--red);
-}
-.vhl__list b {
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .6px;
-  color: var(--text);
-}
-.vhl__list em { font-style: normal; }
-.vhl__cta { display: flex; align-items: center; padding-left: 26px; border-left: 1px solid var(--line); }
-
-/* arrows live in CSS: translate() writes textContent and would wipe a span */
-.btn--arrow::after { content: " →"; }
-.btn--dl::after { content: " ↓"; }
-
-.venues__all { margin-top: 18px; }
-.venues__intro { max-width: 74ch; margin-bottom: 22px; color: var(--muted); }
-/* the shelf turns into a plain grid here: someone who opened the full list
-   wants to read it, not swipe through it */
-.countries.countries--all {
-  grid-auto-flow: row;
-  grid-auto-columns: auto;
-  grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
-  overflow: visible;
-  scroll-snap-type: none;
+@media (prefers-reduced-motion: reduce) {
+  .vpanel__bg { animation: none; }
 }
 
-/* ---------- SHOWS: country cards ---------- */
-/* one horizontal shelf, not a grid: the five lists run from seven entries to
-   one, so a grid either stretches the short cards into empty boxes or leaves a
-   ragged bottom edge. Uniform tiles on a shelf read as intentional. */
-.countries {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 310px;
-  gap: 18px;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  scroll-padding-left: 2px;
-  scrollbar-width: none;
-  padding-bottom: 4px;
-}
-.countries::-webkit-scrollbar { display: none; }
-.country { scroll-snap-align: start; }
-.country {
-  padding: 22px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: linear-gradient(180deg, #17171c 0%, #0f0f12 100%);
-}
-.country header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+/* text columns, not cards: the lists run from eight entries to one, and on a
+   single shared background uneven column ends read as a page, not as a
+   ragged row of boxes */
+.vpanel__groups { columns: 3 240px; column-gap: clamp(24px, 3.4vw, 48px); }
+.vgroup { break-inside: avoid; padding-bottom: 26px; }
+/* in a narrow column "Czech Republic" breaks onto two lines itself, so the
+   count keeps its place on the first line instead of dropping under it */
+.vgroup__head { display: flex; align-items: flex-start; gap: 10px; }
 /* drawn, not emoji: Windows ships no flag glyphs, so the emoji fell back to
    the two-letter country code ("GR", "VN") for every Windows visitor */
-.country__flag {
+.vgroup__flag {
   flex: none;
+  margin-top: 2px;
   width: 27px;
   height: 18px;
   border-radius: 2px;
-  border: 1px solid rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,.22);
 }
-.country h3 {
+.vgroup__head h3 {
+  flex: 1;
+  min-width: 0;
   font-family: "Oswald", sans-serif;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   font-size: 20px;
+  line-height: 1.1;
 }
-.country__cities { font-size: 12.5px; color: var(--red-soft); letter-spacing: .5px; margin-bottom: 14px; }
-.country ul { list-style: none; display: grid; gap: 8px; }
-.country li {
-  font-size: 14px;
-  padding-left: 16px;
+.vgroup__count {
+  flex: none;
+  white-space: nowrap;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: #cfcfd6;
+}
+.vgroup__count b { color: var(--red); font-family: "Oswald", sans-serif; font-size: 13px; margin-right: 5px; }
+.vgroup__cities { margin: 6px 0 12px; font-size: 12.5px; color: var(--red-soft); letter-spacing: .5px; }
+.vgroup__list { list-style: none; display: grid; gap: 8px; }
+.vgroup__list li {
   position: relative;
+  padding-left: 16px;
+  font-size: 14px;
   color: var(--text);
 }
-.country li::before {
+.vgroup__list li::before {
   content: "";
   position: absolute; left: 0; top: 9px;
   width: 5px; height: 5px;
   border-radius: 50%;
   background: var(--red);
 }
-.country li em { font-style: normal; color: var(--muted); font-size: 13px; }
-.country__note {
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid var(--line);
+.vgroup__list em { font-style: normal; color: #b9b9c2; font-size: 13px; }
+.vgroup__note {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,.12);
   font-size: 13px;
-  color: var(--muted);
+  color: #b9b9c2;
 }
+/* the hairline runs the full panel width, the text stays at reading width */
+.vpanel__intro {
+  padding-top: 20px;
+  padding-right: max(0px, calc(100% - 74ch));
+  border-top: 1px solid rgba(255,255,255,.12);
+  font-size: 14px;
+  color: #c4c4cc;
+}
+
+/* arrows live in CSS: translate() writes textContent and would wipe a span */
+.btn--arrow::after { content: " →"; }
+.btn--dl::after { content: " ↓"; }
 
 /* ---------- FORMATS & BOOKING INFO ---------- */
 /* Everything here is confirmed by the client. Anything not confirmed
@@ -1450,17 +1353,6 @@ a { color: inherit; text-decoration: none; }
 @media (min-width: 681px) and (max-width: 900px) {
   .hero { padding-top: 100px; }
   .card__art { aspect-ratio: 1/1; }
-
-  /* the mosaic needs no override here: the six-column rule scales down on its
-     own, because every tile is sized by aspect-ratio rather than a row height */
-
-  /* highlights: 2 x 2, the CTA takes the last cell */
-  .vhl { grid-template-columns: 1fr 1fr; }
-  .vhl__col, .vhl__cta { padding: 20px 22px; border-left: 1px solid var(--line); }
-  .vhl__col:nth-child(odd) { padding-left: 0; border-left: 0; }
-  .vhl__col:nth-child(1), .vhl__col:nth-child(2) { padding-top: 0; }
-  .vhl__col:nth-child(3), .vhl__cta { border-top: 1px solid var(--line); }
-  .vhl__cta .btn { width: 100%; text-align: center; }
 }
 
 @media (max-width: 680px) {
@@ -1508,47 +1400,6 @@ a { color: inherit; text-decoration: none; }
   .vgrid::-webkit-scrollbar { display: none; }
   .vid { scroll-snap-align: start; }
   .vid__t { font-size: 13.5px; }
-
-  .countries {
-    grid-auto-columns: 82%;
-    gap: 12px;
-    margin-inline: -16px;
-    padding-inline: 16px;
-    scroll-padding-left: 16px;
-  }
-  /* the full list is read, not swiped — keep it stacked */
-  .countries.countries--all { grid-auto-columns: auto; margin-inline: 0; padding-inline: 0; }
-
-  /* ---- mosaic: one card per screen row ---- */
-  .venues { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-rows: auto; gap: 12px; }
-  .venue--gr, .venue--vn, .venue--th, .venue--at, .venue--cz { grid-column: auto; grid-row: auto; }
-  /* full width lets the landscape shots run at their own ratio, uncropped */
-  .venue--gr { aspect-ratio: 3 / 2; }
-  .venue--th { aspect-ratio: 2 / 1; }
-  /* 2:3 across a phone would be ~540px of tile each; 3:4 trims 11% off the
-     bottom instead and keeps three portraits from swallowing the scroll */
-  .venue--vn, .venue--at, .venue--cz { aspect-ratio: 3 / 4; }
-  .venue__body { padding: 16px; }
-  .venue__name span { font-size: clamp(18px, 5.4vw, 23px); }
-  .venue__cities { font-size: 13px; }
-  /* the count moves off the caption line: Greece's city list already fills it */
-  .venue__count {
-    position: absolute;
-    top: 14px; right: 14px;
-    padding: 6px 11px;
-    border: 1px solid rgba(255,31,61,.4);
-    border-radius: 999px;
-    background: rgba(6,6,8,.6);
-    font-size: 10px;
-    letter-spacing: 1.4px;
-  }
-  .venue__count b { font-size: 12px; margin-right: 4px; }
-
-  /* ---- highlights: one column, hairlines instead of dividers ---- */
-  .vhl { grid-template-columns: 1fr; padding: 20px; }
-  .vhl__col, .vhl__cta { padding: 18px 0 0; border-left: 0; border-top: 1px solid var(--line); margin-top: 18px; }
-  .vhl__col:first-child { padding-top: 0; border-top: 0; margin-top: 0; }
-  .vhl__cta .btn { width: 100%; text-align: center; }
 
   /* ---- booking panel ---- */
   .bk__h { font-size: 19px; }

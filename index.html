@@ -289,135 +289,22 @@
     </div>
     <p class="section__sub" data-i18n="shows.sub">From intimate clubs and rooftops to beach bars, festivals and private events.</p>
 
-    <!-- photo mosaic: one card per country, tile shape follows the photo.
-         The two landscape shots take the wide row on top, the three 2:3
-         portraits the row underneath, so no frame is cropped to a band.
-         DOM order matches the visual order for tab and screen readers. -->
-    <div class="venues">
-      <article class="venue venue--gr">
-        <img src="assets/img/gallery/beach-crowd-02.jpg" alt="Beach bar party" width="1280" height="854" loading="lazy" />
-        <div class="venue__body">
-          <h3 class="venue__name">
-            <img class="venue__flag" src="assets/img/flags/gr.svg" alt="" width="27" height="18" loading="lazy" />
-            <span data-i18n="country.gr">Greece</span>
-          </h3>
-          <div class="venue__foot">
-            <p class="venue__cities" data-i18n="cities.gr">Komotini · Xanthi · Thessaloniki · Athens · Mykonos · Santorini</p>
-            <p class="venue__count"><b>9</b><span data-i18n="venues.count">venues</span></p>
-          </div>
-        </div>
-      </article>
+    <!-- one panel instead of the country mosaic and the list under it: the
+         hero photo, blurred, drifts slowly behind every venue. The motion is
+         CSS only, on a pre-blurred 480px copy (no live filter to repaint), and
+         stops under prefers-reduced-motion. -->
+    <div class="vpanel">
+      <div class="vpanel__bg" aria-hidden="true"></div>
 
-      <article class="venue venue--th">
-        <img src="assets/img/gallery/beach-rocks.jpg" alt="Beach set on the rocks" width="960" height="480" loading="lazy" />
-        <div class="venue__body">
-          <h3 class="venue__name">
-            <img class="venue__flag" src="assets/img/flags/th.svg" alt="" width="27" height="18" loading="lazy" />
-            <span data-i18n="country.th">Thailand</span>
-          </h3>
-          <div class="venue__foot">
-            <p class="venue__cities" data-i18n="cities.th">Phuket · Bangkok</p>
-            <p class="venue__count"><b>3</b><span data-i18n="venues.count">venues</span></p>
-          </div>
-        </div>
-      </article>
-
-      <article class="venue venue--vn">
-        <img src="assets/img/gallery/club-crowd.jpg" alt="Club night crowd" width="854" height="1280" loading="lazy" />
-        <div class="venue__body">
-          <h3 class="venue__name">
-            <img class="venue__flag" src="assets/img/flags/vn.svg" alt="" width="27" height="18" loading="lazy" />
-            <span data-i18n="country.vn">Vietnam</span>
-          </h3>
-          <div class="venue__foot">
-            <p class="venue__cities" data-i18n="cities.vn">Nha Trang · Da Nang</p>
-            <p class="venue__count"><b>8</b><span data-i18n="venues.count">venues</span></p>
-          </div>
-        </div>
-      </article>
-
-      <article class="venue venue--at">
-        <img src="assets/img/gallery/booth-bw.jpg" alt="AGENTBOY at the turntables" width="640" height="960" loading="lazy" />
-        <div class="venue__body">
-          <h3 class="venue__name">
-            <img class="venue__flag" src="assets/img/flags/at.svg" alt="" width="27" height="18" loading="lazy" />
-            <span data-i18n="country.at">Austria</span>
-          </h3>
-          <div class="venue__foot">
-            <p class="venue__cities" data-i18n="cities.at">Amstetten</p>
-            <p class="venue__count"><b>1</b><span data-i18n="venues.count1">venue</span></p>
-          </div>
-        </div>
-      </article>
-
-      <article class="venue venue--cz">
-        <img src="assets/img/gallery/club-booth.jpg" alt="AGENTBOY in the club booth" width="1400" height="2100" loading="lazy" />
-        <div class="venue__body">
-          <h3 class="venue__name">
-            <img class="venue__flag" src="assets/img/flags/cz.svg" alt="" width="27" height="18" loading="lazy" />
-            <span data-i18n="country.cz">Czech Republic</span>
-          </h3>
-          <div class="venue__foot">
-            <p class="venue__cities" data-i18n="cities.cz">Prague</p>
-            <p class="venue__count"><b>2</b><span data-i18n="venues.count">venues</span></p>
-          </div>
-        </div>
-      </article>
-    </div>
-
-    <!-- three names per country up front; the complete list sits behind the
-         toggle so the block stays one screen tall -->
-    <div class="vhl">
-      <div class="vhl__col">
-        <h3 class="vhl__head">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
-          <span data-i18n="venues.hlGr">Greece highlights</span>
-        </h3>
-        <ul class="vhl__list">
-          <li><b>Marmelada Bar</b></li>
-          <li><b>Tucan Beach Bar</b> <em data-i18n="shows.opening">— opening performance</em></li>
-          <li><b>SOHO Beach Bar</b></li>
-        </ul>
-      </div>
-
-      <div class="vhl__col">
-        <h3 class="vhl__head">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
-          <span data-i18n="venues.hlVn">Vietnam highlights</span>
-        </h3>
-        <ul class="vhl__list">
-          <li><b>NEXT LEVEL Club</b> <em data-i18n="shows.multiple">— multiple performances</em></li>
-          <li><b>BOTON Rooftop</b></li>
-          <li><b>Lume Sky Bar</b> <em data-i18n="shows.foam">— Foam Party Show</em></li>
-        </ul>
-      </div>
-
-      <div class="vhl__col">
-        <h3 class="vhl__head">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
-          <span data-i18n="venues.hlTh">Thailand highlights</span>
-        </h3>
-        <ul class="vhl__list">
-          <li><b>Shaman Club</b></li>
-          <li><b>YOOHI Club</b></li>
-          <li><b>AETHERT Rooftop</b> <em data-i18n="shows.bangkok">— Bangkok</em></li>
-        </ul>
-      </div>
-
-      <div class="vhl__cta">
-        <button class="btn btn--ghost btn--arrow" type="button"
-                data-more="venues-all" data-more-key="venues" data-i18n="venues.more">View all venues</button>
-      </div>
-    </div>
-
-    <div class="venues__all" id="venues-all" hidden>
-      <p class="venues__intro" data-i18n="shows.p1">I have experience performing in a wide range of settings and atmospheres — from clubs and beach bars to festivals and rooftop events. I've also played poolside foam parties, private villa events, and exclusive closed-door parties, adapting my music, energy and interaction with the crowd to fit each environment.</p>
-
-      <div class="countries countries--all">
-        <article class="country">
-          <header><img class="country__flag" src="assets/img/flags/gr.svg" alt="" width="27" height="18" loading="lazy" /><h3 data-i18n="country.gr">Greece</h3></header>
-          <p class="country__cities" data-i18n="cities.gr">Komotini · Xanthi · Thessaloniki · Athens · Mykonos · Santorini</p>
-          <ul>
+      <div class="vpanel__groups">
+        <article class="vgroup">
+          <header class="vgroup__head">
+            <img class="vgroup__flag" src="assets/img/flags/gr.svg" alt="" width="27" height="18" loading="lazy" />
+            <h3 data-i18n="country.gr">Greece</h3>
+            <p class="vgroup__count"><b>9</b><span data-i18n="venues.count">venues</span></p>
+          </header>
+          <p class="vgroup__cities" data-i18n="cities.gr">Komotini · Xanthi · Thessaloniki · Athens · Mykonos · Santorini</p>
+          <ul class="vgroup__list">
             <li>Marmelada Bar</li>
             <li>Bel Air 1992 Club</li>
             <li>Tucan Beach Bar <em data-i18n="shows.opening">— opening performance</em></li>
@@ -428,10 +315,14 @@
           </ul>
         </article>
 
-        <article class="country">
-          <header><img class="country__flag" src="assets/img/flags/vn.svg" alt="" width="27" height="18" loading="lazy" /><h3 data-i18n="country.vn">Vietnam</h3></header>
-          <p class="country__cities" data-i18n="cities.vn">Nha Trang · Da Nang</p>
-          <ul>
+        <article class="vgroup">
+          <header class="vgroup__head">
+            <img class="vgroup__flag" src="assets/img/flags/vn.svg" alt="" width="27" height="18" loading="lazy" />
+            <h3 data-i18n="country.vn">Vietnam</h3>
+            <p class="vgroup__count"><b>8</b><span data-i18n="venues.count">venues</span></p>
+          </header>
+          <p class="vgroup__cities" data-i18n="cities.vn">Nha Trang · Da Nang</p>
+          <ul class="vgroup__list">
             <li>NEXT LEVEL Club <em data-i18n="shows.multiple">— multiple performances</em></li>
             <li>Time House Bar</li>
             <li>BOTON Rooftop</li>
@@ -441,13 +332,17 @@
             <li>Madison Red Rooftop · Malibu Beach Bar <em data-i18n="shows.guest">— guest artist, Da Nang</em></li>
             <li data-i18n="shows.vnPrivate">Private villa and yacht parties</li>
           </ul>
-          <p class="country__note" data-i18n="shows.impera">Founder of IMPERA CASA — events and community built in Nha Trang.</p>
+          <p class="vgroup__note" data-i18n="shows.impera">Founder of IMPERA CASA — events and community built in Nha Trang.</p>
         </article>
 
-        <article class="country">
-          <header><img class="country__flag" src="assets/img/flags/th.svg" alt="" width="27" height="18" loading="lazy" /><h3 data-i18n="country.th">Thailand</h3></header>
-          <p class="country__cities" data-i18n="cities.th">Phuket · Bangkok</p>
-          <ul>
+        <article class="vgroup">
+          <header class="vgroup__head">
+            <img class="vgroup__flag" src="assets/img/flags/th.svg" alt="" width="27" height="18" loading="lazy" />
+            <h3 data-i18n="country.th">Thailand</h3>
+            <p class="vgroup__count"><b>3</b><span data-i18n="venues.count">venues</span></p>
+          </header>
+          <p class="vgroup__cities" data-i18n="cities.th">Phuket · Bangkok</p>
+          <ul class="vgroup__list">
             <li>Shaman Club</li>
             <li>YOOHI Club</li>
             <li>AETHERT Rooftop <em data-i18n="shows.bangkok">— Bangkok</em></li>
@@ -455,21 +350,33 @@
           </ul>
         </article>
 
-        <article class="country">
-          <header><img class="country__flag" src="assets/img/flags/at.svg" alt="" width="27" height="18" loading="lazy" /><h3 data-i18n="country.at">Austria</h3></header>
-          <p class="country__cities" data-i18n="cities.at">Amstetten</p>
-          <ul><li>K12 Club</li></ul>
+        <article class="vgroup">
+          <header class="vgroup__head">
+            <img class="vgroup__flag" src="assets/img/flags/at.svg" alt="" width="27" height="18" loading="lazy" />
+            <h3 data-i18n="country.at">Austria</h3>
+            <p class="vgroup__count"><b>1</b><span data-i18n="venues.count1">venue</span></p>
+          </header>
+          <p class="vgroup__cities" data-i18n="cities.at">Amstetten</p>
+          <ul class="vgroup__list">
+            <li>K12 Club</li>
+          </ul>
         </article>
 
-        <article class="country">
-          <header><img class="country__flag" src="assets/img/flags/cz.svg" alt="" width="27" height="18" loading="lazy" /><h3 data-i18n="country.cz">Czech Republic</h3></header>
-          <p class="country__cities" data-i18n="cities.cz">Prague</p>
-          <ul>
+        <article class="vgroup">
+          <header class="vgroup__head">
+            <img class="vgroup__flag" src="assets/img/flags/cz.svg" alt="" width="27" height="18" loading="lazy" />
+            <h3 data-i18n="country.cz">Czech Republic</h3>
+            <p class="vgroup__count"><b>2</b><span data-i18n="venues.count">venues</span></p>
+          </header>
+          <p class="vgroup__cities" data-i18n="cities.cz">Prague</p>
+          <ul class="vgroup__list">
             <li>Ankali</li>
             <li>Le Valmont Club</li>
           </ul>
         </article>
       </div>
+
+      <p class="vpanel__intro" data-i18n="shows.p1">I have experience performing in a wide range of settings and atmospheres — from clubs and beach bars to festivals and rooftop events. I've also played poolside foam parties, private villa events, and exclusive closed-door parties, adapting my music, energy and interaction with the crowd to fit each environment.</p>
     </div>
   </section>
 

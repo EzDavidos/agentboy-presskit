@@ -82,11 +82,6 @@ window.I18N.en = {
 
   "venues.count": "venues",
   "venues.count1": "venue",
-  "venues.hlGr": "Greece highlights",
-  "venues.hlVn": "Vietnam highlights",
-  "venues.hlTh": "Thailand highlights",
-  "venues.more": "View all venues",
-  "venues.less": "Collapse",
 
   "country.gr": "Greece",
   "country.vn": "Vietnam",
