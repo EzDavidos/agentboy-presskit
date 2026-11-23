@@ -1110,10 +1110,27 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- BOOKING ---------- */
 .section--booking {
+  position: relative;
+  isolation: isolate;
   text-align: center;
+}
+/* photo behind the contacts: hands on the controller sit at ~60% of the
+   frame, so that band stays in view however the section is cropped.
+   The white T-shirt is the brightest thing in it, hence the heavy shade,
+   and a darker pool right behind the text column on wide screens. */
+/* the section is capped at 1100px, the photo is not: it bleeds to the
+   window edges (body clips the scrollbar-width overshoot of 100vw) */
+.section--booking::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc(50% - 50vw);
+  z-index: -1;
   border-top: 1px solid var(--line);
   background:
-    radial-gradient(80% 120% at 50% 0%, rgba(255,31,61,.10), transparent 60%);
+    radial-gradient(80% 120% at 50% 0%, rgba(255,31,61,.10), transparent 60%),
+    radial-gradient(closest-side, rgba(10,10,12,.55), transparent) center / min(100%, 640px) 100% no-repeat,
+    linear-gradient(180deg, rgba(10,10,12,.82) 0%, rgba(10,10,12,.74) 50%, rgba(10,10,12,.92) 100%),
+    url("assets/img/booking-bg.jpg") center 62% / cover no-repeat;
 }
 .section--booking .section__head { justify-content: center; }
 .booking__line { color: var(--muted); margin-bottom: 26px; }
