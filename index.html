@@ -566,11 +566,15 @@
     </div>
     <p class="section__sub" data-i18n="events.sub">Clips from the parties and shows.</p>
 
-    <!-- placeholders until the client sends the clips: horizontal reel, dragged
-         with the mouse or nudged with the wheel, so it reads as its own screen -->
+    <!-- horizontal reel, dragged with the mouse or nudged with the wheel, so it
+         reads as its own screen. Clips open in the same lightbox player as the
+         Music section (data-yt); the hatched slots wait for the rest of them. -->
     <div class="reel" data-reel>
       <div class="reel__track">
-        <div class="reel__slide ph" aria-hidden="true"></div>
+        <button class="reel__slide reel__clip" data-yt="9PWWMI3wJLQ" type="button" aria-label="1st Impera Casa teambuilding x Nha Trang GO">
+          <img src="assets/img/yt/9PWWMI3wJLQ.jpg" alt="" loading="lazy" width="640" height="360" />
+          <span class="vid__play" aria-hidden="true">▶</span>
+        </button>
         <div class="reel__slide ph" aria-hidden="true"></div>
         <div class="reel__slide ph" aria-hidden="true"></div>
         <div class="reel__slide ph" aria-hidden="true"></div>

@@ -1010,6 +1010,19 @@ a { color: inherit; text-decoration: none; }
   border-radius: 14px;
   scroll-snap-align: start;
 }
+/* a clip slide: the button is the image box, so the shared .vid__play centres
+   against it exactly as on the Music cards */
+.reel__clip {
+  position: relative;
+  display: block;
+  padding: 0;
+  overflow: hidden;
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color .2s, box-shadow .2s;
+}
+.reel__clip img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.reel__clip:hover { border-color: var(--red); box-shadow: 0 0 22px rgba(255,31,61,.18); }
 
 /* ---------- BOOKING ---------- */
 .section--booking {
