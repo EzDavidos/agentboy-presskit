@@ -206,31 +206,6 @@ function initCarouselCounters() {
   });
 }
 
-/* ---------- copy-to-clipboard buttons (data-copy="<target id>") ---------- */
-function initCopy() {
-  document.querySelectorAll("[data-copy]").forEach((btn) => {
-    const src = document.getElementById(btn.dataset.copy);
-    if (!src) return;
-
-    btn.addEventListener("click", async () => {
-      const text = src.textContent.trim();
-      try {
-        await navigator.clipboard.writeText(text);
-      } catch (e) {
-        // insecure origin or denied — select the text so ctrl+C still works
-        const range = document.createRange();
-        range.selectNodeContents(src);
-        const sel = getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
-        return;
-      }
-      btn.classList.add("is-copied");
-      setTimeout(() => btn.classList.remove("is-copied"), 1600);
-    });
-  });
-}
-
 /* ---------- back to top ---------- */
 function initToTop() {
   const btn = document.querySelector(".totop");
@@ -321,7 +296,7 @@ function initReels() {
 /* ---------- reveal blocks as they scroll in ---------- */
 function initReveal() {
   const targets = document.querySelectorAll(
-    ".section__head, .about, .prose, .sub-head, .vgrid, .vpanel, .bk, .press, .shots, .reel, .label, .links, .contacts, .booking__line"
+    ".section__head, .about, .prose, .sub-head, .vgrid, .vpanel, .bk, .shots, .reel, .label, .links, .contacts, .booking__line"
   );
   if (!("IntersectionObserver" in window)) return;
 
@@ -476,7 +451,6 @@ initLightbox();
 initCarouselCounters();
 initReels();
 initBookBar();
-initCopy();
 initToTop();
 initReveal();
 initChrome();

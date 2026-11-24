@@ -34,6 +34,7 @@ window.I18N.en = {
 
   "about.title": "About",
   "about.caption": "Andrii Smoliar · AGENTBOY",
+  "about.lead": "I'm a DJ and producer from Kyiv, Ukraine. I'm currently in Nha Trang, Vietnam, and available for booking and touring at international venues. I play progressive house, indie dance and melodic techno at 122-128 BPM, and I've performed across Greece, Vietnam, Thailand, Austria and the Czech Republic: clubs and beach bars, rooftops, open-air festivals, private villa and yacht parties. I founded the Impera Casa event series, and I'm an artist on Alveda Music.",
   "about.p1": "Hi, I'm AGENTBOY, my real name is Andrii Smoliar, and I'm originally from Kyiv, Ukraine. I grew up playing sports and never imagined that one day I would find myself in music and DJing.",
   "about.p2": "My journey started when I was 18. I went to a club with my friends and was fascinated by the way the DJ could control the energy of the crowd through music. I stood next to the DJ booth, watching everything he did, and after the party I kept thinking about it. Still, I told myself that becoming a DJ was unrealistic, so I continued simply going to parties and enjoying the music.",
   "about.p3": "One day, while hanging out with friends at a bar, one of them told me: “Andrii, you should give it a try. If you don't do it now, you may never get the chance.” He invited me behind the decks, and we played together. Seeing people enjoy the music and feeling that connection with the crowd completely changed everything for me. I received dozens of great reactions and realized that this was something I truly wanted to pursue.",
@@ -78,7 +79,7 @@ window.I18N.en = {
   "shows.grPrivate": "Private villa parties in Santorini, yacht & villa parties in Mykonos",
   "shows.vnPrivate": "Private villa and yacht parties",
   "shows.thPrivate": "Private villa and yacht parties",
-  "shows.impera": "Founder of IMPERA CASA, Nha Trang.",
+  "shows.impera": "I founded IMPERA CASA in Nha Trang.",
 
   "venues.count": "venues",
   "venues.count1": "venue",
@@ -105,7 +106,7 @@ window.I18N.en = {
   "formats.set6": "Foam party show",
   "formats.soundHead": "Sound",
   "formats.termsHead": "Booking terms",
-  "formats.term1": "Currently in Nha Trang, Vietnam — available for booking and touring at international venues",
+  "formats.term1": "I'm currently in Nha Trang, Vietnam, and available for booking and touring at international venues",
   "formats.term2": "Fee depends on the format, the city and the date — just ask",
   "formats.term3": "Technical rider on request",
   "formats.term4": "Fastest reply on WhatsApp or Telegram",
@@ -135,9 +136,6 @@ window.I18N.en = {
   "rider.intl4": "Meals",
   "rider.intl5": "Drinks",
 
-  "press.bioHead": "Short bio",
-  "press.bio": "AGENTBOY (Andrii Smoliar) is a DJ and producer from Kyiv, Ukraine, currently in Nha Trang, Vietnam, available for booking and touring at international venues. He plays progressive house, indie dance and melodic techno at 122–128 BPM, and has performed across Greece, Vietnam, Thailand, Austria and the Czech Republic — from clubs and beach bars to rooftops, open-air festivals and private villa and yacht parties. Founder of the Impera Casa event series, artist on Alveda Music.",
-  "press.copy": "Copy",
   "press.packText": "Photos, the Impera Casa logo and the bio in English and Russian, ready for a poster. ZIP, 2 MB.",
   "press.download": "Download press kit",
 
@@ -145,7 +143,7 @@ window.I18N.en = {
 
   "events.title": "Past events",
   "events.sub": "Clips from the parties and shows.",
-  "events.impera": "Label, event series and community founded by AGENTBOY in Nha Trang, Vietnam.",
+  "events.impera": "The label, event series and community I founded in Nha Trang, Vietnam.",
 
   "booking.title": "Booking",
   "booking.line": "For bookings, press and collaborations:",
